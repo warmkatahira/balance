@@ -1,0 +1,14 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/chart.js": "/js/chart.js",
+    "/js/navigation.js": "/js/navigation.js",
+    "/js/modal.js": "/js/modal.js",
+    "/js/balance_register_modal.js": "/js/balance_register_modal.js",
+    "/js/balance_detail_chart.js": "/js/balance_detail_chart.js",
+    "/js/balance_delete.js": "/js/balance_delete.js",
+    "/js/customer.js": "/js/customer.js",
+    "/js/cargo_handling.js": "/js/cargo_handling.js",
+    "/js/expense.js": "/js/expense.js",
+    "/js/monthly_expense_setting.js": "/js/monthly_expense_setting.js",
+    "/css/app.css": "/css/app.css"
+}
