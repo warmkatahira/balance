@@ -11049,7 +11049,7 @@ $("[id=cargo_handling_setting_save]").on("click", function () {
         throw new Error('荷役単価が正しくありません。');
       }
     });
-    var result = window.confirm('荷役設定を保存しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+    var result = window.confirm('設定を保存しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
 
     if (result == true) {
       cargo_handling_setting_form.submit();

@@ -15,9 +15,10 @@
         <table class="text-sm mb-5 col-span-6">
             <thead>
                 <tr class="font-normal text-left text-white bg-gray-600 border-gray-600 sticky top-0">
-                    <th class="p-2 px-2 w-4/12">経費名</th>
-                    <th class="p-2 px-2 w-7/12">経費備考</th>
-                    <th class="p-2 px-2 w-1/12">経費区分</th>
+                    <th class="p-2 px-2 w-3/12">経費名</th>
+                    <th class="p-2 px-2 w-5/12">経費備考</th>
+                    <th class="p-2 px-2 w-2/12">経費区分</th>
+                    <th class="p-2 px-2 w-2/12">収支集計区分</th>
                 </tr>
             </thead>
             <tbody class="bg-white">
@@ -26,6 +27,7 @@
                         <td class="p-1 px-2 border">{{ $expense->expense_name }}</td>
                         <td class="p-1 px-2 border">{{ $expense->expense_note }}</td>
                         <td class="p-1 px-2 border">{{ $expense->expense_category }}</td>
+                        <td class="p-1 px-2 border">{{ $expense->balance_aggregate_category }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -44,7 +46,9 @@
                 <form method="post" action="{{ route('expense.register') }}">
                     @csrf
                     <input type="text" name="expense_name" class="w-full mt-5" placeholder="経費名" autocomplete="off" required>
-                    <input type="text" name="expense_note" class="w-full mt-5" placeholder="経費備考" autocomplete="off" required>
+                    <input type="text" name="expense_note" class="w-full mt-5" placeholder="経費備考" autocomplete="off">
+                    <input type="text" name="expense_category" class="w-full mt-5" placeholder="経費区分" autocomplete="off" required>
+                    <input type="text" name="balance_aggregate_category" class="w-full mt-5" placeholder="収支集計区分" autocomplete="off" required>
             </div>
             <!-- Modal footer -->
             <div class="px-4 py-2 border-t border-t-gray-500 grid grid-cols-2 gap-4">

@@ -15,7 +15,8 @@ class MonthlyExpenseSettingController extends Controller
         session(['base_id' => $base_id]);
         $base = Base::where('base_id', $base_id)->first();
         $monthly_expense_settings = MonthlyExpenseSetting::where('base_id', $base_id)->get();
-        $expenses = Expense::where('expense_category', '毎月')->get();
+        // 区分が変動以外の経費を設定対象とする
+        $expenses = Expense::where('expense_category', '!=', '変動')->get();
         return view('monthly_expense_setting.index')->with([
             'base' => $base,
             'monthly_expense_settings' => $monthly_expense_settings,

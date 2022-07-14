@@ -24,6 +24,8 @@ class ExpenseController extends Controller
         $param = [
             'expense_name' => $request->expense_name,
             'expense_note' => $request->expense_note,
+            'expense_category' => $request->expense_category,
+            'balance_aggregate_category' => $request->balance_aggregate_category,
             'created_at' => $nowDate,
             'updated_at' => $nowDate,
         ];

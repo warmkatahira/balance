@@ -35,9 +35,9 @@
                             <td class="p-1 px-2 border">{{ $balance->base->base_name }}</td>
                             <td class="p-1 px-2 border">{{ $balance->balance_date }}</td>
                             <td class="p-1 px-2 border">{{ $balance->customer->customer_name }}</td>
-                            <td class="p-1 px-2 border text-right">{{ number_format($balance->sales) }}</td>
-                            <td class="p-1 px-2 border text-right">{{ number_format($balance->expenses) }}</td>
-                            <td class="p-1 px-2 border text-right {{ $balance->profit < 0 ? 'text-red-400 font-bold bg-rose-100' : '' }}">{{ number_format($balance->profit) }}</td>
+                            <td class="p-1 px-2 border text-right">{{ number_format($balance->sales) }}円</td>
+                            <td class="p-1 px-2 border text-right">{{ number_format($balance->expenses) }}円</td>
+                            <td class="p-1 px-2 border text-right {{ $balance->profit < 0 ? 'text-red-400 font-bold bg-rose-100' : '' }}">{{ number_format($balance->profit) }}円</td>
                             <td class="p-1 px-2 border text-center"><a href="{{ route('balance.detail_index', ['balance_id' => $balance->balance_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">詳細</a><a href="{{ route('balance.delete', ['balance_id' => $balance->balance_id]) }}" class="delete_balance bg-red-400 text-white text-xs p-1 hover:bg-gray-400 ml-8">削除</a></td>
                         </tr>
                     @endforeach

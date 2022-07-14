@@ -26,7 +26,7 @@
                     <tr id="tr_{{ $monthly_expense_setting->monthly_expense_setting_id }}">
                         <td class="p-1 px-2 border">{{ $monthly_expense_setting->setting_date }}</td>
                         <td class="p-1 px-2 border">{{ $monthly_expense_setting->expense->expense_name }}</td>
-                        <td class="p-1 px-2 border text-right">{{ number_format($monthly_expense_setting->expense_amount) }}</td>
+                        <td class="p-1 px-2 border text-right">{{ number_format($monthly_expense_setting->expense_amount) }}円</td>
                         <td class="p-1 px-2 border text-center"><a href="{{ route('monthly_expense_setting.delete', ['monthly_expense_setting_id' => $monthly_expense_setting->monthly_expense_setting_id]) }}" class="monthly_expense_setting_delete bg-red-400 text-white text-xs p-1 hover:bg-gray-400">削除</a></td>
                     </tr>
                 @endforeach
@@ -54,7 +54,7 @@
                     <input type="tel" name="setting_date_year" class="text-right w-1/4 mt-5 inline-block" placeholder="設定年" autocomplete="off" required>年
                     <input type="tel" name="setting_date_month" class="text-right w-1/4 mt-5 inline-block" placeholder="設定月" autocomplete="off" required>月
                     <p class="inline-block text-red-500 text-sm underline ml-5">※例 2022年07月</p>
-                    <input type="tel" name="expense_amount" class="w-2/4 mt-5 text-right" placeholder="金額" autocomplete="off" required>
+                    <input type="tel" name="expense_amount" class="w-2/4 mt-5 text-right" placeholder="金額" autocomplete="off" required>円
             </div>
             <!-- Modal footer -->
             <div class="px-4 py-2 border-t border-t-gray-500 grid grid-cols-2 gap-4">

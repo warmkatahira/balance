@@ -17,7 +17,7 @@ class LaborCostSeeder extends Seeder
     {
         LaborCost::create([
             'labor_cost_id' => 1,
-            'labor_cost_category' => '正社員',
+            'labor_cost_category' => '社員',
             'hourly_wage' => 2000,
         ]);
         LaborCost::create([

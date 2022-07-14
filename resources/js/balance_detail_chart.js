@@ -7,7 +7,7 @@ window.onload = function () {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },    
-        url: '/balance_get_ajax/' + url_split[1],
+        url: '/balance/balance_get_ajax/' + url_split[1],
         type: 'GET',
         dataType: 'json',
         success: function(data){

@@ -8,12 +8,15 @@
     </x-slot>
     <div class="py-12 mx-5 grid grid-cols-12">
         <!-- 日別×拠点別収支一覧 -->
-        <table class="text-sm mb-5 col-span-4">
+        <table class="text-sm mb-5 col-span-7">
             <thead>
                 <tr class="font-normal text-left text-white bg-gray-600 border-gray-600 sticky top-0">
-                    <th class="p-2 px-2 w-5/12">拠点</th>
-                    <th class="p-2 px-2 w-4/12">収支日</th>
-                    <th class="p-2 px-2 w-3/12 text-center">操作</th>
+                    <th class="p-2 px-2 w-2/12">拠点</th>
+                    <th class="p-2 px-2 w-2/12">収支日</th>
+                    <th class="p-2 px-2 w-2/12 text-right">売上</th>
+                    <th class="p-2 px-2 w-2/12 text-right">経費</th>
+                    <th class="p-2 px-2 w-2/12 text-right">利益</th>
+                    <th class="p-2 px-2 w-2/12 text-center">操作</th>
                 </tr>
             </thead>
             <tbody class="bg-white">
@@ -21,6 +24,9 @@
                     <tr>
                         <td class="p-1 px-2 border">{{ $balance->base->base_name }}</td>
                         <td class="p-1 px-2 border">{{ $balance->balance_date }}</td>
+                        <td class="p-1 px-2 border text-right">{{ number_format($balance->total_sales) }}円</td>
+                        <td class="p-1 px-2 border text-right">{{ number_format($balance->total_expenses) }}円</td>
+                        <td class="p-1 px-2 border text-right {{ $balance->total_profit < 0 ? 'text-red-400 font-bold bg-rose-100' : '' }}">{{ number_format($balance->total_profit) }}円</td>
                         <td class="p-1 px-2 border text-center"><a href="{{ route('balance_list_daily.detail', ['base_id' => $balance->balance_base_id, 'balance_date' => $balance->balance_date]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">詳細</a></td>
                     </tr>
                 @endforeach

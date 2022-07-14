@@ -28,8 +28,8 @@
                     <tr id="tr_{{ $customer->customer_id }}">
                         <td class="p-1 px-2 border">{{ $customer->base->base_name }}</td>
                         <td class="p-1 px-2 border">{{ $customer->customer_name }}</td>
-                        <td class="p-1 px-2 border text-right">{{ number_format($customer->monthly_storage_fee) }}</td>
-                        <td class="p-1 px-2 border text-right">{{ $customer->working_days }}</td>
+                        <td class="p-1 px-2 border text-right">{{ number_format($customer->monthly_storage_fee) }}円</td>
+                        <td class="p-1 px-2 border text-right">{{ $customer->working_days }}日</td>
                         <td class="p-1 px-2 border">{{ $customer->handling_fee_category }}</td>
                         <td class="p-1 px-2 border text-center"><a href="{{ route('customer.detail', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">詳細</a></td>
                     </tr>
