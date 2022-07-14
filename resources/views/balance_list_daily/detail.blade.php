@@ -81,7 +81,7 @@
                             <td class="p-1 px-2 border">{{ $monthly_expense->expense->expense_name }}</td>
                             <td class="p-1 px-2 border text-right">{{ number_format($monthly_expense->expense_amount) }}円</td>
                             <td class="p-1 px-2 border text-center">{{ $monthly_expense->expense->balance_aggregate_category }}</td>
-                            <td class="p-1 px-2 border text-right">{{ $monthly_expense->expense->balance_aggregate_category == '日割' ? number_format($monthly_expense->daily_amount).円 : '-' }}</td>
+                            <td class="p-1 px-2 border text-right">{{ $monthly_expense->expense->balance_aggregate_category == '日割' ? number_format($monthly_expense->daily_amount) : '-' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
