@@ -234,7 +234,7 @@ $("[id=customer_select]").on("change",function(){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },    
-        url: '/balance/balance_register_customer_data_get_ajax/' + customer_id,
+        url: 'balance/balance_register_customer_data_get_ajax/' + customer_id,
         type: 'GET',
         dataType: 'json',
         success: function(data){
