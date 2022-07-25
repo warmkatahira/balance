@@ -44,31 +44,6 @@ class BalanceRegisterController extends Controller
         ]);
     }
 
-    // 指定された収支の情報を取得する
-    public function balance_get_ajax($balance_id)
-    {
-        // 必要な情報をjoinして生成する
-        $balance = Balance::where('balance_id', $balance_id)
-                    ->join('bases', 'balances.balance_base_id', '=', 'bases.base_id')
-                    ->join('customers', 'balances.balance_customer_id', '=', 'customers.customer_id')
-                    ->select('balances.*', 'bases.*', 'customers.*')
-                    ->first();
-        $fare_sum_sales = BalanceFare::where('balance_id', $balance_id)->where('fare_balance_category', '売上')->sum('fare_amount');
-        $cargo_handling_sum_sales = BalanceCargoHandling::where('balance_id', $balance_id)->sum('cargo_handling_amount');
-        $fare_sum_expenses = BalanceFare::where('balance_id', $balance_id)->where('fare_balance_category', '経費')->sum('fare_amount');
-        $labor_costs_sum_expenses = BalanceLaborCost::where('balance_id', $balance_id)->sum('labor_costs');
-        $other_expense_amount_sum_expenses = BalanceExpense::where('balance_id', $balance_id)->sum('expense_amount');
-        // 結果を返す
-        return response()->json([
-            'balance' => $balance,
-            'fare_sum_sales' => $fare_sum_sales,
-            'cargo_handling_sum_sales' => $cargo_handling_sum_sales,
-            'fare_sum_expenses' => $fare_sum_expenses,
-            'labor_costs_sum_expenses' => $labor_costs_sum_expenses,
-            'other_expense_amount_sum_expenses' => $other_expense_amount_sum_expenses,
-        ]);
-    }
-
     // 選択された荷主に合わせて、荷役と配送方法を取得する
     public function balance_register_customer_data_get_ajax($customer_id)
     {

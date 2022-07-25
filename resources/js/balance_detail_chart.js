@@ -3,11 +3,18 @@ var expensesChart = null;
 window.onload = function () {
     const url = location.href;
     const url_split = url.split('=');
+    // 環境でパスを可変させる
+    if(process.env.MIX_APP_ENV === 'local'){
+        var ajax_url = '/balance_detail_get_ajax/' + url_split[1];
+    }
+    if(process.env.MIX_APP_ENV === 'pro'){
+        var ajax_url = '/balance/balance_detail_get_ajax/' + url_split[1];
+    }
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },    
-        url: '/balance_detail_get_ajax/' + url_split[1],
+        url: ajax_url,
         type: 'GET',
         dataType: 'json',
         success: function(data){

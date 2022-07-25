@@ -47,7 +47,6 @@ Route::group(['middleware' => 'auth'], function(){
     // 収支登録
     Route::get('/balance_register', [BalanceRegisterController::class, 'index'])->name('balance_register.index');
     Route::post('/balance_register', [BalanceRegisterController::class, 'register'])->name('balance_register.register');
-    Route::get('/balance_get_ajax/{balance_id}', [BalanceRegisterController::class, 'balance_get_ajax'])->name('balance.get_ajax');
     Route::get('/balance_register_customer_data_get_ajax/{customer_id}', [BalanceRegisterController::class, 'balance_register_customer_data_get_ajax'])->name('balance_register.cargo_handling_get_ajax');
 
     // 収支一覧

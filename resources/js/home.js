@@ -4,11 +4,18 @@ const gray = 'rgb(99, 99, 99)';
 
 progressChart = null;
 window.onload = function () {
+    // 環境でパスを可変させる
+    if(process.env.MIX_APP_ENV === 'local'){
+        var ajax_url = '/balance_progress_get_ajax';
+    }
+    if(process.env.MIX_APP_ENV === 'pro'){
+        var ajax_url = '/balance/balance_progress_get_ajax';
+    }
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },    
-        url: '/balance_progress_get_ajax',
+        url: ajax_url,
         type: 'GET',
         dataType: 'json',
         success: function(data){
