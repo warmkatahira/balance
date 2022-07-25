@@ -11197,11 +11197,11 @@ $("[id=customer_select]").on("change", function () {
   // 荷主IDを取得
   var customer_id = customer_select.value; // 環境でパスを可変させる
 
-  if (true) {
-    var ajax_url = '/balance_register_customer_data_get_ajax/' + customer_id;
-  }
-
   if (false) { var ajax_url; }
+
+  if (true) {
+    var ajax_url = '/balance/balance_register_customer_data_get_ajax/' + customer_id;
+  }
 
   $.ajax({
     headers: {

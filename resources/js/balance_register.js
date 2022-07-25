@@ -248,7 +248,7 @@ $("[id=customer_select]").on("change",function(){
     if(process.env.MIX_APP_ENV === 'local'){
         var ajax_url = '/balance_register_customer_data_get_ajax/' + customer_id;
     }
-    if(process.env.MIX_APP_ENV === 'production'){
+    if(process.env.MIX_APP_ENV === 'pro'){
         var ajax_url = '/balance/balance_register_customer_data_get_ajax/' + customer_id;
     }
     $.ajax({
