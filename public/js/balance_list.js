@@ -10991,11 +10991,18 @@ $("[id=date_category_select]").on("change", function () {
 }); // 拠点区分が変更されたら、荷主を変更
 
 $("[id=base_select]").on("change", function () {
+  // 環境でパスを可変させる
+  if (false) { var ajax_url; }
+
+  if (true) {
+    var ajax_url = '/balance/get_customer_ajax/' + base_select.value;
+  }
+
   $.ajax({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/get_customer_ajax/' + base_select.value,
+    url: ajax_url,
     type: 'GET',
     dataType: 'json',
     success: function success(data) {

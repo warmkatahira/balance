@@ -10932,12 +10932,19 @@ var expensesChart = null;
 
 window.onload = function () {
   var url = location.href;
-  var url_split = url.split('=');
+  var url_split = url.split('='); // 環境でパスを可変させる
+
+  if (false) { var ajax_url; }
+
+  if (true) {
+    var ajax_url = '/balance/balance_detail_get_ajax/' + url_split[1];
+  }
+
   $.ajax({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/balance_detail_get_ajax/' + url_split[1],
+    url: ajax_url,
     type: 'GET',
     dataType: 'json',
     success: function success(data) {
