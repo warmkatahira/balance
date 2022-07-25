@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('shipping_methods', function (Blueprint $table) {
             $table->bigIncrements('shipping_method_id');
-            $table->string('shipping_method_name');
-            $table->unsignedinteger('fare_unit_price');
-            $table->unsignedinteger('fare_expenses');
+            $table->string('shipping_company');
+            $table->string('shipping_method');
             $table->timestamps();
         });
     }

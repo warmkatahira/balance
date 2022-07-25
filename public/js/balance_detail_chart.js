@@ -10937,7 +10937,7 @@ window.onload = function () {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/balance/balance_get_ajax/' + url_split[1],
+    url: '/balance_detail_get_ajax/' + url_split[1],
     type: 'GET',
     dataType: 'json',
     success: function success(data) {
@@ -10951,10 +10951,10 @@ window.onload = function () {
       salesChart = new Chart(salesContext, {
         type: 'doughnut',
         data: {
-          labels: ['荷役', '運賃', '保管'],
+          labels: ['荷役', '運賃', '保管', '他売上'],
           datasets: [{
-            data: [data['cargo_handling_sum_sales'], data['fare_sum_sales'], data['balance']['storage_fee']],
-            backgroundColor: ["rgba(65,105,225,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)"]
+            data: [data['cargo_handling_sum'], data['fare_sales_sum'], data['balance']['storage_fee'], data['other_sales_amount_sum']],
+            backgroundColor: ["rgba(65,105,225,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgba(176,167,167,1)"]
           }]
         },
         options: {
@@ -10977,7 +10977,7 @@ window.onload = function () {
         data: {
           labels: ['人件費', '運賃', '他経費'],
           datasets: [{
-            data: [data['labor_costs_sum_expenses'], data['fare_sum_expenses'], data['other_expense_amount_sum_expenses']],
+            data: [data['labor_costs_sum'], data['fare_expenses_sum'], data['other_expenses_amount_sum']],
             backgroundColor: ["rgba(255,0,0,1)", "rgba(0,0,0,1)", "rgba(255,215,0,1)"]
           }]
         },

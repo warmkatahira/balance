@@ -12,20 +12,24 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-.js('resources/js/chart.js', 'public/js')
-.js('resources/js/navigation.js', 'public/js')
-.js('resources/js/modal.js', 'public/js')
-.js('resources/js/balance_register_modal.js', 'public/js')
-.js('resources/js/balance_detail_chart.js', 'public/js')
-.js('resources/js/balance_delete.js', 'public/js')
-.js('resources/js/customer.js', 'public/js')
-.js('resources/js/cargo_handling.js', 'public/js')
-.js('resources/js/expense.js', 'public/js')
-.js('resources/js/monthly_expense_setting.js', 'public/js')
-.autoload({
-    jquery: ['$', 'window.jQuery']
-})
-.postCss('resources/css/app.css', 'public/css', [
-    require('tailwindcss'),
-    require('autoprefixer'),
-]);
+    .js('resources/js/chart.js', 'public/js')
+    .js('resources/js/navigation.js', 'public/js')
+    .js('resources/js/balance_register.js', 'public/js')
+    .js('resources/js/balance_modify.js', 'public/js')
+    .js('resources/js/balance_detail_chart.js', 'public/js')
+    .js('resources/js/customer.js', 'public/js')
+    .js('resources/js/cargo_handling.js', 'public/js')
+    .js('resources/js/expenses_item.js', 'public/js')
+    .js('resources/js/monthly_expenses_setting.js', 'public/js')
+    .js('resources/js/labor_cost_setting.js', 'public/js')
+    .js('resources/js/balance_list.js', 'public/js')
+    .js('resources/js/sales_item.js', 'public/js')
+    .js('resources/js/home.js', 'public/js')
+    .autoload({
+        jquery: ['$', 'window.jQuery']
+    })
+    .postCss('resources/css/app.css', 'public/css', [
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ]
+);

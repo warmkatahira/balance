@@ -21,8 +21,9 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
             ShippingMethodSeeder::class,
             CargoHandlingSeeder::class,
-            ExpenseSeeder::class,
+            ExpensesItemSeeder::class,
             LaborCostSeeder::class,
+            SalesItemSeeder::class,
         ]);
     }
 }

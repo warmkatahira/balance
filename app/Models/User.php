@@ -41,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    Public function base()
+    {
+        // Baseモデルのデータを引っ張てくる
+        return $this->hasOne('App\Models\Base', 'base_id', 'base_id');
+    }
+
+    Public function role()
+    {
+        // Roleモデルのデータを引っ張てくる
+        return $this->hasOne('App\Models\Role', 'role_id', 'role_id');
+    }
 }

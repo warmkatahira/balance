@@ -13,12 +13,8 @@ class CargoHandlingController extends Controller
     public function index()
     {
         $cargo_handlings = CargoHandling::all();
-        $customers = Customer::where('control_base_id', Auth::user()->base_id)->get();
         return view('cargo_handling.index')->with([
             'cargo_handlings' => $cargo_handlings,
-            'customers' => $customers,
-            'sort_column' => session('sort_column'),
-            'direction' => session('direction'),
         ]);
     }
 

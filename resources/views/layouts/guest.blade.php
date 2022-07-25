@@ -5,18 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <title>日次収支システム</title>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500&family=Kdam+Thmor+Pro&family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/x-icon"  href="{{ asset('image/favicon.svg') }}">
     </head>
-    <body>
+    <body style="font-family:M PLUS Rounded 1c;" class="bg-slate-100">
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>日次収支システム</title>
 
         <!-- favicon -->
         <link rel="shortcut icon" type="image/x-icon"  href="{{ asset('image/favicon.svg') }}">
@@ -31,7 +31,7 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
     </head>
-    <body style="font-family:M PLUS Rounded 1c;">
+    <body style="font-family:M PLUS Rounded 1c;" class="bg-slate-100">
         <div class="min-h-screen">
             @include('layouts.navigation')
             <!-- Page Heading -->
@@ -40,6 +40,8 @@
                     {{ $header }}
                 </div>
             </header>
+            <!-- Alert -->
+            <x-alert/>
             <!-- Page Content -->
             <main>
                 {{ $slot }}

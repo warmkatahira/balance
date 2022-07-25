@@ -17,7 +17,15 @@ class RoleSeeder extends Seeder
     {
         Role::create([
             'role_id' => 1,
+            'role_name' => 'システム管理者',
+        ]);
+        Role::create([
+            'role_id' => 11,
             'role_name' => '管理者',
+        ]);
+        Role::create([
+            'role_id' => 21,
+            'role_name' => '一般',
         ]);
     }
 }

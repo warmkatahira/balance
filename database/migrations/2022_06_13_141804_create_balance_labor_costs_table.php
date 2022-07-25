@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('balance_labor_costs', function (Blueprint $table) {
             $table->bigIncrements('balance_labor_costs_id');
             $table->unsignedBigInteger('balance_id');
-            $table->string('labor_cost_category');
+            $table->string('labor_cost_name');
             $table->float('working_time', 5, 2);
             $table->unsignedinteger('hourly_wage');
             $table->unsignedinteger('labor_costs');

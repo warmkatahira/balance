@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('labor_costs', function (Blueprint $table) {
             $table->unsignedInteger('labor_cost_id')->primary();
-            $table->string('labor_cost_category');
+            $table->unsignedInteger('base_id');
+            $table->string('labor_cost_name');
             $table->unsignedInteger('hourly_wage');
             $table->timestamps();
+            // 外部キー制約
+            $table->foreign('base_id')->references('base_id')->on('bases')->onDelete('cascade');
         });
     }
 

@@ -25,15 +25,15 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'ワーム　太郎',
             'email' => 'test@warm.co.jp',
-            'password' => bcrypt('warm134'),
-            'role_id' => 1,
+            'password' => bcrypt('warm1111'),
+            'role_id' => 21,
             'base_id' => 2,
         ]);
         User::create([
             'name' => '村上　弘明',
             'email' => 'warm1@warm.co.jp',
             'password' => bcrypt('warm1111'),
-            'role_id' => 1,
+            'role_id' => 11,
             'base_id' => 2,
         ]);
         User::create([

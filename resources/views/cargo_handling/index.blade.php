@@ -5,23 +5,25 @@
             <div class="inline-block col-span-2 font-semibold text-xl text-gray-800 p-2">
                 荷役マスタ
             </div>
-            <div class="col-start-11 col-span-1">
-                <button id="cargo_handling_register_modal_open" class="w-full text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100 px-3 py-2">荷役登録</button>
-            </div>
-            <div class="col-start-12 col-span-1">
-                <button type="button" id="cargo_handling_save" class="w-full text-teal-500 border border-teal-500 font-semibold rounded hover:bg-teal-100 px-3 py-2">保存</button>
-            </div>
+            @if(Auth::user()->role_id == 1)
+                <div class="col-start-11 col-span-1">
+                    <button id="cargo_handling_register_modal_open" class="w-full text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100 px-3 py-2">登録</button>
+                </div>
+                <div class="col-start-12 col-span-1">
+                    <button type="button" id="cargo_handling_save" class="w-full text-teal-500 border border-teal-500 font-semibold rounded hover:bg-teal-100 px-3 py-2">保存</button>
+                </div>
+            @endif
         </div>
     </x-slot>
     <form method="post" id="cargo_handling_form" action="{{ route('cargo_handling.register') }}" class="m-0">
         @csrf
-        <div class="py-12 mx-5">
+        <div class="grid grid-cols-12 py-5 mx-5">
             <!-- 荷役一覧 -->
-            <table class="text-sm mb-5 w-6/12">
+            <table class="text-sm mb-5 col-span-8">
                 <thead>
-                    <tr class="font-normal text-left text-white bg-gray-600 border-gray-600 sticky top-0">
-                        <th class="p-2 px-2 w-4/12"><a href="{{ route('customer.sort', ['sort_column' => 'customer_name', 'direction' => ($sort_column != 'customer_name' ? 'desc' : ($direction == 'asc' ? 'desc' : 'asc')) ]) }}">荷役名</a>{{ strpos(url()->full(), 'sort/customer_name') !== false ? strpos(url()->full(), 'asc') !== false ? '↑' : '↓' : Null }}</th>
-                        <th class="p-2 px-2 w-5/12"><a href="{{ route('customer.sort', ['sort_column' => 'shipping_unit_price_pcs', 'direction' => ($sort_column != 'shipping_unit_price_pcs' ? 'desc' : ($direction == 'asc' ? 'desc' : 'asc')) ]) }}">荷役説明</a>{{ strpos(url()->full(), 'sort/shipping_unit_price_pcs') !== false ? strpos(url()->full(), 'asc') !== false ? '↑' : '↓' : Null }}</th>
+                    <tr class="text-left text-white bg-gray-600 border-gray-600 sticky top-0">
+                        <th class="p-2 px-2 w-4/12">荷役名</th>
+                        <th class="p-2 px-2 w-5/12">荷役説明</th>
                         <th class="p-2 px-2 w-3/12 text-center">操作</th>
                     </tr>
                 </thead> 
@@ -30,7 +32,11 @@
                         <tr id="tr_{{ $cargo_handling->cargo_handling_name }}">
                             <td class="p-1 px-2 border"><input name="cargo_handling_name[{{ $cargo_handling->cargo_handling_id }}]" value="{{ $cargo_handling->cargo_handling_name }}" readonly></td>
                             <td class="p-1 px-2 border"><input name="cargo_handling_note[]" value="{{ $cargo_handling->cargo_handling_note }}" readonly></td>
-                            <td class="p-1 px-2 border text-center"><button type="button" id="{{ $cargo_handling->cargo_handling_name }}" class="cargo_handling_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button></td>
+                            <td class="p-1 px-2 border text-center">
+                                @if(Auth::user()->role_id == 1)
+                                    <button type="button" id="{{ $cargo_handling->cargo_handling_name }}" class="cargo_handling_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
