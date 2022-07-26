@@ -16,6 +16,7 @@ use App\Http\Controllers\BalanceModifyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginCheckController;
+use App\Http\Controllers\SalesPlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/home', [HomeController::class, 'index'])->name('home.index');
         Route::post('/home', [HomeController::class, 'month_result_disp'])->name('home.search');
         Route::get('/balance_progress_get_ajax', [HomeController::class, 'balance_progress_get_ajax']);
+        Route::get('/sales_plan_progress_get_ajax', [HomeController::class, 'sales_plan_progress_get_ajax']);
 
         // 収支登録
         Route::get('/balance_register', [BalanceRegisterController::class, 'index'])->name('balance_register.index');
@@ -76,6 +78,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/monthly_expenses_setting_delete/{monthly_expenses_setting_id}', [MonthlyExpensesSettingController::class, 'delete'])->name('monthly_expenses_setting.delete');
         Route::get('/labor_cost_setting/{base_id}', [LaborCostSettingController::class, 'index'])->name('labor_cost_setting.index');
         Route::post('/labor_cost_setting_update', [LaborCostSettingController::class, 'update'])->name('labor_cost_setting.update');
+        Route::get('/sales_plan/{base_id}', [SalesPlanController::class, 'index'])->name('sales_plan.index');
+        Route::get('/sales_plan_search', [SalesPlanController::class, 'index_search'])->name('sales_plan.search');
+        Route::post('/sales_plan_register', [SalesPlanController::class, 'register'])->name('sales_plan.register');
+        Route::get('/sales_plan_delete/{sales_plan_id}', [SalesPlanController::class, 'delete'])->name('sales_plan.delete');
 
         // 荷主マスタ
         Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');

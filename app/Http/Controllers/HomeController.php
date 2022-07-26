@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Balance;
 use App\Models\Base;
 use App\Models\MonthlyExpensesSetting;
+use App\Models\SalesPlan;
 use Carbon\Carbon;
 
 use App\Services\CommonService;
@@ -34,14 +35,17 @@ class HomeController extends Controller
         $result = $HomeService->getResult(session('base_id'), $MonthStartEndDate);
         // 月額経費の情報を取得
         $expenses = $HomeService->getMonthlyExpenses(session('base_id'), $date->format('Ym'));
+        // 売上計画の情報を取得
+        $sales_plan = $HomeService->getSalesPlan(session('base_id'), $date->format('Ym'));
         // チャート表示に使用する条件をセッションに格納（チャート表示のAJAX通信で使用）
-        $HomeService->inputSessionChartData($expenses, $result);
+        $HomeService->inputSessionChartData($expenses, $result, $sales_plan);
         return view('home')->with([
             'bases' => $bases,
             'customer_results' => $result['customer_results'],
             'base_result' => $result['base_result'],
             'monthly_expenses' => $expenses['monthly_expenses'],
             'total_monthly_expenses_amount' => $expenses['total_monthly_expenses_amount'],
+            'sales_plan' => $sales_plan,
         ]);
     }
 
@@ -64,8 +68,10 @@ class HomeController extends Controller
         $result = $HomeService->getResult(session('base_id'), $MonthStartEndDate);
         // 月額経費の情報を取得
         $expenses = $HomeService->getMonthlyExpenses(session('base_id'), $date->format('Ym'));
+        // 売上計画の情報を取得
+        $sales_plan = $HomeService->getSalesPlan(session('base_id'), $date->format('Ym'));
         // チャート表示に使用する条件をセッションに格納（チャート表示のAJAX通信で使用）
-        $HomeService->inputSessionChartData($expenses, $result);
+        $HomeService->inputSessionChartData($expenses, $result, $sales_plan);
         return view('home')->with([
             'bases' => $bases,
             'customer_results' => $result['customer_results'],
@@ -77,7 +83,7 @@ class HomeController extends Controller
 
     public function balance_progress_get_ajax()
     {
-        // 達成率（利益 / 月額経費）を算出(小数点2桁まで取得)
+        // 収支率（利益 / 月額経費）を算出(小数点2桁まで取得)
         $balance_progress_achieve = session('total_monthly_expenses_amount') == 0 ? 0 : round((session('total_profit') / session('total_monthly_expenses_amount'))*100, 2);
         // 達成率がマイナスだとチャートが正しく表示されないので、マイナスの場合は0にする
         $balance_progress_achieve_chart = $balance_progress_achieve < 0 ? 0 : $balance_progress_achieve;
@@ -88,6 +94,22 @@ class HomeController extends Controller
             'balance_progress_achieve' => $balance_progress_achieve,
             'balance_progress_achieve_chart' => $balance_progress_achieve_chart,
             'balance_progress_not_achieve_chart' => $balance_progress_not_achieve_chart,
+        ]);
+    }
+
+    public function sales_plan_progress_get_ajax()
+    {
+        // 達成率（売上実績 / 売上計画）を算出(小数点2桁まで取得)
+        $sales_plan_progress_achieve = session('sales_plan_amount') == 0 ? 0 : round((session('total_sales') / session('sales_plan_amount'))*100, 2);
+        // 達成率がマイナスだとチャートが正しく表示されないので、マイナスの場合は0にする
+        $sales_plan_progress_achieve_chart = $sales_plan_progress_achieve < 0 ? 0 : $sales_plan_progress_achieve;
+        // 未達成率を算出(達成率が100なら0、達成率がマイナスなら100、達成率が0～99.99なら100-達成率)
+        $sales_plan_progress_not_achieve_chart = $sales_plan_progress_achieve >= 100 ? 0 : ($sales_plan_progress_achieve < 0 ? 100 : 100 - $sales_plan_progress_achieve);
+        // 結果を返す
+        return response()->json([
+            'sales_plan_progress_achieve' => $sales_plan_progress_achieve,
+            'sales_plan_progress_achieve_chart' => $sales_plan_progress_achieve_chart,
+            'sales_plan_progress_not_achieve_chart' => $sales_plan_progress_not_achieve_chart,
         ]);
     }
 }

@@ -19,7 +19,11 @@
                 @foreach($bases as $base)
                     <tr>
                         <td class="p-1 px-2 border">{{ $base->base_name }}</td>
-                        <td class="p-1 px-2 border text-center"><a href="{{ route('labor_cost_setting.index', ['base_id' => $base->base_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">人件費設定</a><a href="{{ route('monthly_expenses_setting.index', ['base_id' => $base->base_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">月額経費設定</a></td>
+                        <td class="p-1 px-2 border text-center">
+                            <a href="{{ route('labor_cost_setting.index', ['base_id' => $base->base_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">人件費設定</a>
+                            <a href="{{ route('monthly_expenses_setting.index', ['base_id' => $base->base_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">月額経費設定</a>
+                            <a href="{{ route('sales_plan.index', ['base_id' => $base->base_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">売上計画設定</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

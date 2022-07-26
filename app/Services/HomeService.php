@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Base;
 use App\Models\Balance;
 use App\Models\MonthlyExpensesSetting;
+use App\Models\SalesPlan;
 
 class HomeService
 {
@@ -60,11 +61,22 @@ class HomeService
         ]);
     }
 
-    public function inputSessionChartData($expenses, $result)
+    public function getSalesPlan($base_id, $date)
+    {
+        // 売上計画を集計
+        $sales_plan = SalesPlan::where('base_id', $base_id)
+                            ->where('plan_date', $date)
+                            ->first();
+        return $sales_plan;
+    }
+
+    public function inputSessionChartData($expenses, $result, $sales_plan)
     {
         // チャート表示に使用する条件をセッションに格納（チャート表示のAJAX通信で使用）
         session(['total_monthly_expenses_amount' => $expenses['total_monthly_expenses_amount']]);
         session(['total_profit' => is_null($result['base_result']) == true ? 0 : $result['base_result']['total_profit']]);
+        session(['total_sales' => is_null($result['base_result']) == true ? 0 : $result['base_result']['total_sales']]);
+        session(['sales_plan_amount' => $sales_plan->sales_plan_amount]);
         return;
     }
 }

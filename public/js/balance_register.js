@@ -36620,14 +36620,14 @@ function total_other_sales_update() {
 
 
 $("[id=register_enter]").on("click", function () {
-  validation('収支登録を実行しますか？');
+  validation('register', '収支登録を実行しますか？');
 }); // 修正ボタンが押下されたら
 
 $("[id=modify_enter]").on("click", function () {
-  validation('収支修正を実行しますか？');
+  validation('modify', '収支修正を実行しますか？');
 });
 
-function validation($msg) {
+function validation($category, $msg) {
   var balance_register_form = document.getElementById('balance_register_form');
   var regex = /^[0-9]{4}\-(0[1-9]|1[0-2])\-(0[1-9]|[12][0-9]|3[01])$/;
 
@@ -36666,7 +36666,7 @@ function validation($msg) {
       dataType: 'json',
       success: function success(data) {
         // 既に登録されている収支でないか確認
-        if (data['balance'] != null) {
+        if (data['balance'] != null && $category == 'register') {
           alert('既に登録されている収支です。');
           return false;
         }

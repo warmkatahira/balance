@@ -10923,119 +10923,59 @@ return jQuery;
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-/*!******************************!*\
-  !*** ./resources/js/home.js ***!
-  \******************************/
+/*!************************************!*\
+  !*** ./resources/js/sales_plan.js ***!
+  \************************************/
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-var balance_progress_per = document.getElementById('balance_progress_per');
-var sales_plan_progress_per = document.getElementById('sales_plan_progress_per');
-var orange = 'rgba(246, 173, 85, 1)';
-var gray = 'rgb(99, 99, 99)';
+// 売上計画登録モーダルを開く
+$("[id=sales_plan_register_modal_open]").on("click", function () {
+  var modal = document.getElementById('sales_plan_register_modal');
+  modal.classList.remove('hidden');
+}); // 売上計画登録モーダルを閉じる
 
-window.onload = function () {
-  balance_progress_chart();
-  sales_plan_progress_chart();
-};
+$("[class^=sales_plan_register_modal_close]").on("click", function () {
+  var modal = document.getElementById('sales_plan_register_modal');
+  modal.classList.add('hidden');
+}); // 売上計画登録ボタンが押下されたら
 
-function balance_progress_chart() {
-  balance_progressChart = null; // 環境でパスを可変させる
+$("[id=sales_plan_register_enter]").on("click", function () {
+  // 登録情報の要素を取得
+  var plan_date = document.getElementById('plan_date');
+  var sales_plan_amount = document.getElementById('sales_plan_amount');
 
-  if (false) { var ajax_url; }
+  try {
+    // 計画年月が選択されているかチェック
+    if (plan_date.value == 0) {
+      throw new Error('計画年月が選択されていません。');
+    } // 売上計画金額が正しいかチェック
 
-  if (true) {
-    var ajax_url = '/balance/balance_progress_get_ajax';
-  }
 
-  $.ajax({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    url: ajax_url,
-    type: 'GET',
-    dataType: 'json',
-    success: function success(data) {
-      // 進捗チャートを表示
-      var progressContext = document.querySelector("#balance_progress_chart").getContext('2d'); // 前回のチャートを破棄
-
-      if (balance_progressChart != null) {
-        balance_progressChart.destroy();
-      }
-
-      balance_progressChart = new Chart(progressContext, {
-        type: 'doughnut',
-        data: {
-          datasets: [{
-            data: [data['balance_progress_achieve_chart'], data['balance_progress_not_achieve_chart']],
-            backgroundColor: [orange, gray]
-          }]
-        },
-        options: {
-          responsive: false,
-          // マウスオーバー時に情報を表示しない
-          tooltips: {
-            enabled: false
-          },
-          maintainAspectRatio: false
-        }
-      }); // 進捗率を出力
-
-      balance_progress_per.innerHTML = '収支率：' + data['balance_progress_achieve'] + '%';
-    },
-    error: function error() {
-      alert('失敗');
+    if (!sales_plan_amount.value || !sales_plan_amount.value) {
+      throw new Error('売上計画金額が正しくありません。');
     }
-  });
-}
 
-function sales_plan_progress_chart() {
-  sales_plan_progressChart = null; // 環境でパスを可変させる
+    var sales_plan_register_form = document.getElementById('sales_plan_register_form');
+    var result = window.confirm('売上計画設定を実行しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
 
-  if (false) { var ajax_url; }
-
-  if (true) {
-    var ajax_url = '/balance/sales_plan_progress_get_ajax';
-  }
-
-  $.ajax({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    url: ajax_url,
-    type: 'GET',
-    dataType: 'json',
-    success: function success(data) {
-      // 進捗チャートを表示
-      var progressContext = document.querySelector("#sales_plan_progress_chart").getContext('2d'); // 前回のチャートを破棄
-
-      if (sales_plan_progressChart != null) {
-        sales_plan_progressChart.destroy();
-      }
-
-      sales_plan_progressChart = new Chart(progressContext, {
-        type: 'doughnut',
-        data: {
-          datasets: [{
-            data: [data['sales_plan_progress_achieve_chart'], data['sales_plan_progress_not_achieve_chart']],
-            backgroundColor: [orange, gray]
-          }]
-        },
-        options: {
-          responsive: false,
-          // マウスオーバー時に情報を表示しない
-          tooltips: {
-            enabled: false
-          },
-          maintainAspectRatio: false
-        }
-      }); // 売上計画達成率を出力
-
-      sales_plan_progress_per.innerHTML = '売上計画達成率：' + data['sales_plan_progress_achieve'] + '%';
-    },
-    error: function error() {
-      alert('失敗');
+    if (result == true) {
+      sales_plan_register_form.submit();
+    } else {
+      return false;
     }
-  });
-}
+  } catch (e) {
+    alert(e.message);
+  }
+}); // 削除ボタンが押下されたら
+
+$("[class^=sales_plan_delete]").on("click", function () {
+  var result = window.confirm('削除を実行しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+
+  if (result == true) {
+    form.submit();
+  } else {
+    return false;
+  }
+});
 })();
 
 /******/ })()

@@ -40,10 +40,15 @@ class MonthlyExpensesSettingController extends Controller
 
     public function register(Request $request)
     {
+        // 現在の日時を取得
         $nowDate = new Carbon('now');
+        // 計画年月をフォーマット
+        $setting_date = new Carbon($request->setting_date);
+        $setting_date = $setting_date->format('Ym');
+        // パラメータをセットして追加
         $param = [
             'base_id' => session('base_id'),
-            'setting_date' => $request->setting_date_year . $request->setting_date_month,
+            'setting_date' => $setting_date,
             'expenses_item_id' => $request->expenses_item_id,
             'expenses_amount' => $request->expenses_amount,
             'created_at' => $nowDate,

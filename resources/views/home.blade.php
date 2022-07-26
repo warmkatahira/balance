@@ -20,7 +20,11 @@
     <div class="py-5 mx-5 grid grid-cols-12">
         <div class="col-span-12 grid grid-cols-12 gap-4">
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
-                <p class="mt-3 font-bold">売上</p>
+                <p class="mt-3 font-bold">売上計画</p>
+                <p class="text-2xl font-bold py-5">{{ is_null($sales_plan) == true ? 0 : number_format($sales_plan->sales_plan_amount) }}円</p>
+            </div>
+            <div class="col-start-3 col-span-2 rounded-lg text-center bg-black text-white">
+                <p class="mt-3 font-bold">売上実績</p>
                 <p class="text-2xl font-bold py-5">{{ is_null($base_result) == true ? 0 : number_format($base_result->total_sales) }}円</p>
             </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
@@ -89,9 +93,17 @@
         <!-- グラフを表示 -->
         <div class="col-start-9 col-span-4 mt-5">
             <div class="grid grid-cols-12 grid-rows-12">
-                <p id="progress_per" class="col-span-12 row-span-2 bg-black text-white text-center font-bold text-2xl rounded-t-lg py-3"></p>
-                <div class="bg-white shadow-lg rounded-b-lg col-span-12 row-span-10">
-                    <canvas id="progress_chart" class="w-full"></canvas>
+                <div class="col-start-5 col-span-8 row-span-12 grid-rows-12">
+                    <p id="balance_progress_per" class="col-span-12 row-span-2 bg-black text-white text-center font-bold text-2xl rounded-t-lg py-3"></p>
+                    <div class="bg-white shadow-lg rounded-b-lg col-span-12 row-span-10">
+                        <canvas id="balance_progress_chart" class="w-full"></canvas>
+                    </div>
+                </div>
+                <div class="col-start-5 col-span-8 row-span-12 grid-rows-12 mt-5">
+                    <p id="sales_plan_progress_per" class="col-span-12 row-span-2 bg-black text-white text-center font-bold text-2xl rounded-t-lg py-3"></p>
+                    <div class="bg-white shadow-lg rounded-b-lg col-span-12 row-span-10">
+                        <canvas id="sales_plan_progress_chart" class="w-full"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

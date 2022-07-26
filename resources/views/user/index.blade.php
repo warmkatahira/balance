@@ -20,7 +20,7 @@
                     <th class="p-2 px-2 w-2/12">所属拠点</th>
                     <th class="p-2 px-2 w-2/12">ユーザー名</th>
                     <th class="p-2 px-2 w-3/12">メールアドレス</th>
-                    <th class="p-2 px-2 w-2/12">権限区分</th>
+                    <th class="p-2 px-2 w-2/12 text-center">権限区分</th>
                     <th class="p-2 px-2 w-1/12 text-center">ステータス</th>
                     <th class="p-2 px-2 w-2/12">最終ログイン日時</th>
                 </tr>
@@ -33,10 +33,16 @@
                             <td class="p-1 px-2 border">{{ $user->base->base_name }}</td>
                             <td class="p-1 px-2 border">{{ $user->name }}</td>
                             <td class="p-1 px-2 border">{{ $user->email }}</td>
-                            <td class="p-1 px-2 border">{{ $user->role->role_name }}</td>
                             @if(Auth::user()->role_id == 1)
                                 <td class="p-1 px-2 border text-center">
-                                    <select class="text-xs {{ $user->status == 1 ? 'bg-sky-200' : 'bg-pink-200' }}" name="status[]">
+                                    <select class="text-xs rounded-lg" name="role[]">
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->role_id }}" {{ $role->role_id == $user->role_id ? 'selected' : '' }}>{{ $role->role_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td class="p-1 px-2 border text-center">
+                                    <select class="text-xs rounded-lg {{ $user->status == 1 ? 'bg-sky-200' : 'bg-pink-200' }}" name="status[]">
                                         <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>有効</option>
                                         <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>無効</option>
                                     </select>
@@ -44,6 +50,7 @@
                                 <input type="hidden" name="user_id[]" value="{{ $user->id }}">
                             @endif
                             @if(Auth::user()->role_id != 1)
+                                <td class="p-1 px-2 border">{{ $user->role->role_name }}</td>
                                 <td class="p-1 px-2 border text-center {{ $user->status == 1 ? 'bg-sky-200' : 'bg-pink-200' }}">{{ $user->status == 1 ? '有効' : '無効' }}</td>
                             @endif
                             <td class="p-1 px-2 border">{{ $user->status == 1 ? $user->last_login_at : '' }}</td>

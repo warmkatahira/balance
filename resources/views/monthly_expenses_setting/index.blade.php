@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="row-span-2 col-start-11 col-span-2 text-right">
-                        <button type="submit" id="balance_list_search" class="row-span-2 h-full w-10/12 rounded-lg bg-green-600 hover:bg-gray-400 text-white"><i class="las la-search la-lg"></i></button>
+                        <button type="submit" class="row-span-2 h-full w-10/12 rounded-lg bg-green-600 hover:bg-gray-400 text-white"><i class="las la-search la-lg"></i></button>
                     </div>
                 </div>
             </form>
@@ -78,9 +78,7 @@
                             <option value="{{ $expenses_item->expenses_item_id }}">{{ $expenses_item->expenses_item_name }}</option>
                         @endforeach
                     </select>
-                    <input type="tel" id="setting_date_year" name="setting_date_year" class="text-right w-1/4 mt-5 inline-block" placeholder="設定年" autocomplete="off" required>年
-                    <input type="tel" id="setting_date_month" name="setting_date_month" class="text-right w-1/4 mt-5 inline-block" placeholder="設定月" autocomplete="off" required>月
-                    <p class="inline-block text-red-500 text-sm underline ml-5">※例 2022年07月</p>
+                    <input type="month" id="setting_date" name="setting_date" class="w-1/2 mt-5 inline-block" autocomplete="off" required>
                     <input type="tel" id="expenses_amount" name="expenses_amount" class="w-2/4 mt-5 text-right" placeholder="金額" autocomplete="off" required>円
                 </form>
             </div>

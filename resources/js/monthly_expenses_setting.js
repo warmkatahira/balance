@@ -14,8 +14,7 @@ $("[class^=monthly_expenses_setting_register_modal_close]").on("click",function(
 $("[id=monthly_expenses_setting_register_enter]").on("click",function(){
     // 登録情報の要素を取得
     const expenses_item_id = document.getElementById('expenses_item_id');
-    const setting_date_year = document.getElementById('setting_date_year');
-    const setting_date_month = document.getElementById('setting_date_month');
+    const setting_date = document.getElementById('setting_date');
     const expenses_amount = document.getElementById('expenses_amount');
     try {
         // 経費が選択されているかチェック
@@ -23,11 +22,7 @@ $("[id=monthly_expenses_setting_register_enter]").on("click",function(){
             throw new Error('経費が選択されていません。');
         }
         // 設定年月が正しいかチェック
-        if(!setting_date_year.value || !setting_date_month.value || isNaN(setting_date_year.value) || isNaN(setting_date_month.value)){
-            throw new Error('設定年月が正しくありません。');
-        }
-        // 設定年月が正しいかチェック
-        if(setting_date_year.value.length != 4 || setting_date_month.value.length != 2){
+        if(setting_date.value == 0){
             throw new Error('設定年月が正しくありません。');
         }
         // 経費金額が正しいかチェック

@@ -26,6 +26,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/home.js', 'public/js')
     .js('resources/js/shipping_method.js', 'public/js')
     .js('resources/js/user.js', 'public/js')
+    .js('resources/js/sales_plan.js', 'public/js')
     .autoload({
         jquery: ['$', 'window.jQuery']
     })

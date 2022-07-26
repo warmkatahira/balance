@@ -17,9 +17,10 @@
             <div class="grid grid-cols-12 bg-gray-300 p-5">
                 <p class="col-span-12 text-xl mb-5 font-bold">対象</p>
                 <label class="col-span-1 py-2">荷主</label>
-                <p class="col-span-3 py-2">{{ $balance->customer->customer_name }}</p>
+                <input class="col-span-3 py-2 bg-transparent" value="{{ $balance->customer->customer_name }}" readonly>
+                <input type="hidden" id="customer_select" value="{{ $balance->customer->customer_id }}">
                 <label class="col-span-1 col-start-9 py-2">収支日</label>
-                <p class="col-span-2 py-2">{{ $balance->balance_date }}</p>
+                <input id="balance_date" class="col-span-2 py-2 bg-transparent" value="{{ $balance->balance_date }}" readonly>
             </div>
             <div id="fare_list_sales" class="grid grid-cols-12 bg-yellow-200 p-5 mt-5">
                 <p class="col-span-4 text-xl mb-5 font-bold">売上<i class="las la-caret-right"></i>運賃関連</p>

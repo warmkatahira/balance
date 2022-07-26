@@ -18,12 +18,26 @@
                 <p class="col-start-5 col-span-8">{{ $balance->customer->customer_name }}</p>
             </div>
             <div class="col-span-3">
-                <label class="col-span-3 font-bold">利益</label>
-                <p class="col-start-5 col-span-8 {{ $balance->profit < 0 ? 'text-red-400 font-bold' : '' }}">{{ number_format($balance->profit) }}円</p>
+                <label class="col-span-3 font-bold">登録者</label>
+                <p class="col-start-5 col-span-8">{{ $balance->user->name }}</p>
             </div>
         </div>
     </x-slot>
     <div class="py-5 mx-5 grid grid-cols-12">
+        <div class="col-span-12 grid grid-cols-12 gap-4 mb-5">
+            <div class="col-span-2 rounded-lg text-center bg-black text-white">
+                <p class="mt-3 font-bold">売上</p>
+                <p class="text-2xl font-bold py-5">{{ number_format($balance->sales) }}円</p>
+            </div>
+            <div class="col-span-2 rounded-lg text-center bg-black text-white">
+                <p class="mt-3 font-bold">経費</p>
+                <p class="text-2xl font-bold py-5">{{ number_format($balance->expenses) }}円</p>
+            </div>
+            <div class="col-span-2 rounded-lg text-center bg-black text-white">
+                <p class="mt-3 font-bold">利益</p>
+                <p class="text-2xl font-bold py-5">{{ number_format($balance->profit) }}円</p>
+            </div>
+        </div>
         <!-- 収支情報を表示 -->
         <div class="col-span-7 text-sm">
             <div class="grid grid-cols-12 py-2 bg-gray-600 text-white text-base font-bold">
