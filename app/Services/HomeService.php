@@ -76,7 +76,7 @@ class HomeService
         session(['total_monthly_expenses_amount' => $expenses['total_monthly_expenses_amount']]);
         session(['total_profit' => is_null($result['base_result']) == true ? 0 : $result['base_result']['total_profit']]);
         session(['total_sales' => is_null($result['base_result']) == true ? 0 : $result['base_result']['total_sales']]);
-        session(['sales_plan_amount' => $sales_plan->sales_plan_amount]);
+        session(['sales_plan_amount' => is_null($sales_plan) == true ? 0 :$sales_plan->sales_plan_amount]);
         return;
     }
 }
