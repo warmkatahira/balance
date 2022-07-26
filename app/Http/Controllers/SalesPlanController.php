@@ -17,7 +17,7 @@ class SalesPlanController extends Controller
         // サービスクラスを定義
         $SalesPlanService = new SalesPlanService;
         // 指定された条件の設定を取得
-        $sales_plans = $SalesPlanService->getSalesPlan($request->base_id, $date);
+        $sales_plans = $SalesPlanService->getSalesPlan($request->base_id, $date, $date);
         return view('sales_plan.index')->with([
             'sales_plans' => $sales_plans,
         ]);
@@ -28,7 +28,7 @@ class SalesPlanController extends Controller
         // サービスクラスを定義
         $SalesPlanService = new SalesPlanService;
         // 指定された条件の設定を取得
-        $sales_plans = $SalesPlanService->getSalesPlan(session('base_id'), $request->month_select);
+        $sales_plans = $SalesPlanService->getSalesPlan(session('base_id'), $request->month_select_from, $request->month_select_to);
         return view('sales_plan.index')->with([
             'sales_plans' => $sales_plans,
         ]);
@@ -63,5 +63,19 @@ class SalesPlanController extends Controller
         return back();
     }
 
+    public function sales_plan_register_validation_ajax(Request $request)
+    {
+        // 計画年月をフォーマット
+        $plan_date = new Carbon($request->plan_date);
+        $plan_date = $plan_date->format('Ym');
+        // 存在する売上計画でないか確認
+        $sales_plan = SalesPlan::where('base_id', session('base_id'))
+                    ->where('plan_date', $plan_date)
+                    ->first();
+        // 結果を返す
+        return response()->json([
+            'sales_plan' => $sales_plan,
+        ]);
+    }
     
 }

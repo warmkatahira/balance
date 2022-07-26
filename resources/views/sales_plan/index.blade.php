@@ -19,14 +19,16 @@
         <!--▼▼▼▼▼ 検索条件 ▼▼▼▼▼-->
         <div class="col-span-12 shadow-lg border p-5 bg-teal-100">
             <form method="get" action="{{ route('sales_plan.search') }}" class="m-0">
-                <div class="grid grid-cols-12 grid-rows-2 grid-flow-col text-sm">
-                    <div id="base" class="row-span-2 col-span-2">
-                        <p class="row-span-1 py-2 font-bold">計画年月</p>
-                        <div class="row-span-1">
-                            <input type="month" name="month_select" id="month_select" class="text-sm rounded-lg" value="{{ session('month_select') }}">
-                        </div>
+                <div class="grid grid-cols-12 text-sm">
+                    <p class="col-span-1 font-bold py-2 text-center">計画年月</p>
+                    <div class="col-span-1 text-left">
+                        <input type="month" name="month_select_from" id="month_select_from" class="text-sm rounded-lg" value="{{ session('month_select_from') }}">
                     </div>
-                    <div class="row-span-2 col-start-11 col-span-2 text-right">
+                    <p class="col-span-1 font-bold py-2 text-center">～</p>
+                    <div class="col-span-1">
+                        <input type="month" name="month_select_to" id="month_select_to" class="text-sm rounded-lg" value="{{ session('month_select_to') }}">
+                    </div>
+                    <div class="col-start-11 col-span-2 text-right">
                         <button type="submit" class="row-span-2 h-full w-10/12 rounded-lg bg-green-600 hover:bg-gray-400 text-white"><i class="las la-search la-lg"></i></button>
                     </div>
                 </div>

@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/sales_plan_search', [SalesPlanController::class, 'index_search'])->name('sales_plan.search');
         Route::post('/sales_plan_register', [SalesPlanController::class, 'register'])->name('sales_plan.register');
         Route::get('/sales_plan_delete/{sales_plan_id}', [SalesPlanController::class, 'delete'])->name('sales_plan.delete');
+        Route::get('/sales_plan_register_validation_ajax/{plan_date}', [SalesPlanController::class, 'sales_plan_register_validation_ajax']);
 
         // 荷主マスタ
         Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');

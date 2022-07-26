@@ -10952,16 +10952,42 @@ $("[id=sales_plan_register_enter]").on("click", function () {
 
     if (!sales_plan_amount.value || !sales_plan_amount.value) {
       throw new Error('売上計画金額が正しくありません。');
+    } // 環境でパスを可変させる
+
+
+    if (false) { var ajax_url; }
+
+    if (true) {
+      var ajax_url = '/balance/sales_plan_register_validation_ajax/' + plan_date.value;
     }
 
-    var sales_plan_register_form = document.getElementById('sales_plan_register_form');
-    var result = window.confirm('売上計画設定を実行しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: ajax_url,
+      type: 'GET',
+      dataType: 'json',
+      success: function success(data) {
+        // 既に登録されている売上計画でないか確認
+        if (data['sales_plan'] != null) {
+          alert('既に登録されている売上計画です。');
+          return false;
+        }
 
-    if (result == true) {
-      sales_plan_register_form.submit();
-    } else {
-      return false;
-    }
+        var sales_plan_register_form = document.getElementById('sales_plan_register_form');
+        var result = window.confirm('売上計画設定を実行しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+
+        if (result == true) {
+          sales_plan_register_form.submit();
+        } else {
+          return false;
+        }
+      },
+      error: function error() {
+        alert('失敗');
+      }
+    });
   } catch (e) {
     alert(e.message);
   }
