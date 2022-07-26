@@ -20,22 +20,22 @@
     <div class="py-5 mx-5 grid grid-cols-12">
         <div class="col-span-12 grid grid-cols-12 gap-4">
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
-                <p class="mt-3">売上</p>
+                <p class="mt-3 font-bold">売上</p>
                 <p class="text-2xl font-bold py-5">{{ is_null($base_result) == true ? 0 : number_format($base_result->total_sales) }}円</p>
             </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
-                <p class="mt-3">経費</p>
+                <p class="mt-3 font-bold">経費</p>
                 <p class="text-2xl font-bold py-5">{{ is_null($base_result) == true ? 0 : number_format($base_result->total_expenses) }}円</p>
             </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
-                <p class="mt-3">利益</p>
+                <p class="mt-3 font-bold">利益</p>
                 <p class="text-2xl font-bold py-5">{{ is_null($base_result) == true ? 0 : number_format($base_result->total_profit) }}円</p>
             </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
-                <p class="mt-3">月額経費</p>
+                <p class="mt-3 font-bold">月額経費</p>
                 <p class="text-2xl font-bold py-5">{{ number_format($total_monthly_expenses_amount) }}円</p>
             </div>
-            <div class="col-start-11 col-span-2 rounded-lg text-center bg-amber-600 text-white">
+            <div class="col-start-11 col-span-2 rounded-lg text-center bg-orange-400 text-white">
                 <p class="mt-3">収支状況</p>
                 <p class="text-2xl font-bold py-5">{{ number_format(is_null($base_result) == true ? 0 : $base_result->total_profit - $total_monthly_expenses_amount) }}円</p>
             </div>

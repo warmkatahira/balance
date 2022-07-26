@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Models\Base;
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +21,11 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        // 拠点の情報を取得
+        $bases = Base::all();
+        return view('auth.register')->with([
+            'bases' => $bases,
+        ]);
     }
 
     /**
@@ -43,12 +48,16 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => 21,
+            'base_id' => $request->base_id,
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        // 自動ログインさせない
+        //Auth::login($user);
+        session()->flash('alert_success', $request->name."さんのユーザー登録が完了しました。\nシステム管理者の承認をお待ち下さい。");
+        return back();
+        //return redirect(RouteServiceProvider::HOME);
     }
 }

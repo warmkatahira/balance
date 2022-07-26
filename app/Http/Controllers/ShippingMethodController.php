@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ShippingMethod;
+use Carbon\Carbon;
 
 class ShippingMethodController extends Controller
 {
@@ -15,5 +16,18 @@ class ShippingMethodController extends Controller
             'sort_column' => session('sort_column'),
             'direction' => session('direction'),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $nowDate = new Carbon('now');
+        $param = [
+            'shipping_company' => $request->shipping_company,
+            'shipping_method' => $request->shipping_method,
+            'created_at' => $nowDate,
+            'updated_at' => $nowDate,
+        ];
+        ShippingMethod::insert($param);
+        return back();
     }
 }

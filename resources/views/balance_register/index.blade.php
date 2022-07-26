@@ -23,7 +23,7 @@
                     @endforeach
                 </select>
                 <label class="col-span-1 col-start-9 py-2">収支日</label>
-                <input type="date" name="balance_date" class="col-span-2 text-sm" autocomplete="off" required>
+                <input type="date" id="balance_date" name="balance_date" class="col-span-2 text-sm" autocomplete="off" required>
             </div>
             <div id="fare_list_sales" class="grid grid-cols-12 bg-yellow-200 p-5 mt-5">
                 <p class="col-span-4 text-xl mb-5 font-bold">売上<i class="las la-caret-right"></i>運賃関連</p>
@@ -135,7 +135,7 @@
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-purple-200 p-5 mt-5">
-                <p class="col-span-12 text-xl mb-5 text-center font-bold">その他</p>
+                <p class="col-span-12 text-xl mb-5 font-bold">その他</p>
                 <label class="col-span-1 py-5">備考</label>
                 <textarea name="balance_note" class="col-span-11" autocomplete="off" placeholder="コメントがあれば入力して下さい。（255文字以内）"></textarea>
             </div>

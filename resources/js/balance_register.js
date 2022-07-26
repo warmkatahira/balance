@@ -1,3 +1,5 @@
+const { data } = require("autoprefixer");
+
 const fare_list_sales = document.getElementById('fare_list_sales');                         // 要素追加先のDivタグ
 const fare_list_expenses = document.getElementById('fare_list_expenses');                   // 要素追加先のDivタグ
 const shipping_method_select = document.getElementById('shipping_method_select');           // 配送方法選択のセレクトボックス
@@ -26,6 +28,7 @@ const other_sales_select = document.getElementById('other_sales_select');       
 const other_sales_list = document.getElementById('other_sales_list');                       // 要素追加先のDivタグ
 const total_other_sales_div = document.getElementById('total_other_sales_div');             // その他売上の合計divタグ
 const total_other_sales_amount = document.getElementById('total_other_sales_amount');       // その他売上金額合計のpタグ
+const balance_date = document.getElementById('balance_date');                               // 収支日のinputタグ
 
 // 登録用のモーダルを開く
 $("[id=openRegisterModal]").on("click",function(){
@@ -292,9 +295,12 @@ $("[id=customer_select]").on("change",function(){
                 shipping_method_select.append(shipping_method_op);
             });
             // 保管費の算出詳細を出力
-            storage_fee_detail.innerHTML = (data['customer']['monthly_storage_fee'] !== null ? data['customer']['monthly_storage_fee'] + '円 / ' : '設定なし / ')
-                                            + (data['customer']['working_days'] !== null ? data['customer']['working_days'] + '日 = ' : '設定なし = ')
-                                            + data['storage_fee'].toLocaleString() + '円';
+            storage_fee_detail.innerHTML = '';
+            if(data['storage_fee'] != 0){
+                storage_fee_detail.innerHTML = (data['customer']['monthly_storage_fee'] !== null ? data['customer']['monthly_storage_fee'] + '円 / ' : '設定なし / ')
+                                                + (data['customer']['working_days'] !== null ? data['customer']['working_days'] + '日 = ' : '設定なし = ')
+                                                + data['storage_fee'].toLocaleString() + '円';
+            }
             // 保管費を出力
             storage_fee.value = data['storage_fee'];
             total_storage_fee.innerHTML = Number(storage_fee.value).toLocaleString();
@@ -684,7 +690,16 @@ $("[id=modify_enter]").on("click",function(){
 
 function validation($msg){
     const balance_register_form = document.getElementById('balance_register_form');
+    const regex = /^[0-9]{4}\-(0[1-9]|1[0-2])\-(0[1-9]|[12][0-9]|3[01])$/;
     try {
+        // 荷主が選択されているか
+        if(customer_select.value == 0){
+            throw new Error('荷主を選択して下さい。');
+        }
+        // 収支日が選択されているか
+        if(regex.test(balance_date.value) == false){
+            throw new Error('収支日を選択して下さい。');
+        }
         // 荷役単価を取得して、正常な値であるかチェック
         const int_validations = document.querySelectorAll('.int_validation');
         int_validations.forEach(int_validation => {
@@ -693,11 +708,37 @@ function validation($msg){
                 throw new Error('入力が正しくありません。');
             }
         });
-        const result = window.confirm($msg);
-        // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
-        if(result == true) {
-            balance_register_form.submit();
+        
+        // 環境でパスを可変させる
+        if(process.env.MIX_APP_ENV === 'local'){
+            var ajax_url = '/balance_register_validation_ajax/' + customer_select.value + '/' + balance_date.value;
         }
+        if(process.env.MIX_APP_ENV === 'pro'){
+            var ajax_url = '/balance/balance_register_validation_ajax/' + customer_select.value + '/' + balance_date.value;
+        }
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: ajax_url,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                // 既に登録されている収支でないか確認
+                if(data['balance'] != null){
+                    alert('既に登録されている収支です。');
+                    return false;
+                }
+                const result = window.confirm($msg);
+                // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+                if(result == true) {
+                    balance_register_form.submit();
+                }
+            },
+            error: function(){
+                alert('失敗');
+            }
+        });
     } catch (e) {
         alert(e.message);
         return false;

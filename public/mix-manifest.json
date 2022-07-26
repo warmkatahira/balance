@@ -12,5 +12,7 @@
     "/js/balance_list.js": "/js/balance_list.js",
     "/js/sales_item.js": "/js/sales_item.js",
     "/js/home.js": "/js/home.js",
+    "/js/shipping_method.js": "/js/shipping_method.js",
+    "/js/user.js": "/js/user.js",
     "/css/app.css": "/css/app.css"
 }

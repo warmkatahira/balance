@@ -11,46 +11,46 @@
                 </div>
                 <!-- Navigation Links -->
                 <a href="{{ route('home.index') }}" class="ml-5 p-4 w-20 text-center"><i class="las la-home la-2x"></i></a>
-                <ul class="p-3 z-50">
+                <ul class="p-3 z-50" style="font-family:Zen Maru Gothic">
                     <li class="nav-menu relative inline-block">
-                        <div class="w-40 font-bold bg-sky-200 text-center py-2 cursor-pointer">収支</div>
+                        <div class="w-40 font-bold bg-orange-200 text-center py-2 cursor-pointer">収支</div>
                         <ul class="nav-list absolute hidden">
                             <li>
-                                <a href="{{ route('balance_register.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">収支登録</a>
+                                <a href="{{ route('balance_register.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">収支登録</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-menu relative inline-block">
-                        <div class="w-40 font-bold bg-sky-200 text-center py-2 cursor-pointer">収支一覧</div>
+                        <div class="w-40 font-bold bg-orange-200 text-center py-2 cursor-pointer">収支一覧</div>
                         <ul class="nav-list absolute hidden">
                             <li>
-                                <a href="{{ route('balance_list.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">収支一覧</a>
+                                <a href="{{ route('balance_list.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">収支一覧</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-menu relative inline-block">
-                        <div class="w-40 font-bold bg-sky-200 text-center py-2 cursor-pointer">マスタ</div>
+                        <div class="w-40 font-bold bg-orange-200 text-center py-2 cursor-pointer">マスタ</div>
                         <ul class="nav-list absolute hidden">
                             <li>
-                                <a href="{{ route('base.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">拠点マスタ</a>
+                                <a href="{{ route('base.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">拠点マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('customer.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">荷主マスタ</a>
+                                <a href="{{ route('customer.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">荷主マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('cargo_handling.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">荷役マスタ</a>
+                                <a href="{{ route('cargo_handling.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">荷役マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('expenses_item.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">経費項目マスタ</a>
+                                <a href="{{ route('expenses_item.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">経費項目マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('sales_item.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">売上項目マスタ</a>
+                                <a href="{{ route('sales_item.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">売上項目マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('shipping_method.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">配送方法マスタ</a>
+                                <a href="{{ route('shipping_method.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">配送方法マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('user.index') }}" class="block w-40 bg-gray-100 hover:bg-gray-400 py-2 hover:text-white text-sm">ユーザーマスタ</a>
+                                <a href="{{ route('user.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">ユーザーマスタ</a>
                             </li>
                         </ul>
                     </li>

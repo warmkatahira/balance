@@ -1,9 +1,9 @@
 <x-guest-layout>
     <x-auth-card>
+        <!-- Alert -->
+        <x-alert/>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
         </x-slot>
 
         <!-- Validation Errors -->
@@ -26,6 +26,16 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
+            <!-- Base -->
+            <div class="mt-4">
+                <x-label for="base_id" value="所属拠点" />
+                <select id="base_id" name="base_id" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full">
+                    @foreach($bases as $base)
+                        <option value="{{ $base->base_id }}">{{ $base->base_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
@@ -46,13 +56,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
+                <button class="w-full bg-amber-500 text-white rounded-lg hover:bg-gray-400 py-2 px-5 font-semibold">登録</button>
             </div>
         </form>
     </x-auth-card>

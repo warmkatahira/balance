@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Services\BalanceRegisterService;
 
+use App\Http\Requests\BalanceRegisterRequest;
+
 class BalanceRegisterController extends Controller
 {
     public function index()
@@ -47,22 +49,30 @@ class BalanceRegisterController extends Controller
     // 選択された荷主に合わせて、荷役と配送方法を取得する
     public function balance_register_customer_data_get_ajax($customer_id)
     {
-        // 荷主IDで荷役設定を取得
-        $cargo_handlings = CargoHandlingCustomer::where('customer_id', $customer_id)
-                            ->join('cargo_handlings', 'cargo_handling_customer.cargo_handling_id', '=', 'cargo_handlings.cargo_handling_id')
-                            ->select('cargo_handling_customer.*', 'cargo_handlings.cargo_handling_name')
-                            ->get();
-        // 荷主IDで配送方法設定を取得
-        $shipping_methods = CustomerShippingMethod::where('customer_id', $customer_id)
-                            ->join('shipping_methods', 'customer_shipping_method.shipping_method_id', '=', 'shipping_methods.shipping_method_id')
-                            ->select('customer_shipping_method.*', 'shipping_methods.*')
-                            ->get();
-        // 月間保管費を稼働日数で割る
-        $customer = Customer::where('customer_id', $customer_id)->first();
         $storage_fee = 0;
-        if($customer->monthly_storage_fee > 0 && $customer->working_days > 0){
-            // 商を切り捨て
-            $storage_fee = floor($customer->monthly_storage_fee / $customer->working_days);
+        // IDが0以外の時は実行
+        if($customer_id != 0){
+            // 荷主IDで荷役設定を取得
+            $cargo_handlings = CargoHandlingCustomer::where('customer_id', $customer_id)
+                                ->join('cargo_handlings', 'cargo_handling_customer.cargo_handling_id', '=', 'cargo_handlings.cargo_handling_id')
+                                ->select('cargo_handling_customer.*', 'cargo_handlings.cargo_handling_name')
+                                ->get();
+            // 荷主IDで配送方法設定を取得
+            $shipping_methods = CustomerShippingMethod::where('customer_id', $customer_id)
+                                ->join('shipping_methods', 'customer_shipping_method.shipping_method_id', '=', 'shipping_methods.shipping_method_id')
+                                ->select('customer_shipping_method.*', 'shipping_methods.*')
+                                ->get();
+            // 月間保管費を稼働日数で割る
+            $customer = Customer::where('customer_id', $customer_id)->first();
+            if($customer->monthly_storage_fee > 0 && $customer->working_days > 0){
+                // 商を切り捨て
+                $storage_fee = floor($customer->monthly_storage_fee / $customer->working_days);
+            }
+        }
+        if($customer_id == 0){
+            $cargo_handlings = array();
+            $shipping_methods = array();
+            $customer = array();
         }
         // 結果を返す
         return response()->json([
@@ -70,6 +80,18 @@ class BalanceRegisterController extends Controller
             'shipping_methods' => $shipping_methods,
             'customer' => $customer,
             'storage_fee' => $storage_fee,
+        ]);
+    }
+
+    public function balance_register_validation_ajax(Request $request)
+    {
+        // 存在する収支でないか確認
+        $balance = Balance::where('balance_customer_id', $request->balance_customer_id)
+                    ->where('balance_date', $request->balance_date)
+                    ->first();
+        // 結果を返す
+        return response()->json([
+            'balance' => $balance,
         ]);
     }
 

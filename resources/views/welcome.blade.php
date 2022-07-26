@@ -26,13 +26,18 @@
             @if (Route::has('login'))
                 <div class="fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="bg-amber-500 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold">ホーム</a>
-                        <form method="POST" action="{{ route('logout') }}" class="inline-block ml-5">
-                            @csrf
-                            <input type="submit" class="bg-amber-500 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold cursor-pointer" value="ログアウト">
-                        </form>
+                        @if(Auth::user()->status === 1)
+                            <a href="{{ route('home.index') }}" class="bg-orange-400 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold">ホーム</a>
+                            <form method="POST" action="{{ route('logout') }}" class="inline-block ml-5">
+                                @csrf
+                                <input type="submit" class="bg-orange-400 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold cursor-pointer" value="ログアウト">
+                            </form>
+                        @endif
                     @else
-                        <a href="{{ route('login') }}" class="bg-amber-500 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold">ログイン</a>
+                        <a href="{{ route('login') }}" class="bg-orange-400 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold">ログイン</a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 bg-orange-400 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold">ユーザー登録</a>
+                        @endif
                     @endauth
                 </div>
             @endif
@@ -43,10 +48,10 @@
                     <!-- タイトル -->
                     <div class="text-center mb-5">
                         <p class="text-black text-5xl" style="font-family:Zen Antique">日次収支システム</p>
-                        <p class="text-black text-5xl mt-5" style="font-family:Vollkorn">Daily Balance <span class="text-amber-500" style="font-family:Vollkorn">System</span></p>
+                        <p class="text-black text-5xl mt-5" style="font-family:Vollkorn">Daily Balance <span class="text-orange-400" style="font-family:Vollkorn">System</span></p>
                     </div>
                 </div>
-                <div class="col-span-12 bg-amber-200 border-t-4 border-amber-500">
+                <div class="col-span-12 bg-amber-200 border-t-4 border-orange-400">
                     
                 </div>
             </div>

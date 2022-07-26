@@ -198,7 +198,7 @@
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-purple-200 p-5 mt-5">
-                <p class="col-span-12 text-xl mb-5 text-center font-bold">その他</p>
+                <p class="col-span-12 text-xl mb-5 font-bold">その他</p>
                 <label class="col-span-1 py-5">備考</label>
                 <textarea name="balance_note" class="col-span-11" autocomplete="off" placeholder="コメントがあれば入力して下さい。（255文字以内）">{{ $balance->balance_note }}</textarea>
             </div>

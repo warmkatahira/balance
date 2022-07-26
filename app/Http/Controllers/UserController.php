@@ -14,4 +14,13 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
+
+    public function update(Request $request)
+    {
+        // statusを更新 
+        for($i = 0; $i < count($request->user_id); $i++) {
+            User::where('id', $request->user_id[$i])->update(['status' => $request->status[$i]]);
+        }
+        return back();
+    }
 }
