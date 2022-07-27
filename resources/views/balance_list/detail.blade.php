@@ -11,7 +11,7 @@
         <div class="col-span-12 grid grid-cols-12 gap-4 mb-5">
             <div class="col-span-1 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">拠点</p>
-                <p class="font-bold py-5">{{ $balance->base->base_name }}</p>
+                <p class="font-bold py-5 text-sm">{{ $balance->base->base_name }}</p>
             </div>
             <div class="col-span-1 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">収支日</p>
@@ -19,15 +19,15 @@
             </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">荷主名</p>
-                <p class="font-bold py-5">{{ $balance->customer->customer_name }}</p>
+                <p class="font-bold py-5 text-sm">{{ $balance->customer->customer_name }}</p>
             </div>
             <div class="col-span-1 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">登録者</p>
-                <p class="font-bold py-5">{{ $balance->user->name }}</p>
+                <p class="font-bold py-5 text-sm">{{ $balance->user->name }}</p>
             </div>
             <div class="col-span-1 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">最終更新者</p>
-                <p class="font-bold py-5">{{ $balance->last_updated_user->name }}</p>
+                <p class="font-bold py-5 text-sm">{{ $balance->last_updated_user->name }}<br><span class="text-xs">{{ $balance->updated_at }}</span></p>
             </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">売上</p>
