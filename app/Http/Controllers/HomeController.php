@@ -78,6 +78,7 @@ class HomeController extends Controller
             'base_result' => $result['base_result'],
             'monthly_expenses' => $expenses['monthly_expenses'],
             'total_monthly_expenses_amount' => $expenses['total_monthly_expenses_amount'],
+            'sales_plan' => $sales_plan,
         ]);
     }
 
