@@ -20,7 +20,6 @@ class CargoHandlingController extends Controller
 
     public function register(Request $request)
     {
-        //dd($request->cargo_handling_name,$request->cargo_handling_name_add);
         // 現在の日時を取得
         $nowDate = new Carbon('now');
         // 追加があれば実施
@@ -28,7 +27,6 @@ class CargoHandlingController extends Controller
             for($i = 0; $i < count($request->cargo_handling_name_add); $i++) {
                 $param = [
                     'cargo_handling_name' => $request->cargo_handling_name_add[$i],
-                    'cargo_handling_note' => $request->cargo_handling_note_add[$i],
                     'created_at' => $nowDate,
                     'updated_at' => $nowDate,
                 ];

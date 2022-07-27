@@ -20,10 +20,12 @@ return new class extends Migration
             $table->date('balance_date');
             $table->unsignedInteger('balance_customer_id');
             $table->integer('storage_fee')->nullable();
+            $table->integer('storage_expenses')->nullable();
             $table->integer('sales')->nullable();
             $table->integer('expenses')->nullable();
             $table->integer('profit')->nullable();
             $table->string('balance_note')->nullable();
+            $table->unsignedInteger('last_updated_user_id');
             $table->timestamps();
         });
     }

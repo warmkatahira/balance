@@ -221,4 +221,31 @@ class BalanceListService
         $balances = $query->groupBy('balance_id', 'register_user_id', 'balance_base_id', 'balance_customer_id', 'date')->orderBy('total_sales', 'desc')->get();
         return $balances;
     }
+
+    public function getTotalAmount($balance_fare_sales, $balance_cargo_handlings, $balance_fare_expenses, $balance_labor_costs, $balance_other_expenses, $balance_other_sales)
+    {
+        // 各項目の合計を集計
+        $total_fare_sales_amount = $balance_fare_sales->sum('fare_amount');
+        $total_sales_box_quantity = $balance_fare_sales->sum('box_quantity');
+        $total_cargo_handling_amount = $balance_cargo_handlings->sum('cargo_handling_amount');
+        $total_operation_quantity = $balance_cargo_handlings->sum('operation_quantity');
+        $total_fare_expenses_amount = $balance_fare_expenses->sum('fare_amount');
+        $total_expenses_box_quantity = $balance_fare_expenses->sum('box_quantity');
+        $total_labor_costs_amount = $balance_labor_costs->sum('labor_costs');
+        $total_working_time = $balance_labor_costs->sum('working_time');
+        $total_other_expenses_amount = $balance_other_expenses->sum('other_expenses_amount');
+        $total_other_sales_amount = $balance_other_sales->sum('other_sales_amount');
+        return with([
+            'total_fare_sales_amount' => $total_fare_sales_amount,
+            'total_sales_box_quantity' => $total_sales_box_quantity,
+            'total_cargo_handling_amount' => $total_cargo_handling_amount,
+            'total_operation_quantity' => $total_operation_quantity,
+            'total_fare_expenses_amount' => $total_fare_expenses_amount,
+            'total_expenses_box_quantity' => $total_expenses_box_quantity,
+            'total_labor_costs_amount' => $total_labor_costs_amount,
+            'total_working_time' => $total_working_time,
+            'total_other_expenses_amount' => $total_other_expenses_amount,
+            'total_other_sales_amount' => $total_other_sales_amount,
+        ]);
+    }
 }

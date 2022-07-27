@@ -30,7 +30,18 @@
                     @csrf
                     @foreach($users as $user)
                         <tr class="hover:bg-teal-100">
-                            <td class="p-1 px-2 border">{{ $user->base->base_name }}</td>
+                            @if(Auth::user()->role_id == 1)
+                                <td class="p-1 px-2 border">
+                                    <select name="base[]" class="text-sm rounded-lg">
+                                        @foreach($bases as $base)
+                                            <option value="{{ $base->base_id }}" {{ $user->base_id == $base->base_id ? 'selected' : '' }}>{{ $base->base_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            @endif
+                            @if(Auth::user()->role_id != 1)
+                                <td class="p-1 px-2 border">{{ $user->base->base_name }}</td>
+                            @endif
                             <td class="p-1 px-2 border">{{ $user->name }}</td>
                             <td class="p-1 px-2 border">{{ $user->email }}</td>
                             @if(Auth::user()->role_id == 1)

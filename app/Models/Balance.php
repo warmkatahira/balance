@@ -18,6 +18,12 @@ class Balance extends Model
         return $this->belongsTo('App\Models\User', 'register_user_id');
     }
 
+    Public function last_updated_user()
+    {
+        // Userモデルのデータを引っ張てくる
+        return $this->belongsTo('App\Models\User', 'last_updated_user_id');
+    }
+
     Public function base()
     {
         // Baseモデルのデータを引っ張てくる

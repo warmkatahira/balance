@@ -18,9 +18,4 @@ class CargoHandling extends Model
         // Customerモデルのデータを引っ張てくる
         return $this->belongsTo('App\Models\Customer', 'customer_id');
     }
-
-    public function customers(): BelongsToMany
-    {
-        return $this->belongsToMany('App\Models\Customer', 'cargo_handling_customer', 'cargo_handling_id', 'customer_id');
-    }
 }

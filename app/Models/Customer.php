@@ -25,13 +25,6 @@ class Customer extends Model
         return $this->belongsTo('App\Models\Base', 'control_base_id');
     }
 
-    public function cargo_handlings(): BelongsToMany
-    {
-        return $this->belongsToMany('App\Models\CargoHandling', 'cargo_handling_customer', 'customer_id', 'cargo_handling_id')
-                    ->withPivot('cargo_handling_unit_price', 'balance_register_default_disp')
-                    ->withTimestamps();
-    }
-
     public function shipping_methods(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\ShippingMethod', 'customer_shipping_method', 'customer_id', 'shipping_method_id')

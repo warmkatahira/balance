@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('cargo_handlings', function (Blueprint $table) {
             $table->bigIncrements('cargo_handling_id');
             $table->string('cargo_handling_name');
-            $table->string('cargo_handling_note')->nullable();
             $table->timestamps();
         });
     }

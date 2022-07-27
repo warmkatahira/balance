@@ -60,7 +60,7 @@
                 <div class="col-span-12 grid grid-cols-12 border-b-2 border-black">
                     <p class="text-sm col-span-2 font-bold py-3">保管費</p>
                     <p id="storage_fee_detail" class="text-sm col-span-6 py-3"></p>
-                    <input type="tel" id="storage_fee" class="col-start-9 col-span-2 text-right text-sm h-4/5 py-3 storage_fee int_validation" name="storage_fee" autocomplete="off" placeholder="保管費">
+                    <input type="tel" id="storage_fee" class="col-start-9 col-span-2 text-right text-sm h-4/5 py-3 storage_fee int_validation" name="storage_fee" autocomplete="off" placeholder="保管売上">
                     <p class="col-span-1 text-left text-sm pl-2 pt-5">円</p>
                 </div>
                 <div id="total_storage_fee_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
@@ -116,6 +116,20 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">時間</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_labor_costs"></p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
+                <p class="col-span-4 text-xl mb-5 font-bold">経費<i class="las la-caret-right"></i>保管関連</p>
+                <div class="col-span-12 grid grid-cols-12 border-b-2 border-black">
+                    <p class="text-sm col-span-2 font-bold py-3">保管費</p>
+                    <p id="storage_expenses_detail" class="text-sm col-span-6 py-3"></p>
+                    <input type="tel" id="storage_expenses" class="col-start-9 col-span-2 text-right text-sm h-4/5 py-3 storage_expenses int_validation" name="storage_expenses" autocomplete="off" placeholder="保管経費">
+                    <p class="col-span-1 text-left text-sm pl-2 pt-5">円</p>
+                </div>
+                <div id="total_storage_expenses_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
+                    <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
+                    <p class="col-start-9 col-span-2 text-right font-bold" id="total_storage_expenses"></p>
                     <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
                 </div>
             </div>

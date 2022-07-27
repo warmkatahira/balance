@@ -14,7 +14,6 @@ $("[class^=cargo_handling_register_modal_close]").on("click",function(){
 $("[id=cargo_handling_register]").on("click",function(){
     // 登録情報の要素を取得
     const cargo_handling_name = document.getElementById('cargo_handling_name');
-    const cargo_handling_note = document.getElementById('cargo_handling_note');
     // 作成した要素の追加先を取得
     const cargo_handling_body = document.getElementById('cargo_handling_body');
 
@@ -40,16 +39,6 @@ $("[id=cargo_handling_register]").on("click",function(){
         cargo_handling_name_input.readOnly = true;
         // 荷役名のtdタグにinputタグを追加
         cargo_handling_name_td.append(cargo_handling_name_input);
-        // 荷役備考のtdタグを作成
-        const cargo_handling_note_td = document.createElement('td');
-        cargo_handling_note_td.classList.add('p-1', 'px-2', 'border');
-        // 荷役備考のinputタグを作成
-        const cargo_handling_note_input = document.createElement('input');
-        cargo_handling_note_input.name = 'cargo_handling_note_add[]';
-        cargo_handling_note_input.value = cargo_handling_note.value;
-        cargo_handling_note_input.readonly = true;
-        // 荷役備考のtdタグにinputタグを追加
-        cargo_handling_note_td.append(cargo_handling_note_input);
         // 削除のtdタグを作成
         const cargo_handling_delete_btn_td = document.createElement('td');
         cargo_handling_delete_btn_td.classList.add('p-1', 'px-2', 'border', 'text-center');
@@ -62,7 +51,7 @@ $("[id=cargo_handling_register]").on("click",function(){
         // 削除のtdタグにbuttonタグを追加
         cargo_handling_delete_btn_td.append(cargo_handling_delete_btn);
         // 全てのタグをtrタグに追加
-        cargo_handling_tr.append(cargo_handling_name_td , cargo_handling_note_td, cargo_handling_delete_btn_td);
+        cargo_handling_tr.append(cargo_handling_name_td ,cargo_handling_delete_btn_td);
         // trタグをtbodyタグに追加
         cargo_handling_body.append(cargo_handling_tr);
     } catch (e) {

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cargo_handling_id');
             $table->unsignedInteger('cargo_handling_unit_price');
             $table->boolean('balance_register_default_disp');
+            $table->string('cargo_handling_note')->nullable();
             $table->timestamps();
             // 外部キー制約
             $table->foreign('customer_id')->references('customer_id')->on('customers')->onDelete('cascade');

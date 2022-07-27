@@ -32,17 +32,18 @@
                     </tr>
                 </thead>
                 <tbody id="cargo_handling_setting_body" class="bg-white">
-                    @foreach($cargo_handling_settings as $cargo_handling_setting)
-                        <tr id="tr_{{ $cargo_handling_setting->cargo_handling_id.'-'.$cargo_handling_setting->cargo_handling_unit_price }}">
-                            <td class="p-1 px-2 border">{{ $cargo_handling_setting->cargo_handling->cargo_handling_name }}</td>
-                            <td class="p-1 px-2 border"><input type="text" name="cargo_handling_note[{{ $cargo_handling_setting->cargo_handling_id.'-'.$cargo_handling_setting->cargo_handling_unit_price }}]" class="text-sm w-full bg-gray-100 cargo_handling_note" value="{{ $cargo_handling_setting->cargo_handling_note }}" autocomplete="off"></td>
-                            <td class="p-1 px-2 border text-right"><input name="cargo_handling_unit_price[{{ $cargo_handling_setting->cargo_handling_id.'-'.$cargo_handling_setting->cargo_handling_unit_price }}]" class="text-sm text-right w-3/4 cargo_handling_unit_price" value="{{ $cargo_handling_setting->cargo_handling_unit_price }}" readonly></td>
-                            <td class="p-1 px-2 border text-center"><input type="checkbox" name="balance_register_default_disp[{{ $cargo_handling_setting->cargo_handling_id.'-'.$cargo_handling_setting->cargo_handling_unit_price }}]" class="text-sm bg-gray-100" {{ $cargo_handling_setting->balance_register_default_disp == 1 ? 'checked' : '' }}></td>
+                    @foreach($customer->cargo_handlings as $cargo_handling)
+                        <tr id="tr_{{ $cargo_handling->cargo_handling_id.$cargo_handling->pivot->cargo_handling_unit_price }}">
+                            <td class="p-1 px-2 border">{{ $cargo_handling->cargo_handling_name }}</td>
+                            <td class="p-1 px-2 border"><input type="text" name="cargo_handling_note[{{ $cargo_handling->cargo_handling_id }}]" class="text-sm w-full bg-gray-100 cargo_handling_note" value="{{ $cargo_handling->pivot->cargo_handling_note }}" autocomplete="off"></td>
+                            <td class="p-1 px-2 border text-right"><input type="tel" name="cargo_handling_unit_price[{{ $cargo_handling->cargo_handling_id }}]" class="text-sm text-right w-3/4 bg-gray-100 cargo_handling_unit_price" value="{{ $cargo_handling->pivot->cargo_handling_unit_price }}" autocomplete="off"></td>
+                            <td class="p-1 px-2 border text-center"><input type="checkbox" name="balance_register_default_disp[{{ $cargo_handling->cargo_handling_id }}]" class="text-sm bg-gray-100" {{ $cargo_handling->pivot->balance_register_default_disp == 1 ? 'checked' : '' }}></td>
                             <td class="p-1 px-2 border text-center">
                                 @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 11 && Auth::user()->base_id == $customer->control_base_id)
-                                    <button type="button" id="{{ $cargo_handling_setting->cargo_handling_id.'-'.$cargo_handling_setting->cargo_handling_unit_price }}" class="cargo_handling_setting_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button>
+                                    <button type="button" id="{{ $cargo_handling->cargo_handling_id.$cargo_handling->pivot->cargo_handling_unit_price }}" class="cargo_handling_setting_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button>
                                 @endif
                             </td>
+                            <input type="hidden" name="cargo_handling_id[]" value="{{ $cargo_handling->cargo_handling_id }}">
                         </tr>
                     @endforeach
                 </tbody>

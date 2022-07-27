@@ -29,7 +29,7 @@
             <!-- Base -->
             <div class="mt-4">
                 <x-label for="base_id" value="所属拠点" />
-                <select id="base_id" name="base_id" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full">
+                <select id="base_id" name="base_id" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full text-sm">
                     @foreach($bases as $base)
                         <option value="{{ $base->base_id }}">{{ $base->base_name }}</option>
                     @endforeach

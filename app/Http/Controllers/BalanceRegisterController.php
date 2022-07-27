@@ -50,6 +50,7 @@ class BalanceRegisterController extends Controller
     public function balance_register_customer_data_get_ajax($customer_id)
     {
         $storage_fee = 0;
+        $storage_expenses = 0;
         // IDが0以外の時は実行
         if($customer_id != 0){
             // 荷主IDで荷役設定を取得
@@ -62,13 +63,18 @@ class BalanceRegisterController extends Controller
                                 ->join('shipping_methods', 'customer_shipping_method.shipping_method_id', '=', 'shipping_methods.shipping_method_id')
                                 ->select('customer_shipping_method.*', 'shipping_methods.*')
                                 ->get();
-            // 月間保管費を稼働日数で割る
+            // 月間保管売上と月間保管経費を稼働日数で割る
             $customer = Customer::where('customer_id', $customer_id)->first();
             if($customer->monthly_storage_fee > 0 && $customer->working_days > 0){
                 // 商を切り捨て
                 $storage_fee = floor($customer->monthly_storage_fee / $customer->working_days);
             }
+            if($customer->monthly_storage_expenses > 0 && $customer->working_days > 0){
+                // 商を切り捨て
+                $storage_expenses = floor($customer->monthly_storage_expenses / $customer->working_days);
+            }
         }
+        // 荷主が選択されていない場合
         if($customer_id == 0){
             $cargo_handlings = array();
             $shipping_methods = array();
@@ -80,6 +86,7 @@ class BalanceRegisterController extends Controller
             'shipping_methods' => $shipping_methods,
             'customer' => $customer,
             'storage_fee' => $storage_fee,
+            'storage_expenses' => $storage_expenses,
         ]);
     }
 
@@ -111,7 +118,9 @@ class BalanceRegisterController extends Controller
             'balance_date' => $req_param['balance_date'],
             'balance_customer_id' => $req_param['customer_id'],
             'storage_fee' => is_null($req_param['storage_fee']) ? 0 : $req_param['storage_fee'],
+            'storage_expenses' => is_null($req_param['storage_expenses']) ? 0 : $req_param['storage_expenses'],
             'balance_note' => $req_param['balance_note'],
+            'last_updated_user_id' => Auth::user()->id,
             'created_at' => $nowDate,
             'updated_at' => $nowDate,
         ];
@@ -132,7 +141,7 @@ class BalanceRegisterController extends Controller
         // 売上合計を計算
         $total_sales = $BalanceRegisterService->calcTotalSales($inserted_id, $req_param['storage_fee']);
         // 経費合計を計算
-        $total_expenses = $BalanceRegisterService->calcTotalExpenses($inserted_id);
+        $total_expenses = $BalanceRegisterService->calcTotalExpenses($inserted_id, $req_param['storage_expenses']);
         // 売上/経費/利益を更新
         $BalanceRegisterService->updateTotalAmount($inserted_id, $total_sales, $total_expenses, $nowDate);
         session()->flash('alert_success', '収支登録が完了しました。');

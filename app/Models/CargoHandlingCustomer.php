@@ -12,6 +12,10 @@ class CargoHandlingCustomer extends Model
     protected $primaryKey = 'cargo_handling_customer_id';
     // 関連テーブル名を変更
     protected $table = 'cargo_handling_customer';
-    // 処理を許容するカラムを定義
-    protected $fillable = ['cargo_handling_customer_id', 'customer_id', 'cargo_handling_id', 'cargo_handling_unit_price'];
+
+    Public function cargo_handling()
+    {
+        // cargo_handlingモデルのデータを引っ張てくる
+        return $this->belongsTo('App\Models\CargoHandling', 'cargo_handling_id');
+    }
 }

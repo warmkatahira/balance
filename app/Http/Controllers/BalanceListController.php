@@ -104,6 +104,10 @@ class BalanceListController extends Controller
         $balance_labor_costs = BalanceLaborCost::where('balance_id', $request->balance_id)->get();
         $balance_other_expenses = BalanceOtherExpense::where('balance_id', $request->balance_id)->get();
         $balance_other_sales = BalanceOtherSale::where('balance_id', $request->balance_id)->get();
+        // サービスクラスを定義
+        $BalanceListService = new BalanceListService;
+        // 各項目の合計を取得
+        $total_amount = $BalanceListService->getTotalAmount($balance_fare_sales, $balance_cargo_handlings, $balance_fare_expenses, $balance_labor_costs, $balance_other_expenses, $balance_other_sales);
         return view('balance_list.detail')->with([
             'balance' => $balance,
             'balance_fare_sales' => $balance_fare_sales,
@@ -112,6 +116,7 @@ class BalanceListController extends Controller
             'balance_labor_costs' => $balance_labor_costs,
             'balance_other_expenses' => $balance_other_expenses,
             'balance_other_sales' => $balance_other_sales,
+            'total_amount' => $total_amount,
         ]);
     }
 

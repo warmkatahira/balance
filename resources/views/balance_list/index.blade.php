@@ -135,8 +135,10 @@
                         <th class="p-2 px-2 w-1/12 text-right">売上</th>
                         <th class="p-2 px-2 w-1/12 text-right">経費</th>
                         <th class="p-2 px-2 w-1/12 text-right">利益</th>
-                        <th class="p-2 px-2 w-1/12 text-center">修正</th>
-                        <th class="p-2 px-2 w-1/12 text-left">更新日時</th>
+                        @if(session('date_category') == '日別')
+                            <th class="p-2 px-2 w-1/12 text-center">修正</th>
+                            <th class="p-2 px-2 w-1/12 text-left">更新日時</th>
+                        @endif
                         <th class="p-2 px-2 w-2/12 text-center">操作</th>
                     </tr>
                 </thead>
@@ -149,12 +151,14 @@
                             <td class="p-1 px-2 border text-right">{{ number_format($balance->total_sales) }}円</td>
                             <td class="p-1 px-2 border text-right">{{ number_format($balance->total_expenses) }}円</td>
                             <td class="p-1 px-2 border text-right {{ $balance->total_profit < 0 ? 'text-red-400 font-bold bg-rose-100' : '' }}">{{ number_format($balance->total_profit) }}円</td>
-                            <td class="p-1 px-2 border text-center">
-                                @if($balance->created_at != $balance->updated_at)
-                                    <i class="las la-pen-fancy la-lg"></i>
-                                @endif
-                            </td>
-                            <td class="p-1 px-2 border text-left text-xs">{{ $balance->updated_at }}</td>
+                            @if(session('date_category') == '日別')
+                                <td class="p-1 px-2 border text-center">
+                                    @if($balance->created_at != $balance->updated_at)
+                                        <i class="las la-pen-fancy la-lg"></i>
+                                    @endif
+                                </td>
+                                <td class="p-1 px-2 border text-left text-xs">{{ $balance->updated_at }}</td>
+                            @endif
                             <td class="p-1 px-2 border text-center">
                                 <a href="{{ session('date_category') == '日別' ? route('balance_list.detail', ['balance_id' => $balance->balance_id]) : route('balance_list_customer.index', ['base_id' => $balance->balance_base_id, 'customer_id' => $balance->balance_customer_id, 'date' => $balance->date]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 text-center">詳細</a>
                                 <!-- 自分が登録した収支 or システム管理者の場合 or 管理者の場合は自営業所の収支のみ修正・削除ボタンを表示 -->

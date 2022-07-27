@@ -30,6 +30,7 @@ class BalanceRegisterService
             'operation_quantity',
             'cargo_handling_unit_price',
             'cargo_handling_amount',
+            'cargo_handling_note',
             'shipping_method_name_expenses',
             'box_quantity_expenses',
             'fare_unit_price_expenses',
@@ -38,10 +39,13 @@ class BalanceRegisterService
             'working_time',
             'hourly_wage',
             'labor_costs',
+            'storage_expenses',
             'other_expenses_name',
             'other_expenses_amount',
+            'other_expenses_note',
             'other_sales_name',
             'other_sales_amount',
+            'other_sales_note',
         ]);
         return $req_param;
     }
@@ -51,7 +55,7 @@ class BalanceRegisterService
         // 売上の運賃関連レコードを追加
         if(isset($req_param['shipping_method_name_sales'])){
             for($i = 0; $i < count($req_param['shipping_method_name_sales']); $i++) {
-                if($req_param['fare_amount_sales'][$i]){
+                if(!is_null($req_param['fare_amount_sales'][$i]) && $req_param['fare_amount_sales'][$i] != 0){
                     $param = [
                         'balance_id' => $balance_id,
                         'fare_balance_category' => 'sales',
@@ -97,17 +101,20 @@ class BalanceRegisterService
         // 売上の荷役関連レコードを追加
         if(isset($req_param['cargo_handling_name'])){
             for($i = 0; $i < count($req_param['cargo_handling_name']); $i++) {
-                $param = [
-                    'balance_id' => $balance_id,
-                    'cargo_handling_name' => $req_param['cargo_handling_name'][$i],
-                    'operation_quantity' => is_null($req_param['operation_quantity'][$i]) ? 0 : $req_param['operation_quantity'][$i],
-                    'cargo_handling_unit_price' => is_null($req_param['cargo_handling_unit_price'][$i]) ? 0 : $req_param['cargo_handling_unit_price'][$i],
-                    'cargo_handling_amount' => is_null($req_param['cargo_handling_amount'][$i]) ? 0 : $req_param['cargo_handling_amount'][$i],
-                    'created_at' => $nowDate,
-                    'updated_at' => $nowDate,
-                ];
-                // レコード追加
-                BalanceCargoHandling::insert($param);
+                if(!is_null($req_param['cargo_handling_amount'][$i]) && $req_param['cargo_handling_amount'][$i] != 0){
+                    $param = [
+                        'balance_id' => $balance_id,
+                        'cargo_handling_name' => $req_param['cargo_handling_name'][$i],
+                        'operation_quantity' => is_null($req_param['operation_quantity'][$i]) ? 0 : $req_param['operation_quantity'][$i],
+                        'cargo_handling_unit_price' => is_null($req_param['cargo_handling_unit_price'][$i]) ? 0 : $req_param['cargo_handling_unit_price'][$i],
+                        'cargo_handling_amount' => is_null($req_param['cargo_handling_amount'][$i]) ? 0 : $req_param['cargo_handling_amount'][$i],
+                        'cargo_handling_note' => $req_param['cargo_handling_note'][$i],
+                        'created_at' => $nowDate,
+                        'updated_at' => $nowDate,
+                    ];
+                    // レコード追加
+                    BalanceCargoHandling::insert($param);
+                }
             }
         }
         return;
@@ -137,15 +144,18 @@ class BalanceRegisterService
         // その他売上のレコードを追加
         if(isset($req_param['other_sales_name'])){
             for($i = 0; $i < count($req_param['other_sales_name']); $i++) {
-                $param = [
-                    'balance_id' => $balance_id,
-                    'other_sales_name' => $req_param['other_sales_name'][$i],
-                    'other_sales_amount' => is_null($req_param['other_sales_amount'][$i]) ? 0 : $req_param['other_sales_amount'][$i],
-                    'created_at' => $nowDate,
-                    'updated_at' => $nowDate,
-                ];
-                // レコード追加
-                BalanceOtherSale::insert($param);
+                if(!is_null($req_param['other_sales_amount'][$i]) && $req_param['other_sales_amount'][$i] != 0){
+                    $param = [
+                        'balance_id' => $balance_id,
+                        'other_sales_name' => $req_param['other_sales_name'][$i],
+                        'other_sales_amount' => $req_param['other_sales_amount'][$i],
+                        'other_sales_note' => $req_param['other_sales_note'][$i],
+                        'created_at' => $nowDate,
+                        'updated_at' => $nowDate,
+                    ];
+                    // レコード追加
+                    BalanceOtherSale::insert($param);
+                }
             }
         }
         return;
@@ -156,15 +166,18 @@ class BalanceRegisterService
         // その他経費のレコードを追加
         if(isset($req_param['other_expenses_name'])){
             for($i = 0; $i < count($req_param['other_expenses_name']); $i++) {
-                $param = [
-                    'balance_id' => $balance_id,
-                    'other_expenses_name' => $req_param['other_expenses_name'][$i],
-                    'other_expenses_amount' => is_null($req_param['other_expenses_amount'][$i]) ? 0 : $req_param['other_expenses_amount'][$i],
-                    'created_at' => $nowDate,
-                    'updated_at' => $nowDate,
-                ];
-                // レコード追加
-                BalanceOtherExpense::insert($param);
+                if(!is_null($req_param['other_expenses_amount'][$i]) && $req_param['other_expenses_amount'][$i] != 0){
+                    $param = [
+                        'balance_id' => $balance_id,
+                        'other_expenses_name' => $req_param['other_expenses_name'][$i],
+                        'other_expenses_amount' => $req_param['other_expenses_amount'][$i],
+                        'other_expenses_note' => $req_param['other_expenses_note'][$i],
+                        'created_at' => $nowDate,
+                        'updated_at' => $nowDate,
+                    ];
+                    // レコード追加
+                    BalanceOtherExpense::insert($param);
+                }
             }
         }
         return;
@@ -183,13 +196,13 @@ class BalanceRegisterService
         // その他売上
         $total_sales += BalanceOtherSale::where('balance_id', $balance_id)
                         ->sum('other_sales_amount');
-        // 保管費売上
+        // 保管売上
         $total_sales += $storage_fee;
         return $total_sales;
     }
 
     // 経費の金額を集計
-    public function calcTotalExpenses($balance_id)
+    public function calcTotalExpenses($balance_id, $storage_expenses)
     {
         // 運賃経費
         $total_expenses = BalanceFare::where('balance_id', $balance_id)
@@ -201,6 +214,8 @@ class BalanceRegisterService
         // その他売上
         $total_expenses += BalanceOtherExpense::where('balance_id', $balance_id)
                             ->sum('other_expenses_amount');
+        // 保管経費
+        $total_expenses += $storage_expenses;
         return $total_expenses;
     }
 

@@ -21,7 +21,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500&family=Kdam+Thmor+Pro&family=Noto+Sans+JP&family=Vollkorn:ital,wght@1,600&family=Zen+Antique&display=swap" rel="stylesheet">
     
     </head>
-    <body style="font-family:M PLUS Rounded 1c;" class="bg-slate-100">
+    <body style="font-family:Zen Maru Gothic" class="bg-slate-100">
         <div class="min-h-screen">
             @if (Route::has('login'))
                 <div class="fixed top-0 right-0 px-6 py-4 sm:block">

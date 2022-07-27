@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Base;
 
 class UserController extends Controller
 {
@@ -12,9 +13,11 @@ class UserController extends Controller
     {   
         $roles = Role::all();
         $users = User::orderBy('id', 'asc')->get();
+        $bases = Base::all();
         return view('user.index')->with([
             'users' => $users,
             'roles' => $roles,
+            'bases' => $bases,
         ]);
     }
 
@@ -23,6 +26,7 @@ class UserController extends Controller
         // roleとstatusを更新 
         for($i = 0; $i < count($request->user_id); $i++) {
             User::where('id', $request->user_id[$i])->update([
+                'base_id' => $request->base[$i],
                 'role_id' => $request->role[$i],
                 'status' => $request->status[$i],
             ]);

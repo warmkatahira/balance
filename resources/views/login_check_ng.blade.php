@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500&family=Kdam+Thmor+Pro&family=Noto+Sans+JP&family=Vollkorn:ital,wght@1,600&family=Zen+Antique&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
     
     </head>
     <body style="font-family:Zen Maru Gothic" class="bg-slate-100">

@@ -35,22 +35,24 @@
         <!--▲▲▲▲▲ 検索条件 ▲▲▲▲▲-->
 
         <!-- 荷主一覧 -->
-        <table class="text-sm my-5 col-span-9">
+        <table class="text-sm my-5 col-span-12">
             <thead>
                 <tr class="font-normal text-left text-white bg-gray-600 border-gray-600 sticky top-0">
                     <th class="p-2 px-2 w-2/12">拠点</th>
-                    <th class="p-2 px-2 w-5/12">荷主名</th>
-                    <th class="p-2 px-2 w-1/12 text-right">月間保管費</th>
+                    <th class="p-2 px-2 w-4/12">荷主名</th>
+                    <th class="p-2 px-2 w-1/12 text-right">月間保管売上</th>
+                    <th class="p-2 px-2 w-1/12 text-right">月間保管経費</th>
                     <th class="p-2 px-2 w-1/12 text-right">稼働日数</th>
                     <th class="p-2 px-2 w-3/12 text-center">操作</th>
                 </tr>
             </thead>
             <tbody class="bg-white">
                 @foreach($customers as $customer)
-                    <tr id="tr_{{ $customer->customer_id }}">
+                    <tr id="tr_{{ $customer->customer_id }}" class="hover:bg-teal-100">
                         <td class="p-1 px-2 border">{{ $customer->base->base_name }}</td>
                         <td class="p-1 px-2 border">{{ $customer->customer_name }}</td>
                         <td class="p-1 px-2 border text-right">{{ number_format($customer->monthly_storage_fee) }}円</td>
+                        <td class="p-1 px-2 border text-right">{{ number_format($customer->monthly_storage_expenses) }}円</td>
                         <td class="p-1 px-2 border text-right">{{ $customer->working_days }}日</td>
                         <td class="p-1 px-2 border text-center"><a href="{{ route('customer_base_info.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">基本</a><a href="{{ route('customer_cargo_handling_setting.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">荷役設定</a><a href="{{ route('customer_shipping_method_setting.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">配送方法設定</a></td>
                     </tr>
@@ -77,7 +79,8 @@
                         @endforeach
                     </select>
                     <input type="text" id="customer_name" name="customer_name" class="w-full mt-5" placeholder="荷主名" autocomplete="off" required>
-                    <input type="tel" id="monthly_storage_fee" name="monthly_storage_fee" class="w-1/2 mt-5 text-right" placeholder="月間保管料" autocomplete="off" required><br>
+                    <input type="tel" id="monthly_storage_fee" name="monthly_storage_fee" class="w-1/2 mt-5 text-right" placeholder="月間保管売上" autocomplete="off" required><br>
+                    <input type="tel" id="monthly_storage_expenses" name="monthly_storage_expenses" class="w-1/2 mt-5 text-right" placeholder="月間保管経費" autocomplete="off" required><br>
                     <input type="tel" id="working_days" name="working_days" class="w-1/4 mt-5 text-right" placeholder="稼働日数" autocomplete="off" required>
                 </form>
             </div>

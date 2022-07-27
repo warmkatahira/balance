@@ -27,7 +27,7 @@
                 <select id="shipping_method_select" class="text-xs h-4/5 col-start-9 col-span-3">
                     <option value="0">配送方法を選択</option>
                     @foreach($shipping_methods as $shipping_method)
-                        <option value="{{ $shipping_method->shipping_method_id }}">{{ $shipping_method->shipping_company.'【'.$shipping_method->shipping_method.'】(売上:'.$shipping_method->fare_unit_price.'円)(経費:'.$shipping_method->fare_expense.'円)' }}</option>
+                        <option value="{{ $shipping_method->shipping_method_id }}">{{ $shipping_method->shipping_company.'【'.$shipping_method->shipping_method.'】（売上:'.$shipping_method->fare_unit_price.'円）（経費:'.$shipping_method->fare_expense.'円）' }}</option>
                     @endforeach
                 </select>
                 <button type="button" id="shipping_method_add" class="col-start-12 col-span-1 bg-black text-white hover:bg-gray-400 text-sm h-4/5">追加</button>
@@ -61,13 +61,14 @@
                 <select id="cargo_handling_select" name="cargo_handling_id" class="text-xs h-4/5 col-start-9 col-span-3">
                     <option value="0">荷役を選択</option>
                     @foreach($cargo_handlings as $cargo_handling)
-                        <option value="{{ $cargo_handling->cargo_handling_id }}">{{ $cargo_handling->cargo_handling_name.'(単価:'.$cargo_handling->cargo_handling_unit_price.'円)' }}</option>
+                        <option value="{{ $cargo_handling->cargo_handling_id }}">{{ $cargo_handling->cargo_handling_name.'【'.$cargo_handling->cargo_handling_note.'】（単価:'.$cargo_handling->cargo_handling_unit_price.'円）' }}</option>
                     @endforeach
                 </select>
                 <button type="button" id="cargo_handling_add" class="col-start-12 col-span-1 bg-black text-white hover:bg-gray-400 text-sm h-4/5">追加</button>
                 @foreach($balance_cargo_handlings as $balance_cargo_handling)
-                    <div id="{{ $balance_cargo_handling->cargo_handling_name.'_cargo_handling_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 cargo_handling_div">
-                        <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="cargo_handling_name_[]" value="{{ $balance_cargo_handling->cargo_handling_name }}" readonly>
+                    <div id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'_cargo_handling_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 cargo_handling_div">
+                        <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="cargo_handling_name[]" value="{{ $balance_cargo_handling->cargo_handling_name }}" readonly>
+                        <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="cargo_handling_note[]" value="{{ $balance_cargo_handling->cargo_handling_note }}" readonly>
                         <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'_operation_quantity' }}" name="operation_quantity[]" class="text-sm col-span-1 text-right cargo_handling_amount_update h-4/5 operation_quantity" placeholder="作業数" autocomplete="off" value="{{ $balance_cargo_handling->operation_quantity }}">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">作業</p>
                         <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
@@ -76,7 +77,7 @@
                         <p class="text-base col-span-1 py-3"><i class="las la-equals"></i></p>
                         <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'_cargo_handling_amount' }}" name="cargo_handling_amount[]" class="text-sm col-span-2 text-right h-4/5 cargo_handling_amount" placeholder="金額" autocomplete="off" value="{{ $balance_cargo_handling->cargo_handling_amount }}">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">円</p>
-                        <button type="button" id="{{ $balance_cargo_handling->cargo_handling_name.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 delete_cargo_handling h-4/5"><i class="las la-trash la-lg"></i></button>
+                        <button type="button" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 delete_cargo_handling h-4/5"><i class="las la-trash la-lg"></i></button>
                     </div>
                 @endforeach
                 <div id="total_cargo_handling_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
@@ -93,7 +94,7 @@
                 <div class="col-span-12 grid grid-cols-12 border-b-2 border-black">
                     <p class="text-sm col-span-2 font-bold py-3">保管費</p>
                     <p id="storage_fee_detail" class="text-sm col-span-6 py-3"></p>
-                    <input type="tel" id="storage_fee" class="col-start-9 col-span-2 text-right text-sm h-4/5 py-3 storage_fee int_validation" name="storage_fee" autocomplete="off" placeholder="保管費" value="{{ $balance->storage_fee }}">
+                    <input type="tel" id="storage_fee" class="col-start-9 col-span-2 text-right text-sm h-4/5 py-3 storage_fee int_validation" name="storage_fee" autocomplete="off" placeholder="保管売上" value="{{ $balance->storage_fee }}">
                     <p class="col-span-1 text-left text-sm pl-2 pt-5">円</p>
                 </div>
                 <div id="total_storage_fee_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
@@ -114,6 +115,7 @@
                 @foreach($balance_other_sales as $balance_other_sale)
                     <div id="{{ $balance_other_sale->other_sales_name.'_other_sales_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2">
                         <input name="other_sales_name[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_name }}" readonly>
+                        <input name="other_sales_note[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_note }}" readonly>
                         <input type="tel" id="{{ $balance_other_sale->other_sales_name.'_other_sales_amount' }}" name="other_sales_amount[]" class="text-sm col-span-2 col-start-9 text-right other_sales_amount_update h-4/5 other_sales_amount" value="{{ $balance_other_sale->other_sales_amount }}" placeholder="金額" autocomplete="off">
                         <p class="text-sm col-span-1 col-start-11 text-left pt-5 ml-2">円</p>
                         <button type="button" id="{{ $balance_other_sale->other_sales_name.'_other_sales_delete_btn' }}" class="col-span-1 col-start-12 bg-red-600 text-white hover:bg-gray-400 delete_other_sales h-4/5"><i class="las la-trash la-lg"></i></button>
@@ -175,6 +177,20 @@
                     <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
                 </div>
             </div>
+            <div class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
+                <p class="col-span-4 text-xl mb-5 font-bold">経費<i class="las la-caret-right"></i>保管関連</p>
+                <div class="col-span-12 grid grid-cols-12 border-b-2 border-black">
+                    <p class="text-sm col-span-2 font-bold py-3">保管費</p>
+                    <p id="storage_expenses_detail" class="text-sm col-span-6 py-3"></p>
+                    <input type="tel" id="storage_expenses" class="col-start-9 col-span-2 text-right text-sm h-4/5 py-3 storage_expenses int_validation" name="storage_expenses" autocomplete="off" placeholder="保管経費" value="{{ $balance->storage_expenses }}">
+                    <p class="col-span-1 text-left text-sm pl-2 pt-5">円</p>
+                </div>
+                <div id="total_storage_expenses_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
+                    <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
+                    <p class="col-start-9 col-span-2 text-right font-bold" id="total_storage_expenses">{{ $balance->storage_expenses }}</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                </div>
+            </div>
             <div id="other_expenses_list" class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
                 <p class="col-span-4 text-xl mb-5 font-bold">経費<i class="las la-caret-right"></i>その他</p>
                 <select id="other_expenses_select" class="text-xs h-4/5 col-start-9 col-span-3">
@@ -187,6 +203,7 @@
                 @foreach($balance_other_expenses as $balance_other_expense)
                     <div id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2">
                         <input name="other_expenses_name[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_name }}" readonly>
+                        <input name="other_expenses_note[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_note }}" readonly>
                         <input type="tel" id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_amount' }}" name="other_expenses_amount[]" class="text-sm col-span-2 col-start-9 text-right other_expenses_amount_update h-4/5 other_expenses_amount" value="{{ $balance_other_expense->other_expenses_amount }}" placeholder="金額" autocomplete="off">
                         <p class="text-sm col-span-1 col-start-11 text-left pt-5 ml-2">円</p>
                         <button type="button" id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_delete_btn' }}" class="col-span-1 col-start-12 bg-red-600 text-white hover:bg-gray-400 delete_other_expenses h-4/5"><i class="las la-trash la-lg"></i></button>

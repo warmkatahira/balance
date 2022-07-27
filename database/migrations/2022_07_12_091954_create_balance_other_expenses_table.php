@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('balance_id');
             $table->string('other_expenses_name');
             $table->unsignedinteger('other_expenses_amount');
+            $table->string('other_expenses_note')->nullable();
             $table->timestamps();
             // 外部キー制約
             $table->foreign('balance_id')->references('balance_id')->on('balances')->onDelete('cascade');

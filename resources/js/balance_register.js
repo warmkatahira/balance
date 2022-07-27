@@ -15,15 +15,18 @@ const total_fare_expenses = document.getElementById('total_fare_expenses');     
 const total_cargo_handling_div = document.getElementById('total_cargo_handling_div');       // 運賃関連の合計divタグ
 const total_operation_quantity = document.getElementById('total_operation_quantity');       // 作業数合計のpタグ
 const total_cargo_handling = document.getElementById('total_cargo_handling');               // 荷役金額合計のpタグ
-const storage_fee = document.getElementById('storage_fee');                                 // 保管費のinputタグ
-const total_storage_fee = document.getElementById('total_storage_fee');                     // 保管金額合計のpタグ
+const storage_fee = document.getElementById('storage_fee');                                 // 保管売上のinputタグ
+const storage_expenses = document.getElementById('storage_expenses');                       // 保管経費のinputタグ
+const total_storage_fee = document.getElementById('total_storage_fee');                     // 保管売上合計のpタグ
+const total_storage_expenses = document.getElementById('total_storage_expenses');           // 保管経費合計のpタグ
 const total_working_time = document.getElementById('total_working_time');                   // 労働時間合計のpタグ
 const total_labor_costs = document.getElementById('total_labor_costs');                     // 人件費合計のpタグ
 const other_expenses_select = document.getElementById('other_expenses_select');             // その他経費選択のセレクトボックス
 const other_expenses_list = document.getElementById('other_expenses_list');                 // 要素追加先のDivタグ
 const total_other_expenses_div = document.getElementById('total_other_expenses_div');       // その他経費の合計divタグ
 const total_other_expenses_amount = document.getElementById('total_other_expenses_amount'); // その他経費金額合計のpタグ
-const storage_fee_detail = document.getElementById('storage_fee_detail');                   // 保管費の詳細を表示するpタグ
+const storage_fee_detail = document.getElementById('storage_fee_detail');                   // 保管売上の詳細を表示するpタグ
+const storage_expenses_detail = document.getElementById('storage_expenses_detail');         // 保管経費の詳細を表示するpタグ
 const other_sales_select = document.getElementById('other_sales_select');                   // その他売上選択のセレクトボックス
 const other_sales_list = document.getElementById('other_sales_list');                       // 要素追加先のDivタグ
 const total_other_sales_div = document.getElementById('total_other_sales_div');             // その他売上の合計divタグ
@@ -55,9 +58,9 @@ $("[id=shipping_method_add]").on("click",function(){
         // 選択した配送方法の値をスプリット
         const select_value_split = shipping_method_select.options[select_index].innerHTML.split(':');
         // スプリットした情報から配送方法と売上・経費の単価を抽出
-        const select_shipping_method = select_value_split[0].replace('(売上', '');
-        const select_fare_unit_price = select_value_split[1].replace('円)(経費', '');
-        const select_fare_expenses = select_value_split[2].replace('円)', '');
+        const select_shipping_method = select_value_split[0].replace('（売上', '');
+        const select_fare_unit_price = select_value_split[1].replace('円）（経費', '');
+        const select_fare_expenses = select_value_split[2].replace('円）', '');
         // 既に存在する配送方法ではないかチェック
         if(document.getElementById(select_shipping_method + '_fare_sales_div') != null){
             throw new Error('既に存在する配送方法です。');
@@ -243,7 +246,7 @@ function total_fare_expenses_update(){
     total_fare_expenses.innerHTML = fare_amount_sum.toLocaleString();
 }
 
-// 荷主が変更されたら、荷役と配送方法のセレクトボックスを更新
+// 荷主が変更されたら、荷役と配送方法のセレクトボックスを更新、保管関連を算出
 $("[id=customer_select]").on("change",function(){
     // 荷主IDを取得
     const customer_id = customer_select.value;
@@ -272,11 +275,11 @@ $("[id=customer_select]").on("change",function(){
             data['cargo_handlings'].forEach(function(element){
                 const cargo_handling_op = document.createElement('option');
                 cargo_handling_op.value = element['cargo_handling_id'];
-                cargo_handling_op.innerHTML = element['cargo_handling_name'] + '(単価:' + element['cargo_handling_unit_price'] + '円)';
+                cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + element['cargo_handling_note'] + '】（単価:' + element['cargo_handling_unit_price'] + '円）';
                 cargo_handling_select.append(cargo_handling_op);
                 // 収支登録初期表示がONの荷役を追加
                 if (element['balance_register_default_disp'] == 1) {
-                    cargo_handling_add(element['cargo_handling_name'], element['cargo_handling_name'], element['cargo_handling_unit_price']);
+                    cargo_handling_add(element['cargo_handling_name'], element['cargo_handling_name'], element['cargo_handling_unit_price'], element['cargo_handling_note']);
                 }
                 // 荷役合計を更新
                 total_cargo_handling_update();
@@ -291,19 +294,29 @@ $("[id=customer_select]").on("change",function(){
             data['shipping_methods'].forEach(function(element){
                 const shipping_method_op = document.createElement('option');
                 shipping_method_op.value = element['shipping_method_id'];
-                shipping_method_op.innerHTML = element['shipping_company'] + '【' + element['shipping_method'] + '】(売上:' + element['fare_unit_price'] + '円)(経費:' + element['fare_expense'] + '円)';
+                shipping_method_op.innerHTML = element['shipping_company'] + '【' + element['shipping_method'] + '】（売上:' + element['fare_unit_price'] + '円）（経費:' + element['fare_expense'] + '円）';
                 shipping_method_select.append(shipping_method_op);
             });
-            // 保管費の算出詳細を出力
+            // 保管売上の算出詳細を出力
             storage_fee_detail.innerHTML = '';
             if(data['storage_fee'] != 0){
-                storage_fee_detail.innerHTML = (data['customer']['monthly_storage_fee'] !== null ? data['customer']['monthly_storage_fee'] + '円 / ' : '設定なし / ')
+                storage_fee_detail.innerHTML = (data['customer']['monthly_storage_fee'] !== null ? data['customer']['monthly_storage_fee'].toLocaleString() + '円 / ' : '設定なし / ')
                                                 + (data['customer']['working_days'] !== null ? data['customer']['working_days'] + '日 = ' : '設定なし = ')
                                                 + data['storage_fee'].toLocaleString() + '円';
             }
-            // 保管費を出力
+            // 保管売上を出力
             storage_fee.value = data['storage_fee'];
             total_storage_fee.innerHTML = Number(storage_fee.value).toLocaleString();
+            // 保管経費の算出詳細を出力
+            storage_expenses_detail.innerHTML = '';
+            if(data['storage_expenses'] != 0){
+                storage_expenses_detail.innerHTML = (data['customer']['monthly_storage_expenses'] !== null ? data['customer']['monthly_storage_expenses'].toLocaleString() + '円 / ' : '設定なし / ')
+                                                + (data['customer']['working_days'] !== null ? data['customer']['working_days'] + '日 = ' : '設定なし = ')
+                                                + data['storage_expenses'].toLocaleString() + '円';
+            }
+            // 保管経費を出力
+            storage_expenses.value = data['storage_expenses'];
+            total_storage_expenses.innerHTML = Number(storage_expenses.value).toLocaleString();
         },
         error: function(){
             alert('失敗');
@@ -323,23 +336,25 @@ $("[id=cargo_handling_add]").on("click",function(){
             throw new Error('荷役を選択して下さい。');
         }
         // 選択した荷役の値をスプリット
-        const select_value_split = cargo_handling_select.options[select_index].innerHTML.split('(単価:');
+        var select_value_split = cargo_handling_select.options[select_index].innerHTML.split('【');
         // スプリットした値を変数に格納
         const cargo_handling_name_value = select_value_split[0];
-        const cargo_handling_unit_price_value = select_value_split[1].replace('円)', '');
+        var select_value_split = select_value_split[1].split('】（単価:');
+        const cargo_handling_note_value = select_value_split[0];
+        const cargo_handling_unit_price_value = select_value_split[1].replace('円）', '');
         // 既に存在する荷役ではないかチェック
-        if(document.getElementById(cargo_handling_name_value + '_cargo_handling_div') != null){
+        if(document.getElementById(cargo_handling_name_value + '-' + cargo_handling_unit_price_value + '_cargo_handling_div') != null){
             throw new Error('既に存在する荷役です。');
         }
         // 荷役要素を追加
-        cargo_handling_add(cargo_handling_name_value, cargo_handling_name_value, cargo_handling_unit_price_value);
+        cargo_handling_add(cargo_handling_name_value, cargo_handling_name_value, cargo_handling_unit_price_value, cargo_handling_note_value);
     } catch (e) {
         alert(e.message);
     }
 });
 
 // 荷役要素追加処理部分
-function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_unit_price_value){
+function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_unit_price_value, cargo_handling_note_value){
     // 荷役を表示する要素を作成
     const cargo_handling_name = document.createElement('input');
     cargo_handling_name.classList.add('font-bold', 'text-sm', 'col-span-2', 'py-3', 'bg-transparent');
@@ -350,7 +365,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     // 作業数を入力する要素を作成
     const operation_quantity = document.createElement('input');
     operation_quantity.type = 'tel';
-    operation_quantity.id = add_id + '_operation_quantity';
+    operation_quantity.id = add_id + '-' + cargo_handling_unit_price_value + '_operation_quantity';
     operation_quantity.name = 'operation_quantity[]';
     operation_quantity.placeholder = '作業数';
     operation_quantity.autocomplete = 'off';
@@ -369,7 +384,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     // 荷役単価を表示・入力する要素を作成
     const cargo_handling_unit_price = document.createElement('input');
     cargo_handling_unit_price.type = 'tel';
-    cargo_handling_unit_price.id = add_id + '_cargo_handling_unit_price';
+    cargo_handling_unit_price.id = add_id + '-' + cargo_handling_unit_price_value + '_cargo_handling_unit_price';
     cargo_handling_unit_price.name = 'cargo_handling_unit_price[]';
     cargo_handling_unit_price.placeholder = '単価';
     cargo_handling_unit_price.autocomplete = 'off';
@@ -389,7 +404,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     // 金額を表示・入力する要素を作成
     const cargo_handling_amount = document.createElement('input');
     cargo_handling_amount.type = 'tel';
-    cargo_handling_amount.id = add_id + '_cargo_handling_amount';
+    cargo_handling_amount.id = add_id + '-' + cargo_handling_unit_price_value + '_cargo_handling_amount';
     cargo_handling_amount.name = 'cargo_handling_amount[]';
     cargo_handling_amount.placeholder = '金額';
     cargo_handling_amount.autocomplete = 'off';
@@ -398,20 +413,27 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     // 削除ボタンの要素を作成
     const delete_btn = document.createElement('button');
     delete_btn.type = 'button';
-    delete_btn.id = add_id + '_delete_btn';
+    delete_btn.id = add_id + '-' + cargo_handling_unit_price_value + '_delete_btn';
     delete_btn.innerHTML = '<i class="las la-trash la-lg"></i>';
     delete_btn.classList.add('col-span-1', 'bg-red-600', 'text-white', 'hover:bg-gray-400', 'delete_cargo_handling', 'h-4/5');
     
     // 円を表示する要素を複製する
     const clone_cargo_handling_unit_price_text = cargo_handling_unit_price_text.cloneNode(true);
 
+    // 荷役備考を表示する要素を作成
+    const cargo_handling_note = document.createElement('input');
+    cargo_handling_note.classList.add('font-bold', 'text-sm', 'col-start-1', 'col-span-2', 'py-3', 'bg-transparent');
+    cargo_handling_note.value = cargo_handling_note_value;
+    cargo_handling_note.readOnly = 'true';
+    cargo_handling_note.name = 'cargo_handling_note[]';
+
     // 追加する要素を纏めるdivタグを作成
     const target_div = document.createElement('div');
-    target_div.id = add_id + '_cargo_handling_div';
+    target_div.id = add_id + '-' + cargo_handling_unit_price_value + '_cargo_handling_div';
     target_div.classList.add('grid', 'grid-cols-12', 'col-span-12', 'border-b-2', 'border-black', 'pt-2', 'cargo_handling_div');
 
     // divタグに作成した要素を追加
-    target_div.append(cargo_handling_name, operation_quantity, operation_quantity_text, symbol_kakeru, cargo_handling_unit_price, cargo_handling_unit_price_text, symbol_equal, cargo_handling_amount, clone_cargo_handling_unit_price_text, delete_btn);
+    target_div.append(cargo_handling_name, cargo_handling_note, operation_quantity, operation_quantity_text, symbol_kakeru, cargo_handling_unit_price, cargo_handling_unit_price_text, symbol_equal, cargo_handling_amount, clone_cargo_handling_unit_price_text, delete_btn);
     
     // 纏めたdivタグを追加
     cargo_handling_list.insertBefore(target_div, total_cargo_handling_div);
@@ -458,9 +480,14 @@ function total_cargo_handling_update(){
     total_cargo_handling.innerHTML = cargo_handling_amount_sum.toLocaleString();
 }
 
-// 保管費が変更された際の金額更新処理
+// 保管売上が変更された際の金額更新処理
 $(document).on("change", ".storage_fee", function () {
     total_storage_fee.innerHTML = Number(storage_fee.value).toLocaleString();
+});
+
+// 保管経費が変更された際の金額更新処理
+$(document).on("change", ".storage_expenses", function () {
+    total_storage_expenses.innerHTML = Number(storage_expenses.value).toLocaleString();
 });
 
 // 人件費が変更された際の更新処理
@@ -528,6 +555,15 @@ $("[id=other_expenses_add]").on("click",function(){
         other_expenses_name.readOnly = 'true';
         other_expenses_name.name = 'other_expenses_name[]';
         
+        // 経費備考を入力する要素を作成
+        const other_expenses_note = document.createElement('input');
+        other_expenses_note.type = 'tel';
+        other_expenses_note.id = select_value + '_other_expenses_note';
+        other_expenses_note.name = 'other_expenses_note[]';
+        other_expenses_note.placeholder = '備考';
+        other_expenses_note.autocomplete = 'off';
+        other_expenses_note.classList.add('text-sm', 'col-span-2', 'col-start-4', 'h-4/5');
+
         // 経費金額を入力する要素を作成
         const other_expenses_amount = document.createElement('input');
         other_expenses_amount.type = 'tel';
@@ -555,7 +591,7 @@ $("[id=other_expenses_add]").on("click",function(){
         target_div.classList.add('grid', 'grid-cols-12', 'col-span-12', 'border-b-2', 'border-black', 'pt-2');
 
         // divタグに作成した要素を追加
-        target_div.append(other_expenses_name, other_expenses_amount, other_expenses_amount_text, delete_btn);
+        target_div.append(other_expenses_name, other_expenses_note, other_expenses_amount, other_expenses_amount_text, delete_btn);
 
         // 纏めたdivタグを追加
         other_expenses_list.insertBefore(target_div, total_other_expenses_div);
@@ -615,6 +651,15 @@ $("[id=other_sales_add]").on("click",function(){
         other_sales_name.value = select_value;
         other_sales_name.readOnly = 'true';
         other_sales_name.name = 'other_sales_name[]';
+
+        // 売上備考を入力する要素を作成
+        const other_sales_note = document.createElement('input');
+        other_sales_note.type = 'tel';
+        other_sales_note.id = select_value + '_other_sales_note';
+        other_sales_note.name = 'other_sales_note[]';
+        other_sales_note.placeholder = '備考';
+        other_sales_note.autocomplete = 'off';
+        other_sales_note.classList.add('text-sm', 'col-span-2', 'col-start-4', 'h-4/5');
         
         // 売上金額を入力する要素を作成
         const other_sales_amount = document.createElement('input');
@@ -643,7 +688,7 @@ $("[id=other_sales_add]").on("click",function(){
         target_div.classList.add('grid', 'grid-cols-12', 'col-span-12', 'border-b-2', 'border-black', 'pt-2');
 
         // divタグに作成した要素を追加
-        target_div.append(other_sales_name, other_sales_amount, other_sales_amount_text, delete_btn);
+        target_div.append(other_sales_name, other_sales_note, other_sales_amount, other_sales_amount_text, delete_btn);
 
         // 纏めたdivタグを追加
         other_sales_list.insertBefore(target_div, total_other_sales_div);

@@ -22,16 +22,14 @@
             <table class="text-sm mb-5 col-span-8">
                 <thead>
                     <tr class="text-left text-white bg-gray-600 border-gray-600 sticky top-0">
-                        <th class="p-2 px-2 w-4/12">荷役名</th>
-                        <th class="p-2 px-2 w-5/12">荷役説明</th>
-                        <th class="p-2 px-2 w-3/12 text-center">操作</th>
+                        <th class="p-2 px-2 w-6/12">荷役名</th>
+                        <th class="p-2 px-2 w-6/12 text-center">操作</th>
                     </tr>
                 </thead> 
                 <tbody id="cargo_handling_body" class="bg-white">
                     @foreach($cargo_handlings as $cargo_handling)
                         <tr id="tr_{{ $cargo_handling->cargo_handling_name }}">
                             <td class="p-1 px-2 border"><input name="cargo_handling_name[{{ $cargo_handling->cargo_handling_id }}]" value="{{ $cargo_handling->cargo_handling_name }}" readonly></td>
-                            <td class="p-1 px-2 border"><input name="cargo_handling_note[]" value="{{ $cargo_handling->cargo_handling_note }}" readonly></td>
                             <td class="p-1 px-2 border text-center">
                                 @if(Auth::user()->role_id == 1)
                                     <button type="button" id="{{ $cargo_handling->cargo_handling_name }}" class="cargo_handling_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button>
@@ -54,7 +52,6 @@
             <!-- Modal body -->
             <div class="p-10">
                 <input type="text" id="cargo_handling_name" name="cargo_handling_name" class="w-full mt-5" placeholder="荷役名" autocomplete="off" required>
-                <input type="text" id="cargo_handling_note" name="cargo_handling_note" class="w-full mt-5" placeholder="荷役備考" autocomplete="off">
             </div>
             <!-- Modal footer -->
             <div class="px-4 py-2 border-t border-t-gray-500 grid grid-cols-2 gap-4">

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('control_base_id');
             $table->unsignedInteger('register_user_id');
             $table->unsignedInteger('monthly_storage_fee')->nullable();
+            $table->unsignedInteger('monthly_storage_expenses')->nullable();
             $table->unsignedinteger('working_days')->nullable();
             $table->string('handling_fee_category')->nullable();
             $table->timestamps();

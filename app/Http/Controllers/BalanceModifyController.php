@@ -113,11 +113,11 @@ class BalanceModifyController extends Controller
             // 売上合計を計算
             $total_sales = $BalanceRegisterService->calcTotalSales(session('balance_id'), $req_param['storage_fee']);
             // 経費合計を計算
-            $total_expenses = $BalanceRegisterService->calcTotalExpenses(session('balance_id'));
+            $total_expenses = $BalanceRegisterService->calcTotalExpenses(session('balance_id'), $req_param['storage_expenses']);
             // 利益を計算
             $total_profit = $total_sales - $total_expenses;
             // 収支テーブルを更新
-            $BalanceModifyService->updateBalance($req_param['storage_fee'], $req_param['balance_note'], $total_sales, $total_expenses, $total_profit);
+            $BalanceModifyService->updateBalance($req_param['storage_fee'], $req_param['storage_expenses'], $req_param['balance_note'], $total_sales, $total_expenses, $total_profit);
         });
         session()->flash('alert_success', '収支修正が完了しました。');
         // 収支一覧に遷移
