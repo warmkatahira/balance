@@ -27,6 +27,7 @@ class UserController extends Controller
         for($i = 0; $i < count($request->user_id); $i++) {
             User::where('id', $request->user_id[$i])->update([
                 'base_id' => $request->base[$i],
+                'name' => $request->name[$i],
                 'role_id' => $request->role[$i],
                 'status' => $request->status[$i],
             ]);

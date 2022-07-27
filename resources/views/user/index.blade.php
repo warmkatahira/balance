@@ -38,11 +38,14 @@
                                         @endforeach
                                     </select>
                                 </td>
+                                <td class="p-1 px-2 border">
+                                    <input type="text" name="name[]" class="text-sm rounded-lg" value="{{ $user->name }}" autocomplete="off">
+                                </td>
                             @endif
                             @if(Auth::user()->role_id != 1)
                                 <td class="p-1 px-2 border">{{ $user->base->base_name }}</td>
+                                <td class="p-1 px-2 border">{{ $user->name }}</td>
                             @endif
-                            <td class="p-1 px-2 border">{{ $user->name }}</td>
                             <td class="p-1 px-2 border">{{ $user->email }}</td>
                             @if(Auth::user()->role_id == 1)
                                 <td class="p-1 px-2 border text-center">
