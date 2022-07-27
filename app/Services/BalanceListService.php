@@ -218,7 +218,7 @@ class BalanceListService
         // 月別しか処理が入ってこないので処理は1つだけ
         $query = $query->select(DB::raw("sum(sales) as total_sales, sum(expenses) as total_expenses, sum(profit) as total_profit, balance_id, register_user_id, balance_base_id, balance_customer_id, balance_date as date"));
         // グループ化・並び替え
-        $balances = $query->groupBy('balance_id', 'register_user_id', 'balance_base_id', 'balance_customer_id', 'date')->orderBy('date', 'desc')->get();
+        $balances = $query->groupBy('balance_id', 'register_user_id', 'balance_base_id', 'balance_customer_id', 'date')->orderBy('date', 'asc')->get();
         return $balances;
     }
 
