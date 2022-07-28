@@ -10987,8 +10987,9 @@ window.onload = function () {
             yAxes: [//グラフ縦軸（Y軸）設定
             {
               ticks: {
-                callback: function callback(value) {
-                  return value + '円'; //数字＋%で表示			
+                callback: function callback(label, index, labels) {
+                  /* ここです */
+                  return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 円';
                 }
               }
             }],
@@ -10997,6 +10998,14 @@ window.onload = function () {
               barPercentage: 0.5 //バーの太さ
 
             }]
+          },
+          tooltips: {
+            /* ここです */
+            callbacks: {
+              label: function label(tooltipItem, data) {
+                return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 円';
+              }
+            }
           }
         }
       });

@@ -60,11 +60,10 @@ window.onload = function () {
                         yAxes:[//グラフ縦軸（Y軸）設定
                             {
                                 ticks:{
-                                    
-                                    callback: function(value){
-                                        return  value +  '円'//数字＋%で表示			
+                                    callback: function(label, index, labels) { /* ここです */
+                                        return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') +' 円';
+                                    }
                                 }
-                            }
                             }
                         ],
                         xAxes:[//棒グラフ横（X軸）設定
@@ -73,6 +72,13 @@ window.onload = function () {
                             }
                         ]
                     },
+                    tooltips: { /* ここです */
+                        callbacks: {
+                            label: function(tooltipItem, data){
+                                return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') +' 円';
+                            }
+                        }
+                    }
                 }
             })
         },
