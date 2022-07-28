@@ -107,5 +107,35 @@
                 </div>
             </div>
         </div>
+        <!-- 収支最新情報 -->
+        <p class="col-span-12 text-2xl font-bold text-center mt-5 bg-blue-500 text-white rounded-t-lg py-2">収支最新情報</p>
+        <div class="col-span-12 grid grid-cols-12 bg-sky-100 p-10 text-sm shadow-lg">
+            <div class="col-span-12 grid grid-cols-12">
+                <p class="col-span-2">日時</p>
+                <p class="col-span-2">ユーザー</p>
+                <p class="col-span-1">収支日</p>
+                <p class="col-span-2">拠点</p>
+                <p class="col-span-3">荷主名</p>
+                <p class="col-span-1">区分</p>
+            </div>
+            @foreach($balance_lists as $balance_list)
+                <div class="col-span-12 grid grid-cols-12 border-dotted border-t-2 border-blue-500 py-2 hover:bg-sky-300">
+                    <p class="col-span-2">{{ $balance_list->updated_at }}</p>
+                    <p class="col-span-2">{{ $balance_list->last_updated_user->name }}</p>
+                    <p class="col-span-1">{{ $balance_list->balance_date }}</p>
+                    <p class="col-span-2">{{ $balance_list->base->base_name }}</p>
+                    <p class="col-span-3">{{ $balance_list->customer->customer_name }}</p>
+                    <p class="col-span-1 pt-1">
+                        @if($balance_list->created_at == $balance_list->updated_at)
+                            <span class="bg-green-300 px-3 py-1 rounded-lg">登録</span>
+                        @endif
+                        @if($balance_list->created_at != $balance_list->updated_at)
+                            <span class="bg-red-300 px-3 py-1 rounded-lg">修正</span>
+                        @endif
+                    </p>
+                    <a href="{{ route('balance_list.detail', ['balance_id' => $balance_list->balance_id]) }}" class="bg-blue-500 text-white p-1 hover:bg-gray-400 text-center col-span-1">詳細</a>
+                </div>
+            @endforeach
+        </div>
     </div>
 </x-app-layout>

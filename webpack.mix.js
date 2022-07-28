@@ -27,6 +27,8 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/shipping_method.js', 'public/js')
     .js('resources/js/user.js', 'public/js')
     .js('resources/js/sales_plan.js', 'public/js')
+    .js('resources/js/ticker.js', 'public/js')
+    .css('resources/css/ticker.css', 'public/css')
     .autoload({
         jquery: ['$', 'window.jQuery']
     })
@@ -35,3 +37,4 @@ mix.js('resources/js/app.js', 'public/js')
         require('autoprefixer'),
     ]
 );
+

@@ -39,6 +39,8 @@ class HomeController extends Controller
         $sales_plan = $HomeService->getSalesPlan(session('base_id'), $date->format('Ym'));
         // チャート表示に使用する条件をセッションに格納（チャート表示のAJAX通信で使用）
         $HomeService->inputSessionChartData($expenses, $result, $sales_plan);
+        // 収支登録・修正情報に表示する情報を取得
+        $balance_lists = $HomeService->getBalanceUpdateList();
         return view('home')->with([
             'bases' => $bases,
             'customer_results' => $result['customer_results'],
@@ -46,6 +48,7 @@ class HomeController extends Controller
             'monthly_expenses' => $expenses['monthly_expenses'],
             'total_monthly_expenses_amount' => $expenses['total_monthly_expenses_amount'],
             'sales_plan' => $sales_plan,
+            'balance_lists' => $balance_lists,
         ]);
     }
 
@@ -72,6 +75,8 @@ class HomeController extends Controller
         $sales_plan = $HomeService->getSalesPlan(session('base_id'), $date->format('Ym'));
         // チャート表示に使用する条件をセッションに格納（チャート表示のAJAX通信で使用）
         $HomeService->inputSessionChartData($expenses, $result, $sales_plan);
+        // 収支登録・修正情報に表示する情報を取得
+        $balance_lists = $HomeService->getBalanceUpdateList();
         return view('home')->with([
             'bases' => $bases,
             'customer_results' => $result['customer_results'],
@@ -79,6 +84,7 @@ class HomeController extends Controller
             'monthly_expenses' => $expenses['monthly_expenses'],
             'total_monthly_expenses_amount' => $expenses['total_monthly_expenses_amount'],
             'sales_plan' => $sales_plan,
+            'balance_lists' => $balance_lists,
         ]);
     }
 

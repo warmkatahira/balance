@@ -41,7 +41,7 @@ class BalanceListController extends Controller
     public function search(Request $request)
     {
         // 現在のURLを取得
-        session(['redirect_url' => url()->full()]);
+        session(['index_url' => url()->full()]);
         $BalanceListService = new BalanceListService;
         // リクエストパラメータを取得
         $req_param = $BalanceListService->getRequestParameter($request);
@@ -96,6 +96,7 @@ class BalanceListController extends Controller
 
     public function detail(Request $request)
     {
+        session(['previous_url' => url()->previous()]);
         session(['balance_id' => $request->balance_id]);
         $balance = Balance::where('balance_id', $request->balance_id)->first();
         $balance_fare_sales = BalanceFare::where('balance_id', $request->balance_id)->where('fare_balance_category', 'sales')->get();

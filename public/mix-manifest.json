@@ -15,5 +15,7 @@
     "/js/shipping_method.js": "/js/shipping_method.js",
     "/js/user.js": "/js/user.js",
     "/js/sales_plan.js": "/js/sales_plan.js",
-    "/css/app.css": "/css/app.css"
+    "/js/ticker.js": "/js/ticker.js",
+    "/css/app.css": "/css/app.css",
+    "/css/ticker.css": "/css/ticker.css"
 }

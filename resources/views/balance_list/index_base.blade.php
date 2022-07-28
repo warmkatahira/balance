@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="grid grid-cols-12 gap-4">
             <div class="col-span-1">
-                <a href="{{ session('redirect_url') }}" class="inline-block text-center w-full bg-black text-white border font-semibold rounded hover:bg-gray-400 px-3 py-2">戻る</a>
+                <a href="{{ session('index_url') }}" class="inline-block text-center w-full bg-black text-white border font-semibold rounded hover:bg-gray-400 px-3 py-2">戻る</a>
             </div>
             <div class="inline-block col-span-2 font-semibold text-xl text-gray-800 p-2">
                 収支詳細

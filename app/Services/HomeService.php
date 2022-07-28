@@ -79,4 +79,12 @@ class HomeService
         session(['sales_plan_amount' => is_null($sales_plan) == true ? 0 :$sales_plan->sales_plan_amount]);
         return;
     }
+
+    public function getBalanceUpdateList()
+    {
+        // 収支の更新日時の降順10件を取得
+        $balance_lists = Balance::orderBy('updated_at', 'desc')
+                                ->take(10)->get();
+        return $balance_lists;
+    }
 }

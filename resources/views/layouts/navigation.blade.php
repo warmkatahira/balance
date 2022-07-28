@@ -13,48 +13,58 @@
                 <a href="{{ route('home.index') }}" class="ml-5 p-4 w-20 text-center"><i class="las la-home la-2x"></i></a>
                 <ul class="p-3 z-50" style="font-family:Zen Maru Gothic">
                     <li class="nav-menu relative inline-block">
-                        <div class="w-40 font-bold bg-orange-200 text-center py-2 cursor-pointer">収支</div>
+                        <div class="w-32 font-bold bg-orange-200 text-center py-2 cursor-pointer">収支</div>
                         <ul class="nav-list absolute hidden">
                             <li>
-                                <a href="{{ route('balance_register.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">収支登録</a>
+                                <a href="{{ route('balance_register.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">収支登録</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-menu relative inline-block">
-                        <div class="w-40 font-bold bg-orange-200 text-center py-2 cursor-pointer">収支一覧</div>
+                        <div class="w-32 font-bold bg-orange-200 text-center py-2 cursor-pointer">収支一覧</div>
                         <ul class="nav-list absolute hidden">
                             <li>
-                                <a href="{{ route('balance_list.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">収支一覧</a>
+                                <a href="{{ route('balance_list.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">収支一覧</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-menu relative inline-block">
-                        <div class="w-40 font-bold bg-orange-200 text-center py-2 cursor-pointer">マスタ</div>
+                        <div class="w-32 font-bold bg-orange-200 text-center py-2 cursor-pointer">マスタ</div>
                         <ul class="nav-list absolute hidden">
                             <li>
-                                <a href="{{ route('base.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">拠点マスタ</a>
+                                <a href="{{ route('base.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">拠点マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('customer.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">荷主マスタ</a>
+                                <a href="{{ route('customer.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">荷主マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('cargo_handling.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">荷役マスタ</a>
+                                <a href="{{ route('cargo_handling.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">荷役マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('expenses_item.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">経費項目マスタ</a>
+                                <a href="{{ route('expenses_item.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">経費項目マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('sales_item.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">売上項目マスタ</a>
+                                <a href="{{ route('sales_item.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">売上項目マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('shipping_method.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">配送方法マスタ</a>
+                                <a href="{{ route('shipping_method.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">配送方法マスタ</a>
                             </li>
                             <li>
-                                <a href="{{ route('user.index') }}" class="block w-40 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-sm">ユーザーマスタ</a>
+                                <a href="{{ route('user.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">ユーザーマスタ</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
+            </div>
+            <!-- Newsのティッカー -->
+            <div class="w-1/4 flex">
+                <div class="ticker-head my-4 italic text-blue-500">NEWS</div>
+                <div class="ticker my-4 bg-blue-500 rounded-lg">
+                    <ul class="text-sm py-1 text-white">
+                        <li class='ticker-item'><a href="#"><span class="ticker-date"></span><span class="mx-3">8月1日(月)から第3営業所でテスト運用が始まります。</span></a></li>
+                        <li class='ticker-item'><a href="#"><span class="ticker-date"></span><span class="mx-3">8月15日(月)、16日(火)は会社休日となっています。注意して下さい。</span></a></li>
+                    </ul>
+                </div>
             </div>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">

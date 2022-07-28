@@ -30,6 +30,11 @@
     
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
+
+        <!-- ニュースティッカー用 -->
+        <link rel="stylesheet" href="{{ asset('css/ticker.css') }}">
+        <script src="{{ asset('js/ticker.js') }}" defer></script>
+        
     </head>
     <body style="font-family:Zen Maru Gothic" class="bg-slate-100">
         <div class="min-h-screen">

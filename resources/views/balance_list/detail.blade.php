@@ -2,8 +2,13 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="grid grid-cols-12 gap-4">
-            <div class="inline-block col-span-2 font-semibold text-xl text-gray-800 p-2">
-                収支詳細
+            <div class="col-span-1">
+                <a href="{{ session('previous_url') }}" class="inline-block text-center w-full bg-black text-white border font-semibold rounded hover:bg-gray-400 px-3 py-2">戻る</a>
+            </div>
+            <div class="col-span-4">
+                <div class="inline-block col-span-2 font-semibold text-xl text-gray-800 p-2">
+                    収支詳細
+                </div>
             </div>
         </div>
     </x-slot>
@@ -23,7 +28,7 @@
             </div>
             <div class="col-span-1 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">登録者</p>
-                <p class="font-bold py-5 text-sm">{{ $balance->user->name }}</p>
+                <p class="font-bold py-5 text-sm">{{ $balance->user->name }}<br><span class="text-xs">{{ $balance->created_at }}</span></p>
             </div>
             <div class="col-span-1 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">最終更新者</p>

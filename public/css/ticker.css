@@ -1,0 +1,108 @@
+.ticker-head {
+  width: calc(4em + 8px);
+  line-height: 30px;
+  padding: 0 4px;
+}
+.ticker {
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+}
+.ticker ul {
+  position: relative;
+  list-style: none;
+  height: 100%;
+}
+.ticker-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-right: 0;
+  opacity: 0;
+}
+.ticker-item a {
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform 5s linear;
+}
+.ticker-date {
+  font-weight: bold;
+}
+.ticker-new {
+  color: red;
+  margin-left: 10px;
+  -webkit-animation: blink 1s ease-in-out infinite alternate;
+          animation: blink 1s ease-in-out infinite alternate;
+}
+.fadeInDown {
+  opacity: 0;
+}
+.fadeInDown.run {
+  -webkit-animation: fadeInDown 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+          animation: fadeInDown 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+.fadeOutDown {
+  opacity: 1;
+}
+.fadeOutDown.run {
+  -webkit-animation: fadeOutDown 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+          animation: fadeOutDown 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+@keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+@-webkit-keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

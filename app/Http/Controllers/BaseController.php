@@ -13,7 +13,7 @@ class BaseController extends Controller
     public function index()
     {
         // 現在のURLを取得
-        session(['redirect_url' => url()->full()]);
+        session(['index_url' => url()->full()]);
         // 拠点の情報を取得
         $bases = Base::all();
         return view('base.index')->with([

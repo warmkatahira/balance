@@ -11,7 +11,7 @@ class CustomerService
     public function inputSession($base_id)
     {
         // 現在のURLを取得
-        session(['redirect_url' => url()->full()]);
+        session(['index_url' => url()->full()]);
         // セッションに格納(初期は自拠点を格納)
         session(['base_id' => $base_id]);
         return;

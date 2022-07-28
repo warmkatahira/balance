@@ -22,7 +22,7 @@
                     <th class="p-2 px-2 w-3/12">メールアドレス</th>
                     <th class="p-2 px-2 w-2/12 text-center">権限区分</th>
                     <th class="p-2 px-2 w-1/12 text-center">ステータス</th>
-                    <th class="p-2 px-2 w-2/12">最終ログイン日時</th>
+                    <th class="p-2 px-2 w-2/12 text-center">最終ログイン日時</th>
                 </tr>
             </thead>
             <tbody class="bg-white">
@@ -41,12 +41,15 @@
                                 <td class="p-1 px-2 border">
                                     <input type="text" name="name[]" class="text-sm rounded-lg" value="{{ $user->name }}" autocomplete="off">
                                 </td>
+                                <td class="p-1 px-2 border">
+                                    <input type="text" name="email[]" class="text-sm rounded-lg w-full" value="{{ $user->email }}" autocomplete="off">
+                                </td>
                             @endif
                             @if(Auth::user()->role_id != 1)
                                 <td class="p-1 px-2 border">{{ $user->base->base_name }}</td>
                                 <td class="p-1 px-2 border">{{ $user->name }}</td>
+                                <td class="p-1 px-2 border">{{ $user->email }}</td>
                             @endif
-                            <td class="p-1 px-2 border">{{ $user->email }}</td>
                             @if(Auth::user()->role_id == 1)
                                 <td class="p-1 px-2 border text-center">
                                     <select class="text-xs rounded-lg" name="role[]">
@@ -67,7 +70,7 @@
                                 <td class="p-1 px-2 border">{{ $user->role->role_name }}</td>
                                 <td class="p-1 px-2 border text-center {{ $user->status == 1 ? 'bg-sky-200' : 'bg-pink-200' }}">{{ $user->status == 1 ? '有効' : '無効' }}</td>
                             @endif
-                            <td class="p-1 px-2 border">{{ $user->status == 1 ? $user->last_login_at : '' }}</td>
+                            <td class="p-1 px-2 border text-center">{{ $user->status == 1 ? $user->last_login_at : '' }}</td>
                         </tr>
                     @endforeach
                 </form>
