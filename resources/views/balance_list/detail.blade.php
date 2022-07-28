@@ -10,15 +10,23 @@
                     収支詳細
                 </div>
             </div>
+            <div class="col-start-9 col-span-2 rounded-lg text-center">
+                <p class="font-bold">登録者</p>
+                <p class="font-bold py-1 text-sm">{{ $balance->user->name }}<br><span class="">{{ $balance->created_at }}</span></p>
+            </div>
+            <div class="col-start-11 col-span-2 rounded-lg text-center">
+                <p class="font-bold">最終更新者</p>
+                <p class="font-bold py-1 text-sm">{{ $balance->last_updated_user->name }}<br><span class="">{{ $balance->updated_at }}</span></p>
+            </div>
         </div>
     </x-slot>
     <div class="py-5 mx-5 grid grid-cols-12">
         <div class="col-span-12 grid grid-cols-12 gap-4 mb-5">
-            <div class="col-span-1 rounded-lg text-center bg-black text-white">
+            <div class="col-span-2 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">拠点</p>
                 <p class="font-bold py-5 text-sm">{{ $balance->base->base_name }}</p>
             </div>
-            <div class="col-span-1 rounded-lg text-center bg-black text-white">
+            <div class="col-span-2 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">収支日</p>
                 <p class="font-bold py-5">{{ $balance->balance_date }}</p>
             </div>
@@ -26,25 +34,17 @@
                 <p class="mt-3 font-bold">荷主名</p>
                 <p class="font-bold py-5 text-sm">{{ $balance->customer->customer_name }}</p>
             </div>
-            <div class="col-span-1 rounded-lg text-center bg-black text-white">
-                <p class="mt-3 font-bold">登録者</p>
-                <p class="font-bold py-5 text-sm">{{ $balance->user->name }}<br><span class="text-xs">{{ $balance->created_at }}</span></p>
-            </div>
-            <div class="col-span-1 rounded-lg text-center bg-black text-white">
-                <p class="mt-3 font-bold">最終更新者</p>
-                <p class="font-bold py-5 text-sm">{{ $balance->last_updated_user->name }}<br><span class="text-xs">{{ $balance->updated_at }}</span></p>
-            </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">売上</p>
-                <p class="font-bold py-5">{{ number_format($balance->sales) }}円</p>
+                <p class="font-bold py-5 text-2xl">{{ number_format($balance->sales) }}円</p>
             </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">経費</p>
-                <p class="font-bold py-5">{{ number_format($balance->expenses) }}円</p>
+                <p class="font-bold py-5 text-2xl">{{ number_format($balance->expenses) }}円</p>
             </div>
             <div class="col-span-2 rounded-lg text-center bg-black text-white">
                 <p class="mt-3 font-bold">利益</p>
-                <p class="font-bold py-5">{{ number_format($balance->profit) }}円</p>
+                <p class="font-bold py-5 text-2xl">{{ number_format($balance->profit) }}円</p>
             </div>
         </div>
         <!-- 収支情報を表示 -->

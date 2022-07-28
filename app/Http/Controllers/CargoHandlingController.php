@@ -22,17 +22,19 @@ class CargoHandlingController extends Controller
     {
         // 現在の日時を取得
         $nowDate = new Carbon('now');
-        // 追加があれば実施
-        if ($request->has('cargo_handling_name_add')) {
-            for($i = 0; $i < count($request->cargo_handling_name_add); $i++) {
-                $param = [
-                    'cargo_handling_name' => $request->cargo_handling_name_add[$i],
-                    'created_at' => $nowDate,
-                    'updated_at' => $nowDate,
-                ];
-                CargoHandling::insert($param);
-            }
-        }
+        $param = [
+            'cargo_handling_name' => $request->cargo_handling_name,
+            'created_at' => $nowDate,
+            'updated_at' => $nowDate,
+        ];
+        CargoHandling::insert($param);
+        return back();
+    }
+
+    public function delete(Request $request)
+    {
+        // 荷役を削除
+        CargoHandling::where('cargo_handling_id', $request->cargo_handling_id)->delete();
         return back();
     }
 }

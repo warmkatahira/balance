@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/balance_list_zensha', [BalanceListController::class, 'index_zensha'])->name('balance_list_zensha.index');
         Route::get('/balance_list_base', [BalanceListController::class, 'index_base'])->name('balance_list_base.index');
         Route::get('/balance_list_customer', [BalanceListController::class, 'index_customer'])->name('balance_list_customer.index');
+        Route::get('/balance_list_customer_get_ajax', [BalanceListController::class, 'index_customer_get_ajax']);
         Route::get('/balance_detail/id={balance_id}', [BalanceListController::class, 'detail'])->name('balance_list.detail');
         Route::get('/balance_detail_get_ajax/{balance_id}', [BalanceListController::class, 'balance_detail_get_ajax']);
         Route::get('/balance_delete', [BalanceDeleteController::class, 'delete'])->name('balance.delete');
@@ -100,6 +101,7 @@ Route::group(['middleware' => 'auth'], function(){
         // 荷役マスタ
         Route::get('/cargo_handling', [CargoHandlingController::class, 'index'])->name('cargo_handling.index');
         Route::post('/cargo_handling_register', [CargoHandlingController::class, 'register'])->name('cargo_handling.register');
+        Route::get('/cargo_handling_delete', [CargoHandlingController::class, 'delete'])->name('cargo_handling.delete');
 
         // 経費項目マスタ
         Route::get('/expenses_item', [ExpensesItemController::class, 'index'])->name('expenses_item.index');

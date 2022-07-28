@@ -15,32 +15,29 @@
             @endif
         </div>
     </x-slot>
-    <form method="post" id="cargo_handling_form" action="{{ route('cargo_handling.register') }}" class="m-0">
-        @csrf
-        <div class="grid grid-cols-12 py-5 mx-5">
-            <!-- 荷役一覧 -->
-            <table class="text-sm mb-5 col-span-8">
-                <thead>
-                    <tr class="text-left text-white bg-gray-600 border-gray-600 sticky top-0">
-                        <th class="p-2 px-2 w-6/12">荷役名</th>
-                        <th class="p-2 px-2 w-6/12 text-center">操作</th>
+    <div class="grid grid-cols-12 py-5 mx-5">
+        <!-- 荷役一覧 -->
+        <table class="text-sm mb-5 col-span-4">
+            <thead>
+                <tr class="text-left text-white bg-gray-600 border-gray-600 sticky top-0">
+                    <th class="p-2 px-2 w-10/12">荷役名</th>
+                    <th class="p-2 px-2 w-2/12 text-center">操作</th>
+                </tr>
+            </thead> 
+            <tbody id="cargo_handling_body" class="bg-white">
+                @foreach($cargo_handlings as $cargo_handling)
+                    <tr id="tr_{{ $cargo_handling->cargo_handling_name }}">
+                        <td class="p-1 px-2 border"><input name="cargo_handling_name[{{ $cargo_handling->cargo_handling_id }}]" value="{{ $cargo_handling->cargo_handling_name }}" readonly></td>
+                        <td class="p-1 px-2 border text-center">
+                            @if(Auth::user()->role_id == 1)
+                                <a href="{{ route('cargo_handling.delete', ['cargo_handling_id' => $cargo_handling->cargo_handling_id]) }}" class="cargo_handling_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</a>
+                            @endif
+                        </td>
                     </tr>
-                </thead> 
-                <tbody id="cargo_handling_body" class="bg-white">
-                    @foreach($cargo_handlings as $cargo_handling)
-                        <tr id="tr_{{ $cargo_handling->cargo_handling_name }}">
-                            <td class="p-1 px-2 border"><input name="cargo_handling_name[{{ $cargo_handling->cargo_handling_id }}]" value="{{ $cargo_handling->cargo_handling_name }}" readonly></td>
-                            <td class="p-1 px-2 border text-center">
-                                @if(Auth::user()->role_id == 1)
-                                    <button type="button" id="{{ $cargo_handling->cargo_handling_name }}" class="cargo_handling_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </form>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     <!-- 荷役登録モーダル -->
     <div id="cargo_handling_register_modal" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
         <div class="relative top-40 mx-auto shadow-lg rounded-md bg-white max-w-md">
@@ -51,7 +48,10 @@
             </div>
             <!-- Modal body -->
             <div class="p-10">
-                <input type="text" id="cargo_handling_name" name="cargo_handling_name" class="w-full mt-5" placeholder="荷役名" autocomplete="off" required>
+                <form method="post" id="cargo_handling_register_form" action="{{ route('cargo_handling.register') }}" class="m-0">
+                    @csrf
+                    <input type="text" id="cargo_handling_name" name="cargo_handling_name" class="w-full mt-5" placeholder="荷役名" autocomplete="off" required>
+                </form>
             </div>
             <!-- Modal footer -->
             <div class="px-4 py-2 border-t border-t-gray-500 grid grid-cols-2 gap-4">

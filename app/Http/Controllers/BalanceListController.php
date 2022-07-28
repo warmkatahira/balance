@@ -85,12 +85,20 @@ class BalanceListController extends Controller
 
     public function index_customer(Request $request)
     {
+        // セッションに情報を格納(AJAXで使用)
+        session(['customer_id' => $request->customer_id]);
+        session(['date' => $request->date]);
+        // サービスクラスを定義
         $BalanceListService = new BalanceListService;
         // 日付期間の開始と終了を取得
         $BalanceListService->getStartEndOfDate($request->date, $request->date);
         $balances = $BalanceListService->getBalanceToCustomerDetail($request->base_id, $request->customer_id);
+        session(['balances' => $balances]);
+        // 荷主情報を取得
+        $customer = Customer::where('customer_id', $request->customer_id)->first();
         return view('balance_list.index_customer')->with([
             'balances' => $balances,
+            'customer' => $customer,
         ]);
     }
 
@@ -152,6 +160,31 @@ class BalanceListController extends Controller
         // 結果を返す
         return response()->json([
             'customers' => $customers,
+        ]);
+    }
+
+    public function index_customer_get_ajax(Request $request)
+    {
+        // 配列用の変数をセット
+        $date = [];
+        $sales = [];
+        $expenses = [];
+        $profit = [];
+        foreach(session('balances') as $balance){
+            // 収支日をフォーマット
+            $date_format = new Carbon($balance->date);
+            // それぞれの値を配列に追加
+            array_push($date, $date_format->format('m月d日'));
+            array_push($sales, $balance->total_sales);
+            array_push($expenses, $balance->total_expenses);
+            array_push($profit, $balance->total_profit);
+        }
+        // 結果を返す
+        return response()->json([
+            'date' => $date,
+            'sales' => $sales,
+            'expenses' => $expenses,
+            'profit' => $profit,
         ]);
     }
 }

@@ -10923,55 +10923,89 @@ return jQuery;
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-/*!****************************************!*\
-  !*** ./resources/js/cargo_handling.js ***!
-  \****************************************/
+/*!************************************************!*\
+  !*** ./resources/js/customer_monthly_chart.js ***!
+  \************************************************/
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-// 荷役登録モーダルを開く
-$("[id=cargo_handling_register_modal_open]").on("click", function () {
-  var modal = document.getElementById('cargo_handling_register_modal');
-  modal.classList.remove('hidden');
-}); // 荷役登録モーダルを閉じる
+var salesChart = null;
+var expensesChart = null;
 
-$("[class^=cargo_handling_register_modal_close]").on("click", function () {
-  var modal = document.getElementById('cargo_handling_register_modal');
-  modal.classList.add('hidden');
-}); // 荷役登録ボタンが押下されたら
+window.onload = function () {
+  // 環境でパスを可変させる
+  if (false) { var ajax_url; }
 
-$("[id=cargo_handling_register]").on("click", function () {
-  // 登録情報の要素を取得
-  var cargo_handling_name = document.getElementById('cargo_handling_name');
-
-  try {
-    // 荷役名が入力されているかチェック
-    if (!cargo_handling_name.value) {
-      throw new Error('荷役が入力されていません。');
-    } // 既に存在する荷役名ではないかチェック
-
-
-    if (document.querySelector('#tr_' + cargo_handling_name.value) !== null) {
-      throw new Error('既に存在する荷役名です。');
-    }
-
-    var cargo_handling_register_form = document.getElementById('cargo_handling_register_form');
-    var result = window.confirm('荷役を追加しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
-
-    if (result == true) {
-      cargo_handling_register_form.submit();
-    }
-  } catch (e) {
-    alert(e.message);
-    return false;
+  if (true) {
+    var ajax_url = '/balance/balance_list_customer_get_ajax';
   }
-}); // 荷役を削除
 
-$(document).on("click", ".cargo_handling_delete", function () {
-  var result = window.confirm('荷役マスタを削除しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: ajax_url,
+    type: 'GET',
+    dataType: 'json',
+    success: function success(data) {
+      // 売上チャートを表示
+      var salesContext = document.querySelector("#sales_chart").getContext('2d'); // 前回のチャートを破棄
 
-  if (result == false) {
-    return false;
-  }
-});
+      if (salesChart != null) {
+        salesChart.destroy();
+      }
+
+      salesChart = new Chart(salesContext, {
+        type: 'line',
+        data: {
+          labels: data['date'],
+          datasets: [{
+            label: "売上",
+            data: data['sales'],
+            borderColor: "rgba(65,105,225,1)",
+            backgroundColor: "rgba(65,105,225,0)",
+            pointHoverRadius: 5
+          }, {
+            label: "経費",
+            data: data['expenses'],
+            borderColor: "rgba(219,39,91,0.5)",
+            backgroundColor: "rgba(219,39,91,0)",
+            pointHoverRadius: 5
+          }, {
+            label: "利益",
+            data: data['profit'],
+            borderColor: "rgba(246, 173, 85, 1)",
+            backgroundColor: "rgba(246, 173, 85, 0)",
+            pointHoverRadius: 5
+          }]
+        },
+        options: {
+          responsive: false,
+          title: {
+            display: true,
+            text: '収支チャート'
+          },
+          scales: {
+            yAxes: [//グラフ縦軸（Y軸）設定
+            {
+              ticks: {
+                callback: function callback(value) {
+                  return value + '円'; //数字＋%で表示			
+                }
+              }
+            }],
+            xAxes: [//棒グラフ横（X軸）設定
+            {
+              barPercentage: 0.5 //バーの太さ
+
+            }]
+          }
+        }
+      });
+    },
+    error: function error() {
+      alert('失敗');
+    }
+  });
+};
 })();
 
 /******/ })()
