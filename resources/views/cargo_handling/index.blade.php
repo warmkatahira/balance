@@ -21,18 +21,20 @@
             <thead>
                 <tr class="text-left text-white bg-gray-600 border-gray-600 sticky top-0">
                     <th class="p-2 px-2 w-10/12">荷役名</th>
-                    <th class="p-2 px-2 w-2/12 text-center">操作</th>
+                    @if(Auth::user()->role_id == 1)
+                        <th class="p-2 px-2 w-2/12 text-center">操作</th>
+                    @endif
                 </tr>
             </thead> 
             <tbody id="cargo_handling_body" class="bg-white">
                 @foreach($cargo_handlings as $cargo_handling)
                     <tr id="tr_{{ $cargo_handling->cargo_handling_name }}">
                         <td class="p-1 px-2 border"><input name="cargo_handling_name[{{ $cargo_handling->cargo_handling_id }}]" value="{{ $cargo_handling->cargo_handling_name }}" readonly></td>
-                        <td class="p-1 px-2 border text-center">
-                            @if(Auth::user()->role_id == 1)
+                        @if(Auth::user()->role_id == 1)
+                            <td class="p-1 px-2 border text-center">
                                 <a href="{{ route('cargo_handling.delete', ['cargo_handling_id' => $cargo_handling->cargo_handling_id]) }}" class="cargo_handling_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</a>
-                            @endif
-                        </td>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

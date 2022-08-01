@@ -248,4 +248,13 @@ class BalanceListService
             'total_other_sales_amount' => $total_other_sales_amount,
         ]);
     }
+
+    public function getMonthlyAmountTarget()
+    {
+        // 収支金額を取得する対象の収支を抽出
+        $query = Balance::query();
+        $query = $query->where('balance_customer_id', session('customer_id'))
+                    ->whereBetween('balance_date', [session('date_search_from'), session('date_search_to')]);
+        return $query;
+    }
 }

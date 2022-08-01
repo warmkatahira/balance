@@ -154,6 +154,7 @@ class BalanceListController extends Controller
 
     public function get_customer_ajax(Request $request)
     {
+        // サービスクラスを定義
         $BalanceListService = new BalanceListService;
         // 選択された拠点の荷主を取得
         $customers = $BalanceListService->getCustomers($request->base_id);
@@ -163,13 +164,17 @@ class BalanceListController extends Controller
         ]);
     }
 
+    // グラフ用の情報を取得
     public function index_customer_get_ajax(Request $request)
     {
-        // 配列用の変数をセット
+        // 変数をセット
         $date = [];
         $sales = [];
         $expenses = [];
         $profit = [];
+        $profit_per = [];
+
+        // 日別用グラフの情報を取得
         foreach(session('balances') as $balance){
             // 収支日をフォーマット
             $date_format = new Carbon($balance->date);
@@ -178,13 +183,60 @@ class BalanceListController extends Controller
             array_push($sales, $balance->total_sales);
             array_push($expenses, $balance->total_expenses);
             array_push($profit, $balance->total_profit);
+            array_push($profit_per, $balance->total_sales == 0 ? 0 : round(($balance->total_profit / $balance->total_sales)*100, 2));
         }
+
+        // 月別用のグラフの情報を取得
+        // サービスクラスを定義
+        $BalanceListService = new BalanceListService;
+        // 各収支金額を取得
+        // balancesテーブルの金額を集計
+        $query = $BalanceListService->getMonthlyAmountTarget();
+        $total_sales = $query->sum('sales');
+        $total_expenses = $query->sum('expenses');
+        $total_storage_fee = $query->sum('storage_fee');
+        $total_storage_expenses = $query->sum('storage_expenses');
+        // 運賃売上の金額を取得
+        $query = $BalanceListService->getMonthlyAmountTarget();
+        $total_fare_sales_amount = $query->join('balance_fares', 'balances.balance_id', '=', 'balance_fares.balance_id')
+                                    ->where('balance_fares.fare_balance_category', 'sales')->sum('balance_fares.fare_amount');
+        // 運賃経費の金額を取得
+        $query = $BalanceListService->getMonthlyAmountTarget();
+        $total_fare_expenses_amount = $query->join('balance_fares', 'balances.balance_id', '=', 'balance_fares.balance_id')
+                                    ->where('balance_fares.fare_balance_category', 'expenses')->sum('balance_fares.fare_amount');
+        // 荷役売上の金額を取得
+        $query = $BalanceListService->getMonthlyAmountTarget();
+        $total_cargo_handling_amount =  $query->join('balance_cargo_handlings', 'balances.balance_id', '=', 'balance_cargo_handlings.balance_id')
+                                            ->sum('balance_cargo_handlings.cargo_handling_amount');
+        // 人件費の金額を取得
+        $query = $BalanceListService->getMonthlyAmountTarget();
+        $total_labor_costs =            $query->join('balance_labor_costs', 'balances.balance_id', '=', 'balance_labor_costs.balance_id')
+                                            ->sum('balance_labor_costs.labor_costs');
+        // その他売上の金額を取得
+        $query = $BalanceListService->getMonthlyAmountTarget();
+        $total_other_sales_amount =     $query->join('balance_other_sales', 'balances.balance_id', '=', 'balance_other_sales.balance_id')
+                                            ->sum('balance_other_sales.other_sales_amount');
+        // その他経費の金額を取得
+        $query = $BalanceListService->getMonthlyAmountTarget();
+        $total_other_expenses_amount =  $query->join('balance_other_expenses', 'balances.balance_id', '=', 'balance_other_expenses.balance_id')
+                                            ->sum('balance_other_expenses.other_expenses_amount');
         // 結果を返す
         return response()->json([
             'date' => $date,
             'sales' => $sales,
             'expenses' => $expenses,
             'profit' => $profit,
+            'profit_per' => $profit_per,
+            'total_sales' => $total_sales,
+            'total_expenses' => $total_expenses,
+            'total_storage_fee' => $total_storage_fee,
+            'total_storage_expenses' => $total_storage_expenses,
+            'total_fare_sales_amount' => $total_fare_sales_amount,
+            'total_fare_expenses_amount' => $total_fare_expenses_amount,
+            'total_cargo_handling_amount' => $total_cargo_handling_amount,
+            'total_labor_costs' => $total_labor_costs,
+            'total_other_sales_amount' => $total_other_sales_amount,
+            'total_other_expenses_amount' => $total_other_expenses_amount,
         ]);
     }
 }

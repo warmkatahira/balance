@@ -683,6 +683,9 @@ select {
 .col-start-1 {
   grid-column-start: 1;
 }
+.col-start-4 {
+  grid-column-start: 4;
+}
 .col-start-3 {
   grid-column-start: 3;
 }
@@ -695,8 +698,8 @@ select {
 .col-start-2 {
   grid-column-start: 2;
 }
-.col-start-4 {
-  grid-column-start: 4;
+.col-start-10 {
+  grid-column-start: 10;
 }
 .row-span-6 {
   grid-row: span 6 / span 6;
@@ -844,6 +847,9 @@ select {
 .h-8 {
   height: 2rem;
 }
+.h-60 {
+  height: 15rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -868,8 +874,8 @@ select {
 .w-3\/12 {
   width: 25%;
 }
-.w-7\/12 {
-  width: 58.333333%;
+.w-5\/12 {
+  width: 41.666667%;
 }
 .w-1\/12 {
   width: 8.333333%;
@@ -901,9 +907,6 @@ select {
 .w-3\/4 {
   width: 75%;
 }
-.w-5\/12 {
-  width: 41.666667%;
-}
 .w-11\/12 {
   width: 91.666667%;
 }
@@ -912,6 +915,9 @@ select {
 }
 .w-48 {
   width: 12rem;
+}
+.w-7\/12 {
+  width: 58.333333%;
 }
 .max-w-md {
   max-width: 28rem;
@@ -1012,6 +1018,9 @@ select {
 }
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+.overflow-x-scroll {
+  overflow-x: scroll;
 }
 .rounded-md {
   border-radius: 0.375rem;

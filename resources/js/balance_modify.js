@@ -5,6 +5,7 @@ window.onload = function(){
     total_labor_costs_update();
     total_other_sales_update();
     total_other_expenses_update();
+    cargo_handling_option_update();
 }
 
 // 運賃関連の合計を更新
@@ -101,4 +102,44 @@ function total_other_expenses_update()
         other_expenses_amount_sum += isNaN(other_expenses_amount_element[i].value) ? 0 : Number(other_expenses_amount_element[i].value);
     }
     total_other_expenses_amount.innerHTML = other_expenses_amount_sum.toLocaleString();
+}
+
+// 荷役のプルダウンを更新
+function cargo_handling_option_update(){
+    // 荷主IDを取得
+    const customer_id = customer_select.value;
+    // 環境でパスを可変させる
+    if(process.env.MIX_APP_ENV === 'local'){
+        var ajax_url = '/balance_register_customer_data_get_ajax/' + customer_id;
+    }
+    if(process.env.MIX_APP_ENV === 'pro'){
+        var ajax_url = '/balance/balance_register_customer_data_get_ajax/' + customer_id;
+    }
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: ajax_url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data){
+            // 荷役選択のセレクトボックスをクリア
+            for (let i = cargo_handling_select.childElementCount; i > 0; i--) {
+                cargo_handling_select.remove(i);
+            }
+            // 選択した荷主に登録してある荷役をオプションに追加
+            data['cargo_handling_settings'].forEach(function(element){
+                // 現在登録上に表示されていない荷役のみをオプションに追加
+                if(document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '_cargo_handling_div') == null){
+                    const cargo_handling_op = document.createElement('option');
+                    cargo_handling_op.value = element['cargo_handling_id'];
+                    cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']) + '】（単価:' + element['cargo_handling_unit_price'] + '円）';
+                    cargo_handling_select.append(cargo_handling_op);
+                }
+            });
+        },
+        error: function(){
+            alert('失敗');
+        }
+    });
 }

@@ -121,6 +121,6 @@ class BalanceModifyController extends Controller
         });
         session()->flash('alert_success', '収支修正が完了しました。');
         // 収支一覧に遷移
-        return redirect(session('redirect_url'));
+        return redirect(session('index_url'));
     }
 }

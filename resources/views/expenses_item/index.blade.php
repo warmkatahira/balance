@@ -18,8 +18,11 @@
             <thead>
                 <tr class="font-normal text-left text-white bg-gray-600 border-gray-600 sticky top-0">
                     <th class="p-2 px-2 w-3/12">経費項目名</th>
-                    <th class="p-2 px-2 w-7/12">経費項目備考</th>
+                    <th class="p-2 px-2 w-5/12">経費項目備考</th>
                     <th class="p-2 px-2 w-2/12">経費項目区分</th>
+                    @if(Auth::user()->role_id == 1)
+                        <th class="p-2 px-2 w-2/12 text-center">操作</th>
+                    @endif
                 </tr>
             </thead>
             <tbody class="bg-white">
@@ -28,6 +31,11 @@
                         <td class="p-1 px-2 border">{{ $expenses_item->expenses_item_name }}</td>
                         <td class="p-1 px-2 border">{{ $expenses_item->expenses_item_note }}</td>
                         <td class="p-1 px-2 border">{{ $expenses_item->expenses_item_category }}</td>
+                        @if(Auth::user()->role_id == 1)
+                            <td class="p-1 px-2 border text-center">
+                                <a href="{{ route('expenses_item.delete', ['expenses_item_id' => $expenses_item->expenses_item_id]) }}" class="expenses_item_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</a>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
@@ -43,19 +51,19 @@
             </div>
             <!-- Modal body -->
             <div class="p-10">
-                <form method="post" action="{{ route('expenses_item.register') }}">
+                <form method="post" id="expenses_item_register_form" action="{{ route('expenses_item.register') }}">
                     @csrf
-                    <input type="text" name="expenses_item_name" class="w-full mt-5" placeholder="経費項目名" autocomplete="off" required>
-                    <input type="text" name="expenses_item_note" class="w-full mt-5" placeholder="経費項目備考" autocomplete="off">
+                    <input type="text" id="expenses_item_name" name="expenses_item_name" class="w-full mt-5" placeholder="経費項目名" autocomplete="off" required>
+                    <input type="text" id="expenses_item_note" name="expenses_item_note" class="w-full mt-5" placeholder="経費項目備考" autocomplete="off">
                     <select id="expenses_item_category" name="expenses_item_category" class="w-full mt-5">
                         <option value="毎月" selected>毎月</option>
                         <option value="変動">変動</option>
                     </select>
+                </form>
             </div>
             <!-- Modal footer -->
             <div class="px-4 py-2 border-t border-t-gray-500 grid grid-cols-2 gap-4">
-                    <input type="submit" class="cursor-pointer rounded-lg bg-teal-200 text-center p-4 transition duration-300 ease-in-out hover:bg-gray-400 hover:text-white" value="登録">
-                </form>
+                <button type="button" id="expenses_item_register_enter" class="cursor-pointer rounded-lg bg-teal-200 text-center p-4 transition duration-300 ease-in-out hover:bg-gray-400 hover:text-white">登録</button>
                 <a class="expenses_item_register_modal_close cursor-pointer rounded-lg bg-pink-200 text-center p-4 transition duration-300 ease-in-out hover:bg-gray-400 hover:text-white">
                     閉じる
                 </a>

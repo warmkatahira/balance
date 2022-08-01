@@ -246,7 +246,7 @@ function total_fare_expenses_update(){
     total_fare_expenses.innerHTML = fare_amount_sum.toLocaleString();
 }
 
-// 荷主が変更されたら、荷役と配送方法のセレクトボックスを更新、保管関連を算出
+// 荷主が変更されたら、荷役/配送方法のプルダウンを更新、保管関連を算出
 $("[id=customer_select]").on("change",function(){
     // 荷主IDを取得
     const customer_id = customer_select.value;
@@ -271,19 +271,24 @@ $("[id=customer_select]").on("change",function(){
             for (let i = cargo_handling_select.childElementCount; i > 0; i--) {
                 cargo_handling_select.remove(i);
             }
-            // 選択した荷主に登録してある荷役をオプションに追加
-            data['cargo_handlings'].forEach(function(element){
-                const cargo_handling_op = document.createElement('option');
-                cargo_handling_op.value = element['cargo_handling_id'];
-                cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + element['cargo_handling_note'] + '】（単価:' + element['cargo_handling_unit_price'] + '円）';
-                cargo_handling_select.append(cargo_handling_op);
-                // 収支登録初期表示がONの荷役を追加
+            data['cargo_handling_settings'].forEach(function(element){
+                // 収支登録初期表示がONの荷役を表示させる
                 if (element['balance_register_default_disp'] == 1) {
                     cargo_handling_add(element['cargo_handling_name'], element['cargo_handling_name'], element['cargo_handling_unit_price'], element['cargo_handling_note']);
                 }
-                // 荷役合計を更新
-                total_cargo_handling_update();
             });
+            // 選択した荷主に登録してある荷役をオプションに追加
+            data['cargo_handling_settings'].forEach(function(element){
+                // 表示されていない荷役のみを追加
+                if(document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '_cargo_handling_div') == null){
+                    const cargo_handling_op = document.createElement('option');
+                    cargo_handling_op.value = element['cargo_handling_id'];
+                    cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']) + '】（単価:' + element['cargo_handling_unit_price'] + '円）';
+                    cargo_handling_select.append(cargo_handling_op);
+                }
+            });
+            // 荷役合計を更新
+            total_cargo_handling_update();
             // 配送方法の要素を全て削除
             $('.shipping_method_div').remove();
             // 配送方法選択のセレクトボックスをクリア
@@ -317,6 +322,14 @@ $("[id=customer_select]").on("change",function(){
             // 保管経費を出力
             storage_expenses.value = data['storage_expenses'];
             total_storage_expenses.innerHTML = Number(storage_expenses.value).toLocaleString();
+
+            // 月額設定されている売上を稼働日数で割る
+            data['monthly_sales_settings'].forEach(function(element){
+                other_sales_amount = Math.floor(element['sales_amount'] / data['customer']['working_days']);
+                monthly_sales_detail = element['sales_amount'].toLocaleString() + '円 / ' + data['customer']['working_days'] + '日 = ' + other_sales_amount.toLocaleString() + '円';
+                add_other_sales(element['sales_item_id'], element['sales_item_name'], monthly_sales_detail, other_sales_amount);
+            });
+            total_other_sales_update();
         },
         error: function(){
             alert('失敗');
@@ -348,6 +361,8 @@ $("[id=cargo_handling_add]").on("click",function(){
         }
         // 荷役要素を追加
         cargo_handling_add(cargo_handling_name_value, cargo_handling_name_value, cargo_handling_unit_price_value, cargo_handling_note_value);
+        // 荷役のプルダウンを更新
+        cargo_handling_option_update();
     } catch (e) {
         alert(e.message);
     }
@@ -445,7 +460,48 @@ $(document).on("click", ".delete_cargo_handling", function () {
     const delete_target_div = document.getElementById(target_id + '_cargo_handling_div');
     delete_target_div.remove();
     total_cargo_handling_update();
+    // 荷役のプルダウンを更新
+    cargo_handling_option_update();
 });
+
+function cargo_handling_option_update(){
+    // 荷主IDを取得
+    const customer_id = customer_select.value;
+    // 環境でパスを可変させる
+    if(process.env.MIX_APP_ENV === 'local'){
+        var ajax_url = '/balance_register_customer_data_get_ajax/' + customer_id;
+    }
+    if(process.env.MIX_APP_ENV === 'pro'){
+        var ajax_url = '/balance/balance_register_customer_data_get_ajax/' + customer_id;
+    }
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: ajax_url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data){
+            // 荷役選択のセレクトボックスをクリア
+            for (let i = cargo_handling_select.childElementCount; i > 0; i--) {
+                cargo_handling_select.remove(i);
+            }
+            // 選択した荷主に登録してある荷役をオプションに追加
+            data['cargo_handling_settings'].forEach(function(element){
+                // 現在登録上に表示されていない荷役のみをオプションに追加
+                if(document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '_cargo_handling_div') == null){
+                    const cargo_handling_op = document.createElement('option');
+                    cargo_handling_op.value = element['cargo_handling_id'];
+                    cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']) + '】（単価:' + element['cargo_handling_unit_price'] + '円）';
+                    cargo_handling_select.append(cargo_handling_op);
+                }
+            });
+        },
+        error: function(){
+            alert('失敗');
+        }
+    });
+}
 
 // 作業数と荷役単価が変更された際の金額更新処理
 $(document).on("change", ".cargo_handling_amount_update", function () {
@@ -634,7 +690,11 @@ $("[id=other_sales_add]").on("click",function(){
     const select_index = other_sales_select.selectedIndex;
     // 選択した経費の値を取得
     const select_value = other_sales_select.options[select_index].innerHTML;
+    add_other_sales(select_id, select_value, '', '');
+});
 
+function add_other_sales(select_id, select_value, monthly_sales_detail_value, other_sales_amount_value){
+    
     try {
         // id = 0(value = 0)ではないかチェック
         if (select_id == 0) {
@@ -660,6 +720,11 @@ $("[id=other_sales_add]").on("click",function(){
         other_sales_note.placeholder = '備考';
         other_sales_note.autocomplete = 'off';
         other_sales_note.classList.add('text-sm', 'col-span-2', 'col-start-4', 'h-4/5');
+
+        // （月額売上用）算出式を表示する要素を作成
+        const monthly_sales_detail = document.createElement('p');
+        monthly_sales_detail.classList.add('font-bold', 'text-sm', 'col-start-7', 'col-span-2', 'py-3');
+        monthly_sales_detail.innerHTML = monthly_sales_detail_value;
         
         // 売上金額を入力する要素を作成
         const other_sales_amount = document.createElement('input');
@@ -669,7 +734,10 @@ $("[id=other_sales_add]").on("click",function(){
         other_sales_amount.placeholder = '金額';
         other_sales_amount.autocomplete = 'off';
         other_sales_amount.classList.add('text-sm', 'col-span-2', 'col-start-9', 'text-right', 'other_sales_amount_update', 'h-4/5', 'other_sales_amount', 'int_validation');
-    
+        if(monthly_sales_detail_value != ''){
+            other_sales_amount.value = other_sales_amount_value;
+        }
+
         // 円という文字を表示する要素を作成
         const other_sales_amount_text = document.createElement('p');
         other_sales_amount_text.classList.add('text-sm', 'col-span-1', 'col-start-11', 'text-left', 'pt-5', 'ml-2');
@@ -688,7 +756,7 @@ $("[id=other_sales_add]").on("click",function(){
         target_div.classList.add('grid', 'grid-cols-12', 'col-span-12', 'border-b-2', 'border-black', 'pt-2');
 
         // divタグに作成した要素を追加
-        target_div.append(other_sales_name, other_sales_note, other_sales_amount, other_sales_amount_text, delete_btn);
+        target_div.append(other_sales_name, other_sales_note, monthly_sales_detail, other_sales_amount, other_sales_amount_text, delete_btn);
 
         // 纏めたdivタグを追加
         other_sales_list.insertBefore(target_div, total_other_sales_div);
@@ -696,7 +764,7 @@ $("[id=other_sales_add]").on("click",function(){
     } catch (e) {
         alert(e.message);
     }
-});
+}
 
 // 金額が変更された際の金額更新処理
 $(document).on("change", ".other_sales_amount_update", function () {

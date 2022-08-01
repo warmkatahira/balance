@@ -53,7 +53,7 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">個口</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_fare_sales"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div id="cargo_handling_list" class="grid grid-cols-12 bg-yellow-200 p-5 mt-5">
@@ -61,7 +61,7 @@
                 <select id="cargo_handling_select" name="cargo_handling_id" class="text-xs h-4/5 col-start-9 col-span-3">
                     <option value="0">荷役を選択</option>
                     @foreach($cargo_handlings as $cargo_handling)
-                        <option value="{{ $cargo_handling->cargo_handling_id }}">{{ $cargo_handling->cargo_handling_name.'【'.$cargo_handling->cargo_handling_note.'】（単価:'.$cargo_handling->cargo_handling_unit_price.'円）' }}</option>
+                        <option value="{{ $cargo_handling->cargo_handling_id }}">{{ $cargo_handling->cargo_handling_name.'【'.($cargo_handling->cargo_handling_note == null ? '' : $cargo_handling->cargo_handling_note).'】（単価:'.$cargo_handling->cargo_handling_unit_price.'円）' }}</option>
                     @endforeach
                 </select>
                 <button type="button" id="cargo_handling_add" class="col-start-12 col-span-1 bg-black text-white hover:bg-gray-400 text-sm h-4/5">追加</button>
@@ -86,7 +86,7 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">作業</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_cargo_handling"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-yellow-200 p-5 mt-5">
@@ -100,7 +100,7 @@
                 <div id="total_storage_fee_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_storage_fee">{{ $balance->storage_fee }}</p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div id="other_sales_list" class="grid grid-cols-12 bg-yellow-200 p-5 mt-5">
@@ -115,7 +115,7 @@
                 @foreach($balance_other_sales as $balance_other_sale)
                     <div id="{{ $balance_other_sale->other_sales_name.'_other_sales_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2">
                         <input name="other_sales_name[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_name }}" readonly>
-                        <input name="other_sales_note[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_note }}" readonly>
+                        <input name="other_sales_note[]" class="text-sm col-start-4 col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_note }}" readonly>
                         <input type="tel" id="{{ $balance_other_sale->other_sales_name.'_other_sales_amount' }}" name="other_sales_amount[]" class="text-sm col-span-2 col-start-9 text-right other_sales_amount_update h-4/5 other_sales_amount" value="{{ $balance_other_sale->other_sales_amount }}" placeholder="金額" autocomplete="off">
                         <p class="text-sm col-span-1 col-start-11 text-left pt-5 ml-2">円</p>
                         <button type="button" id="{{ $balance_other_sale->other_sales_name.'_other_sales_delete_btn' }}" class="col-span-1 col-start-12 bg-red-600 text-white hover:bg-gray-400 delete_other_sales h-4/5"><i class="las la-trash la-lg"></i></button>
@@ -124,7 +124,7 @@
                 <div id="total_other_sales_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_other_sales_amount"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div id="fare_list_expenses" class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
@@ -150,7 +150,7 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">個口</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_fare_expenses"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
@@ -174,7 +174,7 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">時間</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_labor_costs"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
@@ -188,7 +188,7 @@
                 <div id="total_storage_expenses_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_storage_expenses">{{ $balance->storage_expenses }}</p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div id="other_expenses_list" class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
@@ -203,7 +203,7 @@
                 @foreach($balance_other_expenses as $balance_other_expense)
                     <div id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2">
                         <input name="other_expenses_name[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_name }}" readonly>
-                        <input name="other_expenses_note[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_note }}" readonly>
+                        <input name="other_expenses_note[]" class="text-sm  col-start-4 col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_note }}" readonly>
                         <input type="tel" id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_amount' }}" name="other_expenses_amount[]" class="text-sm col-span-2 col-start-9 text-right other_expenses_amount_update h-4/5 other_expenses_amount" value="{{ $balance_other_expense->other_expenses_amount }}" placeholder="金額" autocomplete="off">
                         <p class="text-sm col-span-1 col-start-11 text-left pt-5 ml-2">円</p>
                         <button type="button" id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_delete_btn' }}" class="col-span-1 col-start-12 bg-red-600 text-white hover:bg-gray-400 delete_other_expenses h-4/5"><i class="las la-trash la-lg"></i></button>
@@ -212,7 +212,7 @@
                 <div id="total_other_expenses_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_other_expenses_amount"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-purple-200 p-5 mt-5">

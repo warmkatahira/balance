@@ -29,4 +29,11 @@ class ExpensesItemController extends Controller
         ExpensesItem::insert($param);
         return redirect()->route('expenses_item.index');
     }
+
+    public function delete(Request $request)
+    {
+        // 荷役を削除
+        ExpensesItem::where('expenses_item_id', $request->expenses_item_id)->delete();
+        return back();
+    }
 }

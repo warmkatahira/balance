@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginCheckController;
 use App\Http\Controllers\SalesPlanController;
+use App\Http\Controllers\MonthlySalesSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/customer_cargo_handling_setting', [CustomerController::class, 'cargo_handling_setting_update'])->name('customer_cargo_handling_setting.update');
         Route::get('/customer_shipping_method_setting', [CustomerController::class, 'shipping_method_setting_index'])->name('customer_shipping_method_setting.index');
         Route::post('/customer_shipping_method_setting', [CustomerController::class, 'shipping_method_setting_update'])->name('customer_shipping_method_setting.update');
+        
+            // 月額売上設定
+            Route::get('/monthly_sales_setting', [MonthlySalesSettingController::class, 'index'])->name('monthly_sales_setting.index');
+            Route::post('/monthly_sales_setting_register', [MonthlySalesSettingController::class, 'register'])->name('monthly_sales_setting.register');
+            Route::get('/monthly_sales_setting_delete', [MonthlySalesSettingController::class, 'delete'])->name('monthly_sales_setting.delete');
 
         // 荷役マスタ
         Route::get('/cargo_handling', [CargoHandlingController::class, 'index'])->name('cargo_handling.index');
@@ -106,10 +112,12 @@ Route::group(['middleware' => 'auth'], function(){
         // 経費項目マスタ
         Route::get('/expenses_item', [ExpensesItemController::class, 'index'])->name('expenses_item.index');
         Route::post('/expenses_item_register', [ExpensesItemController::class, 'register'])->name('expenses_item.register');
+        Route::get('/expenses_item_delete', [ExpensesItemController::class, 'delete'])->name('expenses_item.delete');
 
         // 売上項目マスタ
         Route::get('/sales_item', [SalesItemController::class, 'index'])->name('sales_item.index');
         Route::post('/sales_item_register', [SalesItemController::class, 'register'])->name('sales_item.register');
+        Route::get('/sales_item_delete', [SalesItemController::class, 'delete'])->name('sales_item.delete');
 
         // 配送方法マスタ
         Route::get('/shipping_method', [ShippingMethodController::class, 'index'])->name('shipping_method.index');
@@ -118,5 +126,6 @@ Route::group(['middleware' => 'auth'], function(){
         // ユーザーマスタ
         Route::get('/user', [UserController::class, 'index'])->name('user.index');
         Route::post('/user_update', [UserController::class, 'update'])->name('user.update');
+
     });
 });

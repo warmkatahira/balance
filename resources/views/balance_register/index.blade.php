@@ -37,7 +37,7 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">個口</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_fare_sales"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div id="cargo_handling_list" class="grid grid-cols-12 bg-yellow-200 p-5 mt-5">
@@ -52,7 +52,7 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">作業</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_cargo_handling"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-yellow-200 p-5 mt-5">
@@ -66,7 +66,7 @@
                 <div id="total_storage_fee_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_storage_fee"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div id="other_sales_list" class="grid grid-cols-12 bg-yellow-200 p-5 mt-5">
@@ -81,7 +81,7 @@
                 <div id="total_other_sales_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_other_sales_amount"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div id="fare_list_expenses" class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
@@ -92,7 +92,7 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">個口</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_fare_expenses"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
@@ -116,7 +116,7 @@
                     <p class="col-span-1 text-left font-bold text-xs pl-2 pt-2">時間</p>
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_labor_costs"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
@@ -130,7 +130,7 @@
                 <div id="total_storage_expenses_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_storage_expenses"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div id="other_expenses_list" class="grid grid-cols-12 bg-orange-200 p-5 mt-5">
@@ -145,7 +145,7 @@
                 <div id="total_other_expenses_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     <p class="col-start-7 col-span-2 text-right font-bold">金額合計</p>
                     <p class="col-start-9 col-span-2 text-right font-bold" id="total_other_expenses_amount"></p>
-                    <p class="col-start-11 col-span-1 text-left font-bold text-xs pl-2 pt-2">円</p>
+                    <p class="col-start-11 col-span-1 text-left font-bold text-sm pl-2 pt-2">円</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 bg-purple-200 p-5 mt-5">

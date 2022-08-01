@@ -28,4 +28,11 @@ class SalesItemController extends Controller
         SalesItem::insert($param);
         return back();
     }
+
+    public function delete(Request $request)
+    {
+        // 荷役を削除
+        SalesItem::where('sales_item_id', $request->sales_item_id)->delete();
+        return back();
+    }
 }

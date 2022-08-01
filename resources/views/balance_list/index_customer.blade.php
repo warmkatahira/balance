@@ -18,12 +18,30 @@
             </div>
         </div>
     </x-slot>
-    <!-- グラフを表示 -->
+    
     <div class="py-5 mx-5 grid grid-cols-12">
-        <div class="col-span-12">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <!-- 日別のグラフを表示 -->
+        <div class="col-span-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg overflow-x-scroll relative">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <canvas id="sales_chart" class="w-full"></canvas>
+                    <canvas id="sales_chart_daily" class="w-full"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- 月別のグラフを表示 -->
+        <div class="col-start-10 col-span-3 grid grid-cols-12">
+            <div class="col-span-12">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="bg-white border-b border-gray-200">
+                        <canvas id="sales_chart_monthly" class="w-full"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-12">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="bg-white border-b border-gray-200">
+                        <canvas id="expenses_chart_monthly" class="w-full"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,5 +70,8 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="col-start-9 col-span-4">
+            
+        </div>
     </div>
 </x-app-layout>

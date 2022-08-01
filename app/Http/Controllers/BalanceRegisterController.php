@@ -18,6 +18,7 @@ use App\Models\BalanceOtherExpense;
 use App\Models\BalanceOtherSale;
 use App\Models\LaborCost;
 use App\Models\CustomerShippingMethod;
+use App\Models\MonthlySalesSetting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,10 +55,10 @@ class BalanceRegisterController extends Controller
         // IDが0以外の時は実行
         if($customer_id != 0){
             // 荷主IDで荷役設定を取得
-            $cargo_handlings = CargoHandlingCustomer::where('customer_id', $customer_id)
-                                ->join('cargo_handlings', 'cargo_handling_customer.cargo_handling_id', '=', 'cargo_handlings.cargo_handling_id')
-                                ->select('cargo_handling_customer.*', 'cargo_handlings.cargo_handling_name')
-                                ->get();
+            $cargo_handling_settings = CargoHandlingCustomer::where('customer_id', $customer_id)
+                                        ->join('cargo_handlings', 'cargo_handling_customer.cargo_handling_id', '=', 'cargo_handlings.cargo_handling_id')
+                                        ->select('cargo_handling_customer.*', 'cargo_handlings.cargo_handling_name')
+                                        ->get();
             // 荷主IDで配送方法設定を取得
             $shipping_methods = CustomerShippingMethod::where('customer_id', $customer_id)
                                 ->join('shipping_methods', 'customer_shipping_method.shipping_method_id', '=', 'shipping_methods.shipping_method_id')
@@ -73,20 +74,48 @@ class BalanceRegisterController extends Controller
                 // 商を切り捨て
                 $storage_expenses = floor($customer->monthly_storage_expenses / $customer->working_days);
             }
+            // 月額売上設定を取得(Joinで売上名を取得している)
+            $monthly_sales_settings = MonthlySalesSetting::where('customer_id', $customer_id)
+                                        ->join('sales_items', 'monthly_sales_settings.sales_item_id', '=', 'sales_items.sales_item_id')
+                                        ->select('monthly_sales_settings.*','sales_items.sales_item_name')
+                                        ->get();
         }
         // 荷主が選択されていない場合
         if($customer_id == 0){
-            $cargo_handlings = array();
+            $cargo_handling_settings = array();
             $shipping_methods = array();
             $customer = array();
+            $monthly_sales_settings = array();
         }
         // 結果を返す
         return response()->json([
-            'cargo_handlings' => $cargo_handlings,
+            'cargo_handling_settings' => $cargo_handling_settings,
             'shipping_methods' => $shipping_methods,
             'customer' => $customer,
             'storage_fee' => $storage_fee,
             'storage_expenses' => $storage_expenses,
+            'monthly_sales_settings' => $monthly_sales_settings,
+        ]);
+    }
+
+    // 選択された荷主の荷役設定を取得
+    public function cargo_handling_setting_get_ajax(Request $request)
+    {
+        // IDが0以外（荷主が選択されている時）の時は実行
+        if($request->customer_id != 0){
+            // 荷主IDで荷役設定を取得
+            $cargo_handling_settings = CargoHandlingCustomer::where('customer_id', $request->customer_id)
+                                ->join('cargo_handlings', 'cargo_handling_customer.cargo_handling_id', '=', 'cargo_handlings.cargo_handling_id')
+                                ->select('cargo_handling_customer.*', 'cargo_handlings.cargo_handling_name')
+                                ->get();
+        }
+        // 荷主が選択されていない時
+        if($request->customer_id == 0){
+            $cargo_handling_settings = array();
+        }
+        // 結果を返す
+        return response()->json([
+            'cargo_handling_settings' => $cargo_handling_settings,
         ]);
     }
 

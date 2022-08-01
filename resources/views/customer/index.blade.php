@@ -54,7 +54,12 @@
                         <td class="p-1 px-2 border text-right">{{ number_format($customer->monthly_storage_fee) }}円</td>
                         <td class="p-1 px-2 border text-right">{{ number_format($customer->monthly_storage_expenses) }}円</td>
                         <td class="p-1 px-2 border text-right">{{ $customer->working_days }}日</td>
-                        <td class="p-1 px-2 border text-center"><a href="{{ route('customer_base_info.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">基本</a><a href="{{ route('customer_cargo_handling_setting.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">荷役設定</a><a href="{{ route('customer_shipping_method_setting.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">配送方法設定</a></td>
+                        <td class="p-1 px-2 border text-center">
+                            <a href="{{ route('customer_base_info.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">基本</a>
+                            <a href="{{ route('customer_cargo_handling_setting.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">荷役設定</a>
+                            <a href="{{ route('monthly_sales_setting.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">月額売上設定</a>
+                            <a href="{{ route('customer_shipping_method_setting.index', ['customer_id' => $customer->customer_id]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400 ml-5">配送方法設定</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -10923,113 +10923,61 @@ return jQuery;
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-/*!**************************************!*\
-  !*** ./resources/js/balance_list.js ***!
-  \**************************************/
+/*!***********************************************!*\
+  !*** ./resources/js/monthly_sales_setting.js ***!
+  \***********************************************/
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-var search_category_select = document.getElementById('search_category_select');
-var base_select = document.getElementById('base_select');
-var customer_select = document.getElementById('customer_select');
-var base = document.getElementById('base');
-var customer = document.getElementById('customer');
-var date_category_select = document.getElementById('date_category_select');
-var date_period_from = document.getElementById('date_period_from');
-var date_period_to = document.getElementById('date_period_to'); // 検索区分が変更されたら、拠点と荷主のプルダウンの表示/非表示を切り替え
+// 月額売上設定登録モーダルを開く
+$("[id=monthly_sales_setting_register_modal_open]").on("click", function () {
+  var modal = document.getElementById('monthly_sales_setting_register_modal');
+  modal.classList.remove('hidden');
+}); // 月額売上設定登録モーダルを閉じる
 
-$("[id=search_category_select]").on("change", function () {
-  // 選択しているインデックス番号を取得し、プルダウンの値を取得
-  var select_index = search_category_select.selectedIndex;
-  var select_value = search_category_select.options[select_index].innerHTML; // 全社だったら拠点=非表示、荷主=非表示
+$("[class^=monthly_sales_setting_register_modal_close]").on("click", function () {
+  var modal = document.getElementById('monthly_sales_setting_register_modal');
+  modal.classList.add('hidden');
+}); // 月額売上設定登録ボタンが押下されたら
 
-  if (select_value == '全社') {
-    base.classList.add('hidden');
-    customer.classList.add('hidden');
-    base_select.disabled = true;
-    customer_select.disabled = true;
-  } // 拠点だったら拠点=表示、荷主=非表示
+$("[id=monthly_sales_setting_register_enter]").on("click", function () {
+  // 登録情報の要素を取得
+  var sales_item_id = document.getElementById('sales_item_id');
+  var sales_amount = document.getElementById('sales_amount');
+  console.log(sales_item_id.value);
 
-
-  if (select_value == '拠点') {
-    base.classList.remove('hidden');
-    customer.classList.add('hidden');
-    base_select.disabled = false;
-    customer_select.disabled = true;
-  } // 荷主だったら拠点=表示、荷主=表示
+  try {
+    // 売上が選択されているかチェック
+    if (sales_item_id.value == 0) {
+      throw new Error('売上が選択されていません。');
+    } // 経費金額が正しいかチェック
 
 
-  if (select_value == '荷主') {
-    base.classList.remove('hidden');
-    customer.classList.remove('hidden');
-    base_select.disabled = false;
-    customer_select.disabled = false;
-  }
-}); // 日付区分が変更されたら、日付期間のTypeを変更
-
-$("[id=date_category_select]").on("change", function () {
-  // 選択しているインデックス番号を取得し、プルダウンの値を取得
-  var select_index = date_category_select.selectedIndex;
-  var select_value = date_category_select.options[select_index].innerHTML; // 変更時の初期値を今日（今月）に設定する為の処理
-
-  var now_date = new Date();
-  var year = now_date.getFullYear();
-  var month = ('00' + (now_date.getMonth() + 1)).slice(-2);
-  var day = ('00' + now_date.getDate()).slice(-2);
-
-  if (select_value == '月別') {
-    date_period_from.setAttribute('type', 'month');
-    date_period_to.setAttribute('type', 'month');
-    date_period_from.value = year + '-' + month;
-    date_period_to.value = year + '-' + month;
-  }
-
-  if (select_value == '日別') {
-    date_period_from.setAttribute('type', 'date');
-    date_period_to.setAttribute('type', 'date');
-    date_period_from.value = year + '-' + month + '-' + day;
-    date_period_to.value = year + '-' + month + '-' + day;
-  }
-}); // 拠点区分が変更されたら、荷主を変更
-
-$("[id=base_select]").on("change", function () {
-  // 環境でパスを可変させる
-  if (true) {
-    var ajax_url = '/get_customer_ajax/' + base_select.value;
-  }
-
-  if (false) { var ajax_url; }
-
-  $.ajax({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    url: ajax_url,
-    type: 'GET',
-    dataType: 'json',
-    success: function success(data) {
-      // 荷主区分のプルダウンをクリア
-      for (var i = customer_select.childElementCount; i > 0; i--) {
-        customer_select.remove(i);
-      } // 取得してきた荷主をオプションに追加
+    if (!sales_amount.value || isNaN(sales_amount.value)) {
+      throw new Error('売上金額が正しくありません。');
+    } // 既に存在する売上ではないかチェック
 
 
-      data['customers'].forEach(function (element) {
-        var customer_select_op = document.createElement('option');
-        customer_select_op.value = element['customer_id'];
-        customer_select_op.innerHTML = element['customer_name'];
-        customer_select.append(customer_select_op);
-      });
-    },
-    error: function error() {
-      alert('失敗');
+    if (document.querySelector('#tr_' + sales_item_id.value) !== null) {
+      throw new Error('既に存在する売上です。');
     }
-  });
-}); // 削除ボタンが押下された際の処理
 
-$(document).on("click", ".balance_delete", function () {
-  var result = window.confirm('収支削除を実行しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+    var monthly_sales_setting_register_form = document.getElementById('monthly_sales_setting_register_form');
+    var result = window.confirm('月額売上設定を実行しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+
+    if (result == true) {
+      monthly_sales_setting_register_form.submit();
+    } else {
+      return false;
+    }
+  } catch (e) {
+    alert(e.message);
+  }
+}); // 削除ボタンが押下されたら
+
+$("[class^=monthly_sales_setting_delete]").on("click", function () {
+  var result = window.confirm('削除を実行しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
 
   if (result == true) {
-    submit();
+    form.submit();
   } else {
     return false;
   }
