@@ -10941,11 +10941,11 @@ var expensesChart_monthly = null;
 
 window.onload = function () {
   // 環境でパスを可変させる
-  if (true) {
-    var ajax_url = '/balance_list_customer_get_ajax';
-  }
-
   if (false) { var ajax_url; }
+
+  if (true) {
+    var ajax_url = '/balance/balance_list_customer_get_ajax';
+  }
 
   $.ajax({
     headers: {
