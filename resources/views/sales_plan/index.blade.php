@@ -6,7 +6,7 @@
                 <a href="{{ session('index_url') }}" class="inline-block text-center w-full bg-black text-white border font-semibold rounded hover:bg-gray-400 px-3 py-2">戻る</a>
             </div>
             <div class="col-span-6 font-semibold text-xl text-gray-800 p-2">
-                売上計画設定<i class="las la-caret-right"></i>{{ Auth::user()->base->base_name }}
+                売上計画設定<i class="las la-caret-right"></i>{{ $base->base_name }}
             </div>
             @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 11 && Auth::user()->base_id == session('base_id'))
                 <div class="inline-block col-span-1 col-start-12">

@@ -18,8 +18,11 @@ class SalesPlanController extends Controller
         $SalesPlanService = new SalesPlanService;
         // 指定された条件の設定を取得
         $sales_plans = $SalesPlanService->getSalesPlan($request->base_id, $date, $date);
+        // 拠点の情報を取得
+        $base = Base::where('base_id', $request->base_id)->first();
         return view('sales_plan.index')->with([
             'sales_plans' => $sales_plans,
+            'base' => $base,
         ]);
     }
 
