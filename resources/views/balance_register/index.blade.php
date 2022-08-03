@@ -3,7 +3,7 @@
     <x-slot name="header">
         <div class="grid grid-cols-12 gap-4">
             <div class="inline-block col-span-2 font-semibold text-xl text-gray-800 p-2">
-                収支登録
+                収支登録a
             </div>
             <div class="col-start-12 col-span-1">
                 <button id="register_enter" class="w-full text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100 px-3 py-2">登録</button>
