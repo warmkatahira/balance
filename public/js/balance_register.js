@@ -36240,19 +36240,11 @@ $("[id=customer_select]").on("change", function () {
       data['cargo_handling_settings'].forEach(function (element) {
         // 収支登録初期表示がONの荷役を表示させる
         if (element['balance_register_default_disp'] == 1) {
-          cargo_handling_add(element['cargo_handling_name'], element['cargo_handling_name'], element['cargo_handling_unit_price'], element['cargo_handling_note']);
+          cargo_handling_add(element['cargo_handling_name'], element['cargo_handling_name'], element['cargo_handling_unit_price'], element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']);
         }
-      }); // 選択した荷主に登録してある荷役をオプションに追加
+      }); // 荷役のプルダウンを更新
 
-      data['cargo_handling_settings'].forEach(function (element) {
-        // 表示されていない荷役のみを追加
-        if (document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '_cargo_handling_div') == null) {
-          var cargo_handling_op = document.createElement('option');
-          cargo_handling_op.value = element['cargo_handling_id'];
-          cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']) + '】（単価:' + element['cargo_handling_unit_price'] + '円）';
-          cargo_handling_select.append(cargo_handling_op);
-        }
-      }); // 荷役合計を更新
+      cargo_handling_option_update(); // 荷役合計を更新
 
       total_cargo_handling_update(); // 配送方法の要素を全て削除
 
@@ -36323,7 +36315,7 @@ $("[id=cargo_handling_add]").on("click", function () {
     var cargo_handling_note_value = select_value_split[0];
     var cargo_handling_unit_price_value = select_value_split[1].replace('円）', ''); // 既に存在する荷役ではないかチェック
 
-    if (document.getElementById(cargo_handling_name_value + '-' + cargo_handling_unit_price_value + '_cargo_handling_div') != null) {
+    if (document.getElementById(cargo_handling_name_value + '-' + cargo_handling_unit_price_value + '-' + cargo_handling_note_value + '_cargo_handling_div') != null) {
       throw new Error('既に存在する荷役です。');
     } // 荷役要素を追加
 
@@ -36444,7 +36436,7 @@ function cargo_handling_option_update() {
 
       data['cargo_handling_settings'].forEach(function (element) {
         // 現在登録上に表示されていない荷役のみをオプションに追加
-        if (document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '-' + element['cargo_handling_note'] + '_cargo_handling_div') == null) {
+        if (document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '-' + (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']) + '_cargo_handling_div') == null) {
           var cargo_handling_op = document.createElement('option');
           cargo_handling_op.value = element['cargo_handling_id'];
           cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']) + '】（単価:' + element['cargo_handling_unit_price'] + '円）';
