@@ -11078,7 +11078,7 @@ function cargo_handling_option_update() {
 
       data['cargo_handling_settings'].forEach(function (element) {
         // 現在登録上に表示されていない荷役のみをオプションに追加
-        if (document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '_cargo_handling_div') == null) {
+        if (document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '-' + element['cargo_handling_note'] + '_cargo_handling_div') == null) {
           var cargo_handling_op = document.createElement('option');
           cargo_handling_op.value = element['cargo_handling_id'];
           cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']) + '】（単価:' + element['cargo_handling_unit_price'] + '円）';

@@ -380,7 +380,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     // 作業数を入力する要素を作成
     const operation_quantity = document.createElement('input');
     operation_quantity.type = 'tel';
-    operation_quantity.id = add_id + '-' + cargo_handling_unit_price_value + '_operation_quantity';
+    operation_quantity.id = add_id + '-' + cargo_handling_unit_price_value + '-' + cargo_handling_note_value + '_operation_quantity';
     operation_quantity.name = 'operation_quantity[]';
     operation_quantity.placeholder = '作業数';
     operation_quantity.autocomplete = 'off';
@@ -399,7 +399,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     // 荷役単価を表示・入力する要素を作成
     const cargo_handling_unit_price = document.createElement('input');
     cargo_handling_unit_price.type = 'tel';
-    cargo_handling_unit_price.id = add_id + '-' + cargo_handling_unit_price_value + '_cargo_handling_unit_price';
+    cargo_handling_unit_price.id = add_id + '-' + cargo_handling_unit_price_value + '-' + cargo_handling_note_value + '_cargo_handling_unit_price';
     cargo_handling_unit_price.name = 'cargo_handling_unit_price[]';
     cargo_handling_unit_price.placeholder = '単価';
     cargo_handling_unit_price.autocomplete = 'off';
@@ -419,7 +419,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     // 金額を表示・入力する要素を作成
     const cargo_handling_amount = document.createElement('input');
     cargo_handling_amount.type = 'tel';
-    cargo_handling_amount.id = add_id + '-' + cargo_handling_unit_price_value + '_cargo_handling_amount';
+    cargo_handling_amount.id = add_id + '-' + cargo_handling_unit_price_value + '-' + cargo_handling_note_value + '_cargo_handling_amount';
     cargo_handling_amount.name = 'cargo_handling_amount[]';
     cargo_handling_amount.placeholder = '金額';
     cargo_handling_amount.autocomplete = 'off';
@@ -428,7 +428,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     // 削除ボタンの要素を作成
     const delete_btn = document.createElement('button');
     delete_btn.type = 'button';
-    delete_btn.id = add_id + '-' + cargo_handling_unit_price_value + '_delete_btn';
+    delete_btn.id = add_id + '-' + cargo_handling_unit_price_value + '-' + cargo_handling_note_value + '_delete_btn';
     delete_btn.innerHTML = '<i class="las la-trash la-lg"></i>';
     delete_btn.classList.add('col-span-1', 'bg-red-600', 'text-white', 'hover:bg-gray-400', 'delete_cargo_handling', 'h-4/5');
     
@@ -444,7 +444,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
 
     // 追加する要素を纏めるdivタグを作成
     const target_div = document.createElement('div');
-    target_div.id = add_id + '-' + cargo_handling_unit_price_value + '_cargo_handling_div';
+    target_div.id = add_id + '-' + cargo_handling_unit_price_value + '-' + cargo_handling_note_value + '_cargo_handling_div';
     target_div.classList.add('grid', 'grid-cols-12', 'col-span-12', 'border-b-2', 'border-black', 'pt-2', 'cargo_handling_div');
 
     // divタグに作成した要素を追加
@@ -489,7 +489,7 @@ function cargo_handling_option_update(){
             // 選択した荷主に登録してある荷役をオプションに追加
             data['cargo_handling_settings'].forEach(function(element){
                 // 現在登録上に表示されていない荷役のみをオプションに追加
-                if(document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '_cargo_handling_div') == null){
+                if(document.getElementById(element['cargo_handling_name'] + '-' + element['cargo_handling_unit_price'] + '-' + element['cargo_handling_note'] + '_cargo_handling_div') == null){
                     const cargo_handling_op = document.createElement('option');
                     cargo_handling_op.value = element['cargo_handling_id'];
                     cargo_handling_op.innerHTML = element['cargo_handling_name'] + '【' + (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']) + '】（単価:' + element['cargo_handling_unit_price'] + '円）';

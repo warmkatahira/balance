@@ -66,18 +66,18 @@
                 </select>
                 <button type="button" id="cargo_handling_add" class="col-start-12 col-span-1 bg-black text-white hover:bg-gray-400 text-sm h-4/5">追加</button>
                 @foreach($balance_cargo_handlings as $balance_cargo_handling)
-                    <div id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'_cargo_handling_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 cargo_handling_div">
+                    <div id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_cargo_handling_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 cargo_handling_div">
                         <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="cargo_handling_name[]" value="{{ $balance_cargo_handling->cargo_handling_name }}" readonly>
                         <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="cargo_handling_note[]" value="{{ $balance_cargo_handling->cargo_handling_note }}" readonly>
-                        <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'_operation_quantity' }}" name="operation_quantity[]" class="text-sm col-span-1 text-right cargo_handling_amount_update h-4/5 operation_quantity" placeholder="作業数" autocomplete="off" value="{{ $balance_cargo_handling->operation_quantity }}">
+                        <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_operation_quantity' }}" name="operation_quantity[]" class="text-sm col-span-1 text-right cargo_handling_amount_update h-4/5 operation_quantity" placeholder="作業数" autocomplete="off" value="{{ $balance_cargo_handling->operation_quantity }}">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">作業</p>
                         <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
-                        <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'_cargo_handling_unit_price' }}" name="cargo_handling_unit_price[]" class="text-sm col-span-1 text-right cargo_handling_amount_update h-4/5" placeholder="単価" autocomplete="off" value="{{ $balance_cargo_handling->cargo_handling_unit_price }}">
+                        <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_cargo_handling_unit_price' }}" name="cargo_handling_unit_price[]" class="text-sm col-span-1 text-right cargo_handling_amount_update h-4/5" placeholder="単価" autocomplete="off" value="{{ $balance_cargo_handling->cargo_handling_unit_price }}">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">円</p>
                         <p class="text-base col-span-1 py-3"><i class="las la-equals"></i></p>
-                        <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'_cargo_handling_amount' }}" name="cargo_handling_amount[]" class="text-sm col-span-2 text-right h-4/5 cargo_handling_amount" placeholder="金額" autocomplete="off" value="{{ $balance_cargo_handling->cargo_handling_amount }}">
+                        <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_cargo_handling_amount' }}" name="cargo_handling_amount[]" class="text-sm col-span-2 text-right h-4/5 cargo_handling_amount" placeholder="金額" autocomplete="off" value="{{ $balance_cargo_handling->cargo_handling_amount }}">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">円</p>
-                        <button type="button" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 delete_cargo_handling h-4/5"><i class="las la-trash la-lg"></i></button>
+                        <button type="button" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 delete_cargo_handling h-4/5"><i class="las la-trash la-lg"></i></button>
                     </div>
                 @endforeach
                 <div id="total_cargo_handling_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">

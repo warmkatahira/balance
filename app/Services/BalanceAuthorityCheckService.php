@@ -17,7 +17,7 @@ class BalanceAuthorityCheckService
             ]);
         }
         // 操作可能な権限（ユーザー）か確認
-        if($balance->register_user_id != Auth::user()->id && Auth::user()->role_id != 1 && Auth::user()->role_id != 11 || Auth::user()->base_id != $balance->balance_base_id){
+        if($balance->register_user_id != Auth::user()->id && Auth::user()->role_id != 1 && Auth::user()->role_id != 11 && Auth::user()->base_id != $balance->balance_base_id){
             // エラーを返す
             return with([
                 'result' => 1,
