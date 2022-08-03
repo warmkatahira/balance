@@ -106,7 +106,7 @@ function total_other_expenses_update()
 
 // 荷役のプルダウンを更新
 function cargo_handling_option_update(){
-    // 荷主IDを取得
+    // 荷主IDを取得する
     const customer_id = customer_select.value;
     // 環境でパスを可変させる
     if(process.env.MIX_APP_ENV === 'local'){

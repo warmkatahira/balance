@@ -11053,7 +11053,7 @@ function total_other_expenses_update() {
 
 
 function cargo_handling_option_update() {
-  // 荷主IDを取得
+  // 荷主IDを取得する
   var customer_id = customer_select.value; // 環境でパスを可変させる
 
   if (false) { var ajax_url; }

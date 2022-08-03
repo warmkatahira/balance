@@ -333,7 +333,7 @@ $("[id=customer_select]").on("change",function(){
 $("[id=cargo_handling_add]").on("click",function(){
     // 選択した荷役のidとなる値
     const select_id = cargo_handling_select.value;
-    // 選択しているインデックス番号を取得
+    // 選択しているインデックス番号を取得する
     const select_index = cargo_handling_select.selectedIndex;
     try {
         // id = 0(value = 0)ではないかチェック

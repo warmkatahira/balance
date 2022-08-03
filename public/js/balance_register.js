@@ -36297,7 +36297,7 @@ $("[id=customer_select]").on("change", function () {
 
 $("[id=cargo_handling_add]").on("click", function () {
   // 選択した荷役のidとなる値
-  var select_id = cargo_handling_select.value; // 選択しているインデックス番号を取得
+  var select_id = cargo_handling_select.value; // 選択しているインデックス番号を取得する
 
   var select_index = cargo_handling_select.selectedIndex;
 
