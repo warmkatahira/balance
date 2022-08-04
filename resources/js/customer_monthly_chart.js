@@ -97,9 +97,9 @@ window.onload = function () {
                                     callback: function(label, index, labels) { /* ここです */
                                         return label +' %';
                                     },
-                                    max: 100,
-                                    min: -300,
-                                    stepSize: 20
+                                    max: 50,
+                                    min: -50,
+                                    stepSize: 5
                                 }
                             }
                         ],

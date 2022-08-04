@@ -86,7 +86,7 @@ class BalanceListService
         if(session('search_category') == '荷主'){
             $balances = $this->getBalancesToCustomer();
         }
-        $balances = $balances->paginate(20);
+        $balances = $balances->paginate(50);
         return $balances;
     }
 
@@ -216,9 +216,11 @@ class BalanceListService
             $query = $query->where('balance_customer_id', $customer_id);
         }
         // 月別しか処理が入ってこないので処理は1つだけ
-        $query = $query->select(DB::raw("sum(sales) as total_sales, sum(expenses) as total_expenses, sum(profit) as total_profit, balance_id, register_user_id, balance_base_id, balance_customer_id, balance_date as date"));
+        $query = $query->select(DB::raw("sum(sales) as total_sales, sum(expenses) as total_expenses, sum(profit) as total_profit, balance_id, register_user_id, balance_base_id, balance_customer_id, balance_date as date, ((sum(profit) / sum(sales)) * 100) as profit_per"));
         // グループ化・並び替え
-        $balances = $query->groupBy('balance_id', 'register_user_id', 'balance_base_id', 'balance_customer_id', 'date')->orderBy('date', 'asc')->get();
+        $balances = $query->groupBy('balance_id', 'register_user_id', 'balance_base_id', 'balance_customer_id', 'date')
+                    ->orderBy('date', 'asc')
+                    ->get();
         return $balances;
     }
 
