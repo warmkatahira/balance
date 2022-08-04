@@ -74,6 +74,7 @@ class BalanceListController extends Controller
 
     public function index_base(Request $request)
     {
+        // サービスクラスを定義
         $BalanceListService = new BalanceListService;
         // 日付期間の開始と終了を取得
         $BalanceListService->getStartEndOfDate($request->date, $request->date);
@@ -96,9 +97,12 @@ class BalanceListController extends Controller
         session(['balances' => $balances]);
         // 荷主情報を取得
         $customer = Customer::where('customer_id', $request->customer_id)->first();
+        // カテゴリ毎の合計金額を集計
+        $total_amount = $this->category_total_amount();
         return view('balance_list.index_customer')->with([
             'balances' => $balances,
             'customer' => $customer,
+            'total_amount' => $total_amount,
         ]);
     }
 
@@ -185,8 +189,21 @@ class BalanceListController extends Controller
             array_push($profit, $balance->total_profit);
             array_push($profit_per, $balance->total_sales == 0 ? 0 : round(($balance->total_profit / $balance->total_sales)*100, 2));
         }
+        // カテゴリ毎の金額を集計
+        $total_amount = $this->category_total_amount();
+        // 結果を返す
+        return response()->json([
+            'date' => $date,
+            'sales' => $sales,
+            'expenses' => $expenses,
+            'profit' => $profit,
+            'profit_per' => $profit_per,
+            'total_amount' => $total_amount,
+        ]);
+    }
 
-        // 月別用のグラフの情報を取得
+    public function category_total_amount()
+    {
         // サービスクラスを定義
         $BalanceListService = new BalanceListService;
         // 各収支金額を取得
@@ -220,13 +237,7 @@ class BalanceListController extends Controller
         $query = $BalanceListService->getMonthlyAmountTarget();
         $total_other_expenses_amount =  $query->join('balance_other_expenses', 'balances.balance_id', '=', 'balance_other_expenses.balance_id')
                                             ->sum('balance_other_expenses.other_expenses_amount');
-        // 結果を返す
-        return response()->json([
-            'date' => $date,
-            'sales' => $sales,
-            'expenses' => $expenses,
-            'profit' => $profit,
-            'profit_per' => $profit_per,
+        return with([
             'total_sales' => $total_sales,
             'total_expenses' => $total_expenses,
             'total_storage_fee' => $total_storage_fee,

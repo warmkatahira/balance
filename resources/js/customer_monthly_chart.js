@@ -133,7 +133,7 @@ window.onload = function () {
                 data: {
                     labels: ['荷役', '運賃', '保管', '他売上'],
                     datasets: [{
-                        data: [data['total_cargo_handling_amount'], data['total_fare_sales_amount'], data['total_storage_fee'], data['total_other_sales_amount']],
+                        data: [data['total_amount']['total_cargo_handling_amount'], data['total_amount']['total_fare_sales_amount'], data['total_amount']['total_storage_fee'], data['total_amount']['total_other_sales_amount']],
                         backgroundColor: ["rgba(65,105,225,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"],
                         hoverBackgroundColor: ["rgba(65,105,225,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"]
                     }],
@@ -142,7 +142,7 @@ window.onload = function () {
                     responsive: false,
                     title: {
                         display: true,
-                        text: '月別売上チャート(合計:' + Number(data['total_sales']).toLocaleString() + ' 円)',
+                        text: '月別売上チャート(合計:' + Number(data['total_amount']['total_sales']).toLocaleString() + ' 円)',
                     },
                     tooltips: {
                         callbacks: {
@@ -164,16 +164,16 @@ window.onload = function () {
                 data: {
                     labels: ['人件費', '運賃', '保管', '他経費'],
                     datasets: [{
-                        data: [data['total_labor_costs'], data['total_fare_expenses_amount'], data['total_storage_expenses'], data['total_other_expenses_amount']],
-                        backgroundColor: ["rgba(255,0,0,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"],
-                        hoverBackgroundColor: ["rgba(255,0,0,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"]
+                        data: [data['total_amount']['total_labor_costs'], data['total_amount']['total_fare_expenses_amount'], data['total_amount']['total_storage_expenses'], data['total_amount']['total_other_expenses_amount']],
+                        backgroundColor: ["rgba(65,105,225,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"],
+                        hoverBackgroundColor: ["rgba(65,105,225,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"]
                     }],
                 },
                 options: {
                     responsive: false,
                     title: {
                         display: true,
-                        text: '月別経費チャート(合計:' + Number(data['total_expenses']).toLocaleString() + ' 円)',
+                        text: '月別経費チャート(合計:' + Number(data['total_amount']['total_expenses']).toLocaleString() + ' 円)',
                     },
                     tooltips: {
                         callbacks: {

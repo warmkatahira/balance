@@ -72,8 +72,60 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- 項目毎の合計表示 -->
         <div class="col-start-9 col-span-4">
-            
+            <div class="col-span-12 grid grid-cols-12">
+                <div class="col-span-12 grid grid-cols-12 bg-orange-100 pb-3 px-3 text-center rounded-lg border border-black text-sm">
+                    <p class="text-xl col-span-12 border-b-2 border-black py-3 mb-3">荷役</p>
+                    <p class="col-span-3">荷役売上</p>
+                    <p class="col-start-5 col-span-3">人件費</p>
+                    <p class="col-start-1 col-span-3">{{ number_format($total_amount['total_cargo_handling_amount']) }}円</p>
+                    <p class="col-span-1 py-1"><i class="las la-minus"></i></p>
+                    <p class="col-span-3">{{ number_format($total_amount['total_labor_costs']) }}円</p>
+                    <p class="col-span-1 py-1 text-right"><i class="las la-equals"></i></p>
+                    <p class="col-span-4">{{ number_format($total_amount['total_cargo_handling_amount'] - $total_amount['total_labor_costs']) }}円</p>
+                </div>
+                <div class="mt-5 col-span-12 grid grid-cols-12 bg-orange-100 pb-3 px-3 text-center rounded-lg border border-black text-sm">
+                    <p class="text-xl col-span-12 border-b-2 border-black py-3 mb-3">運賃</p>
+                    <p class="col-span-3">運賃売上</p>
+                    <p class="col-start-5 col-span-3">運賃経費</p>
+                    <p class="col-start-1 col-span-3">{{ number_format($total_amount['total_fare_sales_amount']) }}円</p>
+                    <p class="col-span-1 py-1"><i class="las la-minus"></i></p>
+                    <p class="col-span-3">{{ number_format($total_amount['total_fare_expenses_amount']) }}円</p>
+                    <p class="col-span-1 py-1 text-right"><i class="las la-equals"></i></p>
+                    <p class="col-span-4">{{ number_format($total_amount['total_fare_sales_amount'] - $total_amount['total_fare_expenses_amount']) }}円</p>
+                </div>
+                <div class="mt-5 col-span-12 grid grid-cols-12 bg-orange-100 pb-3 px-3 text-center rounded-lg border border-black text-sm">
+                    <p class="text-xl col-span-12 border-b-2 border-black py-3 mb-3">保管</p>
+                    <p class="col-span-3">保管売上</p>
+                    <p class="col-start-5 col-span-3">保管経費</p>
+                    <p class="col-start-1 col-span-3">{{ number_format($total_amount['total_storage_fee']) }}円</p>
+                    <p class="col-span-1 py-1"><i class="las la-minus"></i></p>
+                    <p class="col-span-3">{{ number_format($total_amount['total_storage_expenses']) }}円</p>
+                    <p class="col-span-1 py-1 text-right"><i class="las la-equals"></i></p>
+                    <p class="col-span-4">{{ number_format($total_amount['total_storage_fee'] - $total_amount['total_storage_expenses']) }}円</p>
+                </div>
+                <div class="mt-5 col-span-12 grid grid-cols-12 bg-orange-100 pb-3 px-3 text-center rounded-lg border border-black text-sm">
+                    <p class="text-xl col-span-12 border-b-2 border-black py-3 mb-3">その他</p>
+                    <p class="col-span-3">その他売上</p>
+                    <p class="col-start-5 col-span-3">その他経費</p>
+                    <p class="col-start-1 col-span-3">{{ number_format($total_amount['total_other_sales_amount']) }}円</p>
+                    <p class="col-span-1 py-1"><i class="las la-minus"></i></p>
+                    <p class="col-span-3">{{ number_format($total_amount['total_other_expenses_amount']) }}円</p>
+                    <p class="col-span-1 py-1 text-right"><i class="las la-equals"></i></p>
+                    <p class="col-span-4">{{ number_format($total_amount['total_other_sales_amount'] - $total_amount['total_other_expenses_amount']) }}円</p>
+                </div>
+                <div class="mt-5 col-span-12 grid grid-cols-12 bg-orange-100 pb-3 px-3 text-center rounded-lg border border-black text-sm">
+                    <p class="text-xl col-span-12 border-b-2 border-black py-3 mb-3">結果</p>
+                    <p class="col-span-3">売上合計</p>
+                    <p class="col-start-5 col-span-3">経費合計</p>
+                    <p class="col-start-1 col-span-3">{{ number_format($total_amount['total_sales']) }}円</p>
+                    <p class="col-span-1 py-1"><i class="las la-minus"></i></p>
+                    <p class="col-span-3">{{ number_format($total_amount['total_expenses']) }}円</p>
+                    <p class="col-span-1 py-1 text-right"><i class="las la-equals"></i></p>
+                    <p class="col-span-4">{{ number_format($total_amount['total_sales'] - $total_amount['total_expenses']) }}円</p>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>
