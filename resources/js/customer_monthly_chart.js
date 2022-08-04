@@ -94,7 +94,7 @@ window.onload = function () {
                                 id: 'y-right',
                                 position: 'right',
                                 ticks:{
-                                    callback: function(label, index, labels) { /* ここです */
+                                    callback: function(label, index, labels) {
                                         return label +' %';
                                     },
                                     max: 50,

@@ -11023,7 +11023,6 @@ window.onload = function () {
               position: 'right',
               ticks: {
                 callback: function callback(label, index, labels) {
-                  /* ここです */
                   return label + ' %';
                 },
                 max: 50,
