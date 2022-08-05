@@ -710,6 +710,9 @@ select {
 .row-span-1 {
   grid-row: span 1 / span 1;
 }
+.row-span-3 {
+  grid-row: span 3 / span 3;
+}
 .m-0 {
   margin: 0px;
 }
@@ -985,6 +988,9 @@ select {
 }
 .grid-rows-2 {
   grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+.grid-rows-6 {
+  grid-template-rows: repeat(6, minmax(0, 1fr));
 }
 .flex-col {
   flex-direction: column;
@@ -1402,6 +1408,9 @@ select {
 }
 .pb-3 {
   padding-bottom: 0.75rem;
+}
+.pt-10 {
+  padding-top: 2.5rem;
 }
 .pt-6 {
   padding-top: 1.5rem;
