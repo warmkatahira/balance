@@ -128,7 +128,7 @@ class BalanceListService
             $query = $query->select(DB::raw("sum(sales) as total_sales, sum(expenses) as total_expenses, sum(profit) as total_profit, balance_base_id, DATE_FORMAT(balance_date, '%Y-%m') as date"));
         }
         // グループ化・並び替え
-        $balances = $query->groupBy('balance_base_id', 'date')->orderBy('date', 'asc');
+        $balances = $query->groupBy('balance_base_id', 'date')->orderBy('date', 'asc')->orderBy('balance_base_id', 'asc');
         return $balances;
     }
 
@@ -151,13 +151,14 @@ class BalanceListService
         if(session('date_category') == '日別'){
             $query = $query->select(DB::raw("sum(sales) as total_sales, sum(expenses) as total_expenses, sum(profit) as total_profit, balance_id, register_user_id, balance_base_id, balance_customer_id, balance_date as date, created_at, updated_at"));
             // 並び替え
-            $balances = $query->groupBy('balance_id', 'register_user_id', 'balance_base_id', 'balance_customer_id', 'date')->orderBy('date', 'asc');
+            $query = $query->groupBy('balance_id', 'register_user_id', 'balance_base_id', 'balance_customer_id', 'date');
         }
         if(session('date_category') == '月別'){
             $query = $query->select(DB::raw("sum(sales) as total_sales, sum(expenses) as total_expenses, sum(profit) as total_profit, balance_base_id, balance_customer_id, DATE_FORMAT(balance_date, '%Y-%m') as date"));
             // グループ化・並び替え
-            $balances = $query->groupBy('balance_base_id', 'balance_customer_id', 'date')->orderBy('date', 'asc');
+            $query = $query->groupBy('balance_base_id', 'balance_customer_id', 'date');
         }
+        $balances = $query->orderBy('date', 'asc')->orderBy('balance_base_id', 'asc')->orderBy('balance_customer_id', 'asc');
         return $balances;
     }
 

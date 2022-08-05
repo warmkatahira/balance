@@ -94,7 +94,7 @@ $("[id=cargo_handling_register]").on("click",function(){
         }
         // trタグを作成
         const cargo_handling_tr = document.createElement('tr');
-        cargo_handling_tr.id = 'tr_' + cargo_handling_select.value + '-' + cargo_handling_unit_price.value;
+        cargo_handling_tr.id = 'tr_' + cargo_handling_select.value + '-' + cargo_handling_unit_price.value + '-' + cargo_handling_note.value;
         // 荷役名のtdタグを作成
         const cargo_handling_name_td = document.createElement('td');
         cargo_handling_name_td.innerHTML = cargo_handling_select.options[cargo_handling_select.selectedIndex].innerHTML;
@@ -105,7 +105,7 @@ $("[id=cargo_handling_register]").on("click",function(){
         // 荷役備考のinputタグを作成
         const cargo_handling_note_input = document.createElement('input');
         cargo_handling_note_input.type = 'text';
-        cargo_handling_note_input.name = 'cargo_handling_note[' + cargo_handling_select.value + '-' + cargo_handling_unit_price.value + ']';
+        cargo_handling_note_input.name = 'cargo_handling_note[' + cargo_handling_select.value + '-' + cargo_handling_unit_price.value + '-' + cargo_handling_note.value + ']';
         cargo_handling_note_input.classList.add('text-sm', 'w-full', 'bg-gray-100', 'cargo_handling_note');
         cargo_handling_note_input.value = cargo_handling_note.value;
         // 荷役備考のtdタグにinputタグを追加
@@ -115,7 +115,7 @@ $("[id=cargo_handling_register]").on("click",function(){
         cargo_handling_unit_price_td.classList.add('p-1', 'px-2', 'border', 'text-right');
         // 荷役単価のinputタグを作成
         const cargo_handling_unit_price_input = document.createElement('input');
-        cargo_handling_unit_price_input.name = 'cargo_handling_unit_price[' + cargo_handling_select.value + '-' + cargo_handling_unit_price.value + ']';
+        cargo_handling_unit_price_input.name = 'cargo_handling_unit_price[' + cargo_handling_select.value + '-' + cargo_handling_unit_price.value + '-' + cargo_handling_note.value + ']';
         cargo_handling_unit_price_input.classList.add('text-sm', 'text-right', 'w-3/4', 'cargo_handling_unit_price');
         cargo_handling_unit_price_input.value = cargo_handling_unit_price.value;
         cargo_handling_unit_price_input.readOnly
@@ -127,7 +127,7 @@ $("[id=cargo_handling_register]").on("click",function(){
         // 収支登録初期表示のinputタグを作成
         const balance_register_default_disp_input = document.createElement('input');
         balance_register_default_disp_input.type = 'checkbox';
-        balance_register_default_disp_input.name = 'balance_register_default_disp[' + cargo_handling_select.value + '-' + cargo_handling_unit_price.value + ']';
+        balance_register_default_disp_input.name = 'balance_register_default_disp[' + cargo_handling_select.value + '-' + cargo_handling_unit_price.value + '-' + cargo_handling_note.value + ']';
         balance_register_default_disp_input.classList.add('text-sm', 'bg-gray-100');
         balance_register_default_disp_input.checked = balance_register_default_disp.checked;
         // 収支登録初期表示のtdタグにinputタグを追加
@@ -138,7 +138,7 @@ $("[id=cargo_handling_register]").on("click",function(){
         // 削除のbuttonタグを作成
         const cargo_handling_delete_btn = document.createElement('button');
         cargo_handling_delete_btn.type = 'button';
-        cargo_handling_delete_btn.id = cargo_handling_select.value + '-' + cargo_handling_unit_price.value;
+        cargo_handling_delete_btn.id = cargo_handling_select.value + '-' + cargo_handling_unit_price.value + '-' + cargo_handling_note.value;
         cargo_handling_delete_btn.classList.add('cargo_handling_setting_delete', 'bg-red-600', 'text-white', 'hover:bg-gray-400', 'p-1', 'text-xs');
         cargo_handling_delete_btn.innerHTML = '削除';
         // 削除のtdタグにbuttonタグを追加
