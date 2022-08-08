@@ -61,8 +61,8 @@ window.onload = function () {
                     labels: ['人件費', '運賃', '保管', '他経費'],
                     datasets: [{
                         data: [data['labor_costs_sum'], data['fare_expenses_sum'], data['balance']['storage_expenses'], data['other_expenses_amount_sum']],
-                        backgroundColor: ["rgba(255,0,0,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"],
-                        hoverBackgroundColor: ["rgba(255,0,0,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"],
+                        backgroundColor: ["rgba(65,105,225,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"],
+                        hoverBackgroundColor: ["rgba(65,105,225,1)", "rgba(219,39,91,0.5)", "rgba(60,179,113,1)", "rgb(186 230 253)"],
                     }],
                 },
                 options: {

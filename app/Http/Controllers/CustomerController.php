@@ -100,9 +100,51 @@ class CustomerController extends Controller
         ]);
     }
 
+    // 荷役設定の更新処理
     public function cargo_handling_setting_update(Request $request)
     {
         // 現在の日時を取得
+        $nowDate = new Carbon('now');
+        // パラメータがない=全ての設定を削除
+        if (!$request->has('cargo_handling_unit_price')) {
+            CargoHandlingCustomer::where('customer_id', session('customer_id'))->delete();
+        }
+        // パラメータがあれば更新処理を実施
+        if ($request->has('cargo_handling_unit_price')) {
+            foreach($request->cargo_handling_unit_price as $key => $value) {
+                // スプリットしてcargo_handling_idを取得
+                $split_key = explode('-', $key); 
+                // 追加の場合は、設定を追加
+                if ($split_key[4] == 'add'){
+                    $param = [
+                        'customer_id' => session('customer_id'),
+                        'cargo_handling_id' => $split_key[0],
+                        'cargo_handling_unit_price' => $request->cargo_handling_unit_price[$key],
+                        'balance_register_default_disp' => isset($request->balance_register_default_disp[$key]) ? 1 : 0,
+                        'cargo_handling_note' => $request->cargo_handling_note[$key],
+                        'created_at' => $nowDate,
+                        'updated_at' => $nowDate,
+                    ];
+                    // レコード追加
+                    CargoHandlingCustomer::insert($param);
+                }
+                // 既存の設定は内容を更新
+                if ($split_key[4] == 'kizon'){
+                    $cargo_handling_customer = CargoHandlingCustomer::find($split_key[3]);
+                    $cargo_handling_customer->cargo_handling_unit_price = $request->cargo_handling_unit_price[$key];
+                    $cargo_handling_customer->balance_register_default_disp = isset($request->balance_register_default_disp[$key]) ? 1 : 0;
+                    $cargo_handling_customer->cargo_handling_note = $request->cargo_handling_note[$key];
+                    $cargo_handling_customer->save();
+                } 
+                // 設定を削除
+                if ($split_key[4] == 'del'){
+                    CargoHandlingCustomer::where('cargo_handling_customer_id', $split_key[3])->delete();
+                } 
+            }
+        }
+        return back();
+
+        /* // 現在の日時を取得
         $nowDate = new Carbon('now');
         // customer_idを指定してレコードを削除
         CargoHandlingCustomer::where('customer_id', session('customer_id'))->delete();
@@ -123,37 +165,6 @@ class CustomerController extends Controller
                 CargoHandlingCustomer::insert($param);
             }
         }
-        return back();
-
-
-
-        /* // 保存する荷役設定を格納する配列をセット
-        $param = [];
-        // 保存する荷役設定が無い場合
-        if (!$request->has('cargo_handling_unit_price')) {
-            // customer_idを指定してレコードを削除
-            CargoHandlingCustomer::where('customer_id', session('customer_id'))->delete();
-            return back();
-        }
-        // 保存する荷役設定を配列に格納（荷役設定の分だけループ）
-        // 荷役単価(収支登録初期表示は一旦Falseで追加しておく)
-        foreach($request->cargo_handling_unit_price as $key => $value) {
-            $param = $param + array($key => ['cargo_handling_unit_price' => $value, 'cargo_handling_note' => null, 'balance_register_default_disp' => false]);
-        }
-        // 荷役備考を更新
-        foreach($request->cargo_handling_note as $key => $value) {
-            $param[$key]['cargo_handling_note'] = $value;
-        }
-        // 収支登録初期表示(CheckboxがONのものだけ送信されてくるので、ONのデータだけ値を更新する)
-        if(!is_null($request->balance_register_default_disp)){
-            foreach($request->balance_register_default_disp as $key => $value) {
-                $param[$key]['balance_register_default_disp'] = true;
-            }
-        }
-        // 荷役設定を保存する荷主を特定
-        $customer = Customer::find(session('customer_id'));
-        // 荷役設定を保存
-        $customer->cargo_handlings()->sync($param);
         return back(); */
     }
 

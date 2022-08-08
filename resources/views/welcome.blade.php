@@ -42,7 +42,7 @@
                 </div>
             @endif
             <div class="grid grid-cols-12">
-                <div class="col-span-12">
+                <div class="col-span-12 border-b-4 border-orange-500">
                     <!-- WARMロゴ -->
                     <img src="{{ asset('image/warm.png') }}">
                     <!-- タイトル -->
@@ -50,9 +50,6 @@
                         <p class="text-black text-5xl" style="font-family:Zen Antique">日次収支システム</p>
                         <p class="text-black text-5xl mt-5" style="font-family:Vollkorn">Daily Balance <span class="text-orange-400" style="font-family:Vollkorn">System</span></p>
                     </div>
-                </div>
-                <div class="col-span-12 bg-amber-200 border-t-4 border-orange-400">
-                    
                 </div>
             </div>
         </div>
