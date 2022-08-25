@@ -10934,11 +10934,11 @@ window.onload = function () {
   var url = location.href;
   var url_split = url.split('='); // 環境でパスを可変させる
 
-  if (false) { var ajax_url; }
-
   if (true) {
-    var ajax_url = '/balance/balance_detail_get_ajax/' + url_split[1];
+    var ajax_url = '/balance_detail_get_ajax/' + url_split[1];
   }
+
+  if (false) { var ajax_url; }
 
   $.ajax({
     headers: {
