@@ -12,7 +12,6 @@
 .congrats_sales_plan_progress {
   -webkit-animation: congrats 3s infinite ease-in-out .8s alternate;
           animation: congrats 3s infinite ease-in-out .8s alternate;
-  background: url(/images/congrats.svg?7c17644158212485ad004b6b10dab1c3) no-repeat center center / 180px auto;
   display: inline-block;
   transition: 1.5s ease-in-out;
   width: 180px;

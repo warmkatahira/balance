@@ -106,7 +106,9 @@
                 <div class="col-start-5 col-span-8 row-span-12 grid-rows-12 mt-5">
                     <p id="sales_plan_progress_per" class="col-span-12 row-span-2 bg-black text-white text-center font-bold text-2xl rounded-t-lg py-3"></p>
                     <div class="bg-white shadow-lg rounded-b-lg col-span-12 row-span-10">
-                        <div id="congrats_sales_plan_progress" class="congrats_sales_plan_progress hidden"></div>
+                        <div id="congrats_sales_plan_progress" class="congrats_sales_plan_progress hidden">
+                            <img src="{{ asset('images/congrats.svg') }}">
+                        </div>
                         <canvas id="sales_plan_progress_chart" class="w-full"></canvas>
                     </div>
                 </div>
