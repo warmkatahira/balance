@@ -31,6 +31,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('role_id');
             $table->dropColumn('base_id');
+            $table->dropColumn('status');
+            $table->dropColumn('last_login_at');
         });
     }
 };

@@ -92,15 +92,18 @@ class HomeController extends Controller
     {
         // 収支率（利益 / 月額経費）を算出(小数点2桁まで取得)
         $balance_progress_achieve = session('total_monthly_expenses_amount') == 0 ? 0 : round((session('total_profit') / session('total_monthly_expenses_amount'))*100, 2);
-        // 達成率がマイナスだとチャートが正しく表示されないので、マイナスの場合は0にする
-        $balance_progress_achieve_chart = $balance_progress_achieve < 0 ? 0 : $balance_progress_achieve;
+        // 達成率がマイナスだとチャートが正しく表示されないので、マイナスの場合は0にする、100を超えている場合は、超えてる数値に対応する差分を設定
+        $balance_progress_achieve_chart = $balance_progress_achieve < 0 ? 0 : ($balance_progress_achieve < 100 ? $balance_progress_achieve : 100 - ($balance_progress_achieve - 100));
         // 未達成率を算出(達成率が100なら0、達成率がマイナスなら100、達成率が0～99.99なら100-達成率)
         $balance_progress_not_achieve_chart = $balance_progress_achieve >= 100 ? 0 : ($balance_progress_achieve < 0 ? 100 : 100 - $balance_progress_achieve);
+        // 達成率が100を超えていた場合の数(達成率 - 100)
+        $balance_progress_achieve_100_over = $balance_progress_achieve > 100 ? $balance_progress_achieve - 100 : 0;
         // 結果を返す
         return response()->json([
             'balance_progress_achieve' => $balance_progress_achieve,
             'balance_progress_achieve_chart' => $balance_progress_achieve_chart,
             'balance_progress_not_achieve_chart' => $balance_progress_not_achieve_chart,
+            'balance_progress_achieve_100_over' => $balance_progress_achieve_100_over,
         ]);
     }
 
@@ -108,15 +111,18 @@ class HomeController extends Controller
     {
         // 達成率（売上実績 / 売上計画）を算出(小数点2桁まで取得)
         $sales_plan_progress_achieve = session('sales_plan_amount') == 0 ? 0 : round((session('total_sales') / session('sales_plan_amount'))*100, 2);
-        // 達成率がマイナスだとチャートが正しく表示されないので、マイナスの場合は0にする
-        $sales_plan_progress_achieve_chart = $sales_plan_progress_achieve < 0 ? 0 : $sales_plan_progress_achieve;
+        // 達成率がマイナスだとチャートが正しく表示されないので、マイナスの場合は0にする、100を超えている場合は、超えてる数値に対応する差分を設定
+        $sales_plan_progress_achieve_chart = $sales_plan_progress_achieve < 0 ? 0 : ($sales_plan_progress_achieve < 100 ? $sales_plan_progress_achieve : 100 - ($sales_plan_progress_achieve - 100));
         // 未達成率を算出(達成率が100なら0、達成率がマイナスなら100、達成率が0～99.99なら100-達成率)
         $sales_plan_progress_not_achieve_chart = $sales_plan_progress_achieve >= 100 ? 0 : ($sales_plan_progress_achieve < 0 ? 100 : 100 - $sales_plan_progress_achieve);
+        // 達成率が100を超えていた場合の数(達成率 - 100)
+        $sales_plan_progress_achieve_100_over = $sales_plan_progress_achieve > 100 ? $sales_plan_progress_achieve - 100 : 0;
         // 結果を返す
         return response()->json([
             'sales_plan_progress_achieve' => $sales_plan_progress_achieve,
             'sales_plan_progress_achieve_chart' => $sales_plan_progress_achieve_chart,
             'sales_plan_progress_not_achieve_chart' => $sales_plan_progress_not_achieve_chart,
+            'sales_plan_progress_achieve_100_over' => $sales_plan_progress_achieve_100_over,
         ]);
     }
 }

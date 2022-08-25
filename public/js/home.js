@@ -10931,6 +10931,7 @@ var balance_progress_per = document.getElementById('balance_progress_per');
 var sales_plan_progress_per = document.getElementById('sales_plan_progress_per');
 var orange = 'rgba(246, 173, 85, 1)';
 var gray = 'rgb(99, 99, 99)';
+var red = 'rgb(229, 48, 110)';
 
 window.onload = function () {
   balance_progress_chart();
@@ -10965,8 +10966,9 @@ function balance_progress_chart() {
         type: 'doughnut',
         data: {
           datasets: [{
-            data: [data['balance_progress_achieve_chart'], data['balance_progress_not_achieve_chart']],
-            backgroundColor: [orange, gray]
+            // 達成率が100オーバーしているかどうかで表示を変更
+            data: data['balance_progress_achieve_100_over'] == 0 ? [data['balance_progress_achieve_chart'], data['balance_progress_not_achieve_chart']] : [data['balance_progress_achieve_100_over'], data['balance_progress_achieve_chart']],
+            backgroundColor: data['balance_progress_achieve_100_over'] == 0 ? [orange, gray] : [red, orange]
           }]
         },
         options: {
@@ -11015,8 +11017,9 @@ function sales_plan_progress_chart() {
         type: 'doughnut',
         data: {
           datasets: [{
-            data: [data['sales_plan_progress_achieve_chart'], data['sales_plan_progress_not_achieve_chart']],
-            backgroundColor: [orange, gray]
+            // 達成率が100オーバーしているかどうかで表示を変更
+            data: data['sales_plan_progress_achieve_100_over'] == 0 ? [data['sales_plan_progress_achieve_chart'], data['sales_plan_progress_not_achieve_chart']] : [data['sales_plan_progress_achieve_100_over'], data['sales_plan_progress_achieve_chart']],
+            backgroundColor: data['sales_plan_progress_achieve_100_over'] == 0 ? [orange, gray] : [red, orange]
           }]
         },
         options: {
