@@ -1,5 +1,8 @@
 const balance_progress_per = document.getElementById('balance_progress_per');
 const sales_plan_progress_per = document.getElementById('sales_plan_progress_per');
+const congrats_balance_progress = document.getElementById('congrats_balance_progress');
+const congrats_sales_plan_progress = document.getElementById('congrats_sales_plan_progress');
+
 const orange = 'rgba(246, 173, 85, 1)';
 const gray = 'rgb(99, 99, 99)';
 const red = 'rgb(229, 48, 110)';
@@ -50,6 +53,10 @@ function balance_progress_chart(){
             })
             // 進捗率を出力
             balance_progress_per.innerHTML = '収支率：' + data['balance_progress_achieve'] + '%';
+            // 達成率が100%以上であれば、画像を表示
+            if(data['balance_progress_achieve'] >= 100){
+                congrats_balance_progress.classList.remove("hidden");
+            }
         },
         error: function(){
             alert('失敗');
@@ -98,6 +105,10 @@ function sales_plan_progress_chart(){
             })
             // 売上計画達成率を出力
             sales_plan_progress_per.innerHTML = '売上計画達成率：' + data['sales_plan_progress_achieve'] + '%';
+            // 達成率が100%以上であれば、画像を表示
+            if(data['sales_plan_progress_achieve'] >= 100){
+                congrats_sales_plan_progress.classList.remove("hidden");
+            }
         },
         error: function(){
             alert('失敗');

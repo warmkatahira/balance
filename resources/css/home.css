@@ -1,0 +1,33 @@
+.congrats_balance_progress {
+    animation: congrats 3s infinite ease-in-out .8s alternate;
+    background: url(../image/congrats.svg) no-repeat center center / 180px auto;
+    display: inline-block;
+    transition: 1.5s ease-in-out;
+    width: 180px;
+    height: 180px;
+    margin-top: 15px;
+    position: absolute;
+}
+
+.congrats_sales_plan_progress {
+  animation: congrats 3s infinite ease-in-out .8s alternate;
+  background: url(../image/congrats.svg) no-repeat center center / 180px auto;
+  display: inline-block;
+  transition: 1.5s ease-in-out;
+  width: 180px;
+  height: 180px;
+  margin-top: 15px;
+  position: absolute;
+}
+   
+@keyframes congrats {
+    0% {
+      transform:translate(0, 0) rotate(-7deg);
+    }
+    50% {
+      transform:translate(0, -7px) rotate(0deg);
+    }
+    100% {
+      transform:translate(0, 0) rotate(7deg);
+    }
+}

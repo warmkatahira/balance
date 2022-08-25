@@ -19,5 +19,6 @@
     "/js/customer_monthly_chart.js": "/js/customer_monthly_chart.js",
     "/js/monthly_sales_setting.js": "/js/monthly_sales_setting.js",
     "/css/app.css": "/css/app.css",
+    "/css/home.css": "/css/home.css",
     "/css/ticker.css": "/css/ticker.css"
 }

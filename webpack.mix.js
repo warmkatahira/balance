@@ -31,6 +31,7 @@ mix.js('resources/js/app.js', 'public/js')
     .css('resources/css/ticker.css', 'public/css')
     .js('resources/js/customer_monthly_chart.js', 'public/js')
     .js('resources/js/monthly_sales_setting.js', 'public/js')
+    .css('resources/css/home.css', 'public/css')
     .autoload({
         jquery: ['$', 'window.jQuery']
     })
