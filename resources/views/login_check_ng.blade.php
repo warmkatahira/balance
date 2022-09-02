@@ -20,7 +20,7 @@
         <div class="min-h-screen">
             <div class="border-4 border-orange-400 my-5 mx-5 bg-orange-100">
                 <p class="text-3xl py-10 text-center">
-                    許可されたユーザーではありません。<br><br><br>
+                    承認されたユーザーではありません。<br><br><br>
                     システム管理者に問い合わせをお願いします。
                 </p>
                 <div class="text-center py-5">

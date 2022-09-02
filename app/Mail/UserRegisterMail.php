@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactMail extends Mailable
+class UserRegisterMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,12 +16,11 @@ class ContactMail extends Mailable
      *
      * @return void
      */
-    public function __construct($user_name, $title, $content)
+    public function __construct($user_name, $email)
     {
         // 使用する情報を取得
         $this->user_name = $user_name;
-        $this->title = $title;
-        $this->content = $content;
+        $this->email = $email;
     }
 
     /**
@@ -33,12 +32,11 @@ class ContactMail extends Mailable
     {
         $to = array('t.katahira@warm.co.jp');
         return $this->to($to)
-            ->subject('日次収支システムの問い合わせがきました')
-            ->view('contact.reception_mail')
+            ->subject('ユーザー登録完了メール')
+            ->view('auth.user-register')
             ->with([
                 'user_name' => $this->user_name,
-                'title' => $this->title,
-                'content' => $this->content,
+                'email' => $this->email,
             ]);
     }
 }

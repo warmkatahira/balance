@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserRegisterMail;
 use App\Models\Base;
 
 class RegisteredUserController extends Controller
@@ -56,6 +58,8 @@ class RegisteredUserController extends Controller
 
         // 自動ログインさせない
         //Auth::login($user);
+        // メールを送信
+        Mail::send(new UserRegisterMail($request->name, $request->email));
         session()->flash('alert_success', $request->name."さんのユーザー登録が完了しました。\nシステム管理者の承認をお待ち下さい。");
         return back();
         //return redirect(RouteServiceProvider::HOME);
