@@ -18,6 +18,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginCheckController;
 use App\Http\Controllers\SalesPlanController;
 use App\Http\Controllers\MonthlySalesSettingController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +128,15 @@ Route::group(['middleware' => 'auth'], function(){
         // ユーザーマスタ
         Route::get('/user', [UserController::class, 'index'])->name('user.index');
         Route::post('/user_update', [UserController::class, 'update'])->name('user.update');
+
+        // 問い合わせフォーム
+        Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+        Route::get('/contact_reception', [ContactController::class, 'reception'])->name('contact.reception');
+
+        // よくある質問
+        Route::get('/question', [QuestionController::class, 'index'])->name('question.index');
+        Route::post('/question_register', [QuestionController::class, 'register'])->name('question.register');
+        Route::get('/question_delete', [QuestionController::class, 'delete'])->name('question.delete');
 
     });
 });

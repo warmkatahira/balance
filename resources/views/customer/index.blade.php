@@ -77,7 +77,7 @@
             <div class="p-10">
                 <form method="post" id="customer_register_form" action="{{ route('customer.register') }}">
                     @csrf
-                    <select id="base_select" name="base_id" class="w-full">
+                    <select id="base_id" name="base_id" class="w-full">
                         <option value="0">拠点を選択</option>
                         @foreach($bases as $base)
                             <option value="{{ $base->base_id }}">{{ $base->base_name }}</option>

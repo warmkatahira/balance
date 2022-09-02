@@ -54,6 +54,17 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-menu relative inline-block">
+                        <div class="w-32 font-bold bg-orange-200 text-center py-2 cursor-pointer">その他</div>
+                        <ul class="nav-list absolute hidden">
+                            <li>
+                                <a href="{{ route('question.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">よくある質問</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('contact.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">問い合わせ</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- Newsのティッカー -->
@@ -61,8 +72,8 @@
                 <div class="ticker-head my-4 italic text-blue-500">NEWS</div>
                 <div class="ticker my-4 bg-blue-500 rounded-lg">
                     <ul class="text-sm py-1 text-white">
-                        <li class='ticker-item'><a href="#"><span class="ticker-date"></span><span class="mx-3">8月1日(月)から第3営業所でテスト運用が始まります。</span></a></li>
-                        <li class='ticker-item'><a href="#"><span class="ticker-date"></span><span class="mx-3">8月15日(月)、16日(火)は会社休日となっています。注意して下さい。</span></a></li>
+                        <li class='ticker-item'><a href="#"><span class="ticker-date"></span><span class="mx-3">問い合わせは、「その他」→「問い合わせ」よりお願いします。</span></a></li>
+                        <li class='ticker-item'><a href="#"><span class="ticker-date"></span><span class="mx-3">「よくある質問」も随時更新していますのでご活用下さい。</span></a></li>
                     </ul>
                 </div>
             </div>

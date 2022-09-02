@@ -22,6 +22,8 @@ class MonthlyExpensesSettingController extends Controller
         $data = $MonthlyExpensesSettingService->getMonthlyExpensesSetting($request->base_id, $date);
         // 拠点の情報を取得
         $base = Base::where('base_id', $request->base_id)->first();
+        // 対象の拠点IDをセッションに格納
+        session(['base_id' => $request->base_id]);
         return view('monthly_expenses_setting.index')->with([
             'monthly_expenses_settings' => $data['monthly_expenses_settings'],
             'expenses_items' => $data['expenses_items'],
@@ -35,9 +37,12 @@ class MonthlyExpensesSettingController extends Controller
         $MonthlyExpensesSettingService = new MonthlyExpensesSettingService;
         // 指定された条件の設定を取得
         $data = $MonthlyExpensesSettingService->getMonthlyExpensesSetting(session('base_id'), $request->month_select);
+        // 拠点の情報を取得
+        $base = Base::where('base_id', session('base_id'))->first();
         return view('monthly_expenses_setting.index')->with([
             'monthly_expenses_settings' => $data['monthly_expenses_settings'],
             'expenses_items' => $data['expenses_items'],
+            'base' => $base,
         ]);
     }
 

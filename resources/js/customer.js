@@ -24,10 +24,11 @@ $("[id=customer_base_info_save]").on("click",function(){
 
 // バリデーションと処理の実行確認
 function customer_base_validation(form, msg){
-    const base_select = document.getElementById('base_select');
+    const base_select = document.getElementById('base_id');
     const customer_name = document.getElementById('customer_name');
     const monthly_storage_fee = document.getElementById('monthly_storage_fee');
     const working_days = document.getElementById('working_days');
+    console.log(base_select.value);
     try {
         // 拠点が選択されているか
         if (base_select.value == 0) {
