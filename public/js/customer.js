@@ -11105,7 +11105,7 @@ $("[id=cargo_handling_setting_save]").on("click", function () {
     alert(e.message);
     return false;
   }
-}); // 荷役設定を削除
+}); // 荷役設定を削除する
 
 $(document).on("click", ".cargo_handling_setting_delete", function () {
   // DOM要素を削除

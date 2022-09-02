@@ -176,7 +176,7 @@ $("[id=cargo_handling_setting_save]").on("click",function(){
     }
 });
 
-// 荷役設定を削除
+// 荷役設定を削除する
 $(document).on("click", ".cargo_handling_setting_delete", function () {
     // DOM要素を削除
     const delete_target_id = $(this).attr('id');
