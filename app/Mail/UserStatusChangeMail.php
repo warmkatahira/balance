@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegisterMail extends Mailable
+class UserStatusChangeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,13 +30,12 @@ class UserRegisterMail extends Mailable
      */
     public function build()
     {
-        $to = array('t.katahira@warm.co.jp');
+        $to = array($this->email);
         return $this->to($to)
-            ->subject('【日次収支システム】ユーザー登録完了メール')
-            ->view('auth.user-register')
+            ->subject('【日次収支システム】ユーザー登録承認完了メール')
+            ->view('auth.user-status-change')
             ->with([
                 'user_name' => $this->user_name,
-                'email' => $this->email,
             ]);
     }
 }

@@ -33,7 +33,7 @@ class ContactThanksMail extends Mailable
     public function build()
     {
         return $this->to($this->contact_user_email)
-            ->subject('日次収支システムの問い合わせを受け付けました')
+            ->subject('【日次収支システム】問い合わせを受け付けました')
             ->view('contact.thanks_mail')
             ->with([
                 'user_name' => $this->user_name,

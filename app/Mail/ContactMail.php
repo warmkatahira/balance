@@ -33,7 +33,7 @@ class ContactMail extends Mailable
     {
         $to = array('t.katahira@warm.co.jp');
         return $this->to($to)
-            ->subject('日次収支システムの問い合わせがきました')
+            ->subject('【日次収支システム】問い合わせがきました')
             ->view('contact.reception_mail')
             ->with([
                 'user_name' => $this->user_name,
