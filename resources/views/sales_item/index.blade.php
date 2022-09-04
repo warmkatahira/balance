@@ -51,8 +51,10 @@
             <div class="p-10">
                 <form method="post" id="sales_item_register_form" action="{{ route('sales_item.register') }}">
                     @csrf
-                    <input type="text" id="sales_item_name" name="sales_item_name" class="w-full mt-5" placeholder="売上項目名" autocomplete="off" required>
-                    <input type="text" id="sales_item_note" name="sales_item_note" class="w-full mt-5" placeholder="売上項目備考" autocomplete="off">
+                    <label for="sales_item_name" class="">売上項目名</label><br>
+                    <input type="text" id="sales_item_name" name="sales_item_name" class="w-full mb-5" placeholder="売上項目名" autocomplete="off" required>
+                    <label for="sales_item_note" class="">売上項目備考</label><br>
+                    <input type="text" id="sales_item_note" name="sales_item_note" class="w-full" placeholder="任意入力" autocomplete="off">
                 </form>
             </div>
             <!-- Modal footer -->

@@ -14,7 +14,7 @@
     </x-slot>
     <div class="py-5 mx-5 grid grid-cols-12">
         <!-- 配送方法一覧 -->
-        <table class="text-sm mb-5 col-span-2">
+        <table class="text-sm mb-5 col-span-3">
             <thead>
                 <tr class="font-normal text-left text-white bg-gray-600 border-gray-600 sticky top-0">
                     <th class="p-2 px-2 w-6/12">運送会社</th>
@@ -43,8 +43,10 @@
             <div class="p-10">
                 <form method="post" id="shipping_method_register_form" action="{{ route('shipping_method.register') }}">
                     @csrf
-                    <input type="text" id="shipping_company" name="shipping_company" class="w-full mt-5" placeholder="運送会社" autocomplete="off" required>
-                    <input type="text" id="shipping_method" name="shipping_method" class="w-full mt-5" placeholder="配送方法" autocomplete="off" required>
+                    <label for="shipping_company" class="">運送会社</label><br>
+                    <input type="text" id="shipping_company" name="shipping_company" class="w-full mb-5" placeholder="運送会社" autocomplete="off" required>
+                    <label for="shipping_method" class="">配送方法</label><br>
+                    <input type="text" id="shipping_method" name="shipping_method" class="w-full" placeholder="配送方法" autocomplete="off" required>
                 </form>
             </div>
             <!-- Modal footer -->

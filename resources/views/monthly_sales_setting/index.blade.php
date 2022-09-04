@@ -52,13 +52,15 @@
             <div class="p-10">
                 <form method="post" id="monthly_sales_setting_register_form" action="{{ route('monthly_sales_setting.register') }}">
                     @csrf
-                    <select id="sales_item_id" name="sales_item_id" class="w-full">
+                    <label for="sales_item_id">売上項目</label><br>
+                    <select id="sales_item_id" name="sales_item_id" class="w-full mb-5">
                         <option value="0">売上を選択</option>
                         @foreach($sales_items as $sales_item)
                             <option value="{{ $sales_item->sales_item_id }}">{{ $sales_item->sales_item_name }}</option>
                         @endforeach
                     </select>
-                    <input type="tel" id="sales_amount" name="sales_amount" class="w-2/4 mt-5 text-right" placeholder="金額" autocomplete="off" required>円
+                    <label for="sales_amount">売上金額</label><br>
+                    <input type="tel" id="sales_amount" name="sales_amount" class="w-2/4 text-right" placeholder="金額" autocomplete="off" required><span class="ml-1">円</span>
                 </form>
             </div>
             <!-- Modal footer -->

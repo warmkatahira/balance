@@ -59,18 +59,22 @@
             </div>
             <!-- モーダルボディ -->
             <div class="p-10">
-                <select id="cargo_handling_id" class="w-full text-sm">
+                <label for="cargo_handling_id">設定荷役</label>
+                <select id="cargo_handling_id" class="w-full text-sm mb-5">
                     <option value="0">荷役を選択</option>
                     @foreach($cargo_handlings as $cargo_handling)
                         <option value="{{ $cargo_handling->cargo_handling_id }}">{{ $cargo_handling->cargo_handling_name }}</option>
                     @endforeach
                 </select>
-                <input type="text" id="cargo_handling_note" class="w-full mt-5 text-sm" placeholder="荷役備考" autocomplete="off" required>
-                <input type="tel" id="cargo_handling_unit_price" class="w-1/4 mt-5 text-sm text-right" placeholder="荷役単価" autocomplete="off" required>
-                <div class="flex items-center mr-4 mt-5">
+                <label for="cargo_handling_note">荷役備考</label><br>
+                <input type="text" id="cargo_handling_note" class="w-full mb-5 text-sm" placeholder="任意入力" autocomplete="off" required><br>
+                <label for="cargo_handling_unit_price">荷役単価</label><br>
+                <input type="tel" id="cargo_handling_unit_price" class="w-1/4 mb-5 text-sm text-right" placeholder="単価" autocomplete="off" required><span class="ml-1">円</span><br>
+                <div class="flex items-center mr-4">
                     <input checked id="balance_register_default_disp" type="checkbox" class="w-4 h-4 text-teal-600 bg-gray-100 rounded border-gray-300 focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="balance_register_default_disp" class="ml-2 text-gray-900 dark:text-gray-300">収支登録初期表示</label>
                 </div>
+                <p class="text-xs">※チェックを入れると、収支登録時に最初から表示されます。</p>
             </div>
             <!-- モーダルフッター -->
             <div class="px-4 py-2 border-t border-t-gray-500 grid grid-cols-2 gap-4">

@@ -67,7 +67,7 @@
     </div>
     <!-- 荷主登録モーダル -->
     <div id="customer_register_modal" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
-        <div class="relative top-40 mx-auto shadow-lg rounded-md bg-white max-w-md">
+        <div class="relative top-10 mx-auto shadow-lg rounded-md bg-white max-w-md">
             <!-- Modal header -->
             <div class="flex justify-between items-center bg-gray-400 text-white text-xl rounded-t-md px-4 py-2">
                 <h4>荷主登録画面</h4>
@@ -77,16 +77,21 @@
             <div class="p-10">
                 <form method="post" id="customer_register_form" action="{{ route('customer.register') }}">
                     @csrf
-                    <select id="base_id" name="base_id" class="w-full">
+                    <label for="base_id">登録拠点</label><br>
+                    <select id="base_id" name="base_id" class="w-full mb-5">
                         <option value="0">拠点を選択</option>
                         @foreach($bases as $base)
                             <option value="{{ $base->base_id }}">{{ $base->base_name }}</option>
                         @endforeach
                     </select>
-                    <input type="text" id="customer_name" name="customer_name" class="w-full mt-5" placeholder="荷主名" autocomplete="off" required>
-                    <input type="tel" id="monthly_storage_fee" name="monthly_storage_fee" class="w-1/2 mt-5 text-right" placeholder="月間保管売上" autocomplete="off" required><br>
-                    <input type="tel" id="monthly_storage_expenses" name="monthly_storage_expenses" class="w-1/2 mt-5 text-right" placeholder="月間保管経費" autocomplete="off" required><br>
-                    <input type="tel" id="working_days" name="working_days" class="w-1/4 mt-5 text-right" placeholder="稼働日数" autocomplete="off" required>
+                    <label for="base_id">荷主名</label><br>
+                    <input type="text" id="customer_name" name="customer_name" class="w-full mb-5" placeholder="荷主名" autocomplete="off" required>
+                    <label for="base_id">月間保管売上</label><br>
+                    <input type="tel" id="monthly_storage_fee" name="monthly_storage_fee" class="w-1/2 mb-5 text-right" placeholder="金額" autocomplete="off" required><span class="ml-1">円</span><br>
+                    <label for="base_id">月間保管経費</label><br>
+                    <input type="tel" id="monthly_storage_expenses" name="monthly_storage_expenses" class="w-1/2 mb-5 text-right" placeholder="金額" autocomplete="off" required><span class="ml-1">円</span><br>
+                    <label for="base_id">稼働日数</label><br>
+                    <input type="tel" id="working_days" name="working_days" class="w-1/4 text-right" placeholder="日数" autocomplete="off" required><span class="ml-1">日</span>
                 </form>
             </div>
             <!-- Modal footer -->

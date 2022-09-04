@@ -30,7 +30,7 @@
                     @foreach($labor_costs as $labor_cost)
                         <tr id="tr_{{ $labor_cost->labor_cost_id }}">
                             <td class="p-1 px-2 border">{{ $labor_cost->labor_cost_name }}</td>
-                            <td class="p-1 px-2 border text-right"><input type="tel" name="hourly_wage[]" class="hourly_wage text-sm text-right bg-gray-100 w-3/4" value="{{ $labor_cost->hourly_wage }}" autocomplete="off">円</td>
+                            <td class="p-1 px-2 border text-right"><input type="tel" name="hourly_wage[]" class="hourly_wage text-sm text-right bg-gray-100 w-3/4" value="{{ $labor_cost->hourly_wage }}" autocomplete="off"><span class="ml-1">円</span></td>
                         </tr>
                         <input type="hidden" name="labor_cost_id[]" value="{{ $labor_cost->labor_cost_id }}">
                     @endforeach

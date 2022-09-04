@@ -61,14 +61,17 @@
             </div>
             <!-- モーダルボディ -->
             <div class="p-10">
-                <select id="shipping_method_id" class="w-full text-sm">
+                <label for="shipping_method_id" class="">設定配送方法</label><br>
+                <select id="shipping_method_id" class="w-full text-sm mb-5">
                     <option value="0">配送方法を選択</option>
                     @foreach($shipping_methods as $shipping_method)
                         <option value="{{ $shipping_method->shipping_method_id }}">{{ $shipping_method->shipping_company .'【'. $shipping_method->shipping_method .'】' }}</option>
                     @endforeach
                 </select>
-                <input type="tel" id="fare_unit_price" class="w-1/4 mt-5 text-sm text-right block" placeholder="運賃単価" autocomplete="off" required>
-                <input type="tel" id="fare_expense" class="w-1/4 mt-5 text-sm text-right" placeholder="運賃経費" autocomplete="off" required>
+                <label for="fare_unit_price" class="">運賃売上</label><br>
+                <input type="tel" id="fare_unit_price" class="w-1/4 mb-5 text-sm text-right" placeholder="単価" autocomplete="off" required><span class="ml-1">円</span><br>
+                <label for="fare_expense" class="">運賃経費</label><br>
+                <input type="tel" id="fare_expense" class="w-1/4 text-sm text-right" placeholder="単価" autocomplete="off" required><span class="ml-1">円</span>
             </div>
             <!-- モーダルフッター -->
             <div class="px-4 py-2 border-t border-t-gray-500 grid grid-cols-2 gap-4">

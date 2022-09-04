@@ -53,9 +53,12 @@
             <div class="p-10">
                 <form method="post" id="expenses_item_register_form" action="{{ route('expenses_item.register') }}">
                     @csrf
-                    <input type="text" id="expenses_item_name" name="expenses_item_name" class="w-full mt-5" placeholder="経費項目名" autocomplete="off" required>
-                    <input type="text" id="expenses_item_note" name="expenses_item_note" class="w-full mt-5" placeholder="経費項目備考" autocomplete="off">
-                    <select id="expenses_item_category" name="expenses_item_category" class="w-full mt-5">
+                    <label for="expenses_item_name" class="">経費項目名</label><br>
+                    <input type="text" id="expenses_item_name" name="expenses_item_name" class="w-full mb-5" placeholder="経費項目名" autocomplete="off" required>
+                    <label for="expenses_item_note" class="">経費項目備考</label><br>
+                    <input type="text" id="expenses_item_note" name="expenses_item_note" class="w-full mb-5" placeholder="任意入力" autocomplete="off">
+                    <label for="expenses_item_category" class="">経費項目区分</label><br>
+                    <select id="expenses_item_category" name="expenses_item_category" class="w-full">
                         <option value="毎月" selected>毎月</option>
                         <option value="変動">変動</option>
                     </select>

@@ -72,14 +72,17 @@
             <div class="p-10">
                 <form method="post" id="monthly_expenses_setting_register_form" action="{{ route('monthly_expenses_setting.register') }}">
                     @csrf
-                    <select id="expenses_item_id" name="expenses_item_id" class="w-full">
+                    <label for="expenses_item_id">設定経費</label>
+                    <select id="expenses_item_id" name="expenses_item_id" class="w-full mb-5">
                         <option value="0">経費を選択</option>
                         @foreach($expenses_items as $expenses_item)
                             <option value="{{ $expenses_item->expenses_item_id }}">{{ $expenses_item->expenses_item_name }}</option>
                         @endforeach
                     </select>
-                    <input type="month" id="setting_date" name="setting_date" class="w-1/2 mt-5 inline-block" autocomplete="off" required>
-                    <input type="tel" id="expenses_amount" name="expenses_amount" class="w-2/4 mt-5 text-right" placeholder="金額" autocomplete="off" required>円
+                    <label for="setting_date" class="">設定年月</label><br>
+                    <input type="month" id="setting_date" name="setting_date" class="w-1/2 inline-block mb-5" autocomplete="off" required><br>
+                    <label for="expenses_amount" class="">経費金額</label><br>
+                    <input type="tel" id="expenses_amount" name="expenses_amount" class="w-2/4 text-right" placeholder="金額" autocomplete="off" required><span class="ml-1">円</span>
                 </form>
             </div>
             <!-- Modal footer -->

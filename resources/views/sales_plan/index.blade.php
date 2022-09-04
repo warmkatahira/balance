@@ -72,8 +72,10 @@
             <div class="p-10">
                 <form method="post" id="sales_plan_register_form" action="{{ route('sales_plan.register') }}">
                     @csrf
-                    <input type="month" id="plan_date" name="plan_date" class="text-sm w-1/2 mt-5 inline-block" autocomplete="off" required>
-                    <input type="tel" id="sales_plan_amount" name="sales_plan_amount" class="text-sm w-2/4 mt-5 text-right" placeholder="売上計画金額" autocomplete="off" required>円
+                    <label for="plan_date">設定年月</label><br>
+                    <input type="month" id="plan_date" name="plan_date" class="text-sm w-1/2 mb-5 inline-block" autocomplete="off" required><br>
+                    <label for="sales_plan_amount">計画金額</label><br>
+                    <input type="tel" id="sales_plan_amount" name="sales_plan_amount" class="text-sm w-2/4 text-right" placeholder="金額" autocomplete="off" required>円
                 </form>
             </div>
             <!-- Modal footer -->

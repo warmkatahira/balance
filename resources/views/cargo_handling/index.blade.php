@@ -52,7 +52,8 @@
             <div class="p-10">
                 <form method="post" id="cargo_handling_register_form" action="{{ route('cargo_handling.register') }}" class="m-0">
                     @csrf
-                    <input type="text" id="cargo_handling_name" name="cargo_handling_name" class="w-full mt-5" placeholder="荷役名" autocomplete="off" required>
+                    <label for="cargo_handling_name" class="">荷役名</label><br>
+                    <input type="text" id="cargo_handling_name" name="cargo_handling_name" class="w-full" placeholder="荷役名" autocomplete="off" required>
                 </form>
             </div>
             <!-- Modal footer -->
