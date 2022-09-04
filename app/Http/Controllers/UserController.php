@@ -8,13 +8,14 @@ use App\Models\Role;
 use App\Models\Base;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserStatusChangeMail;
+use Illuminate\Pagination\Paginator;
 
 class UserController extends Controller
 {
     public function index()
     {   
         $roles = Role::all();
-        $users = User::orderBy('id', 'asc')->get();
+        $users = User::orderBy('id', 'asc')->paginate(2);
         $bases = Base::all();
         return view('user.index')->with([
             'users' => $users,

@@ -14,7 +14,7 @@
     </x-slot>
     <div class="py-5 mx-5 grid grid-cols-12">
         <!-- ユーザー一覧 -->
-        <table class="text-sm mb-5 col-span-10">
+        <table class="text-sm mb-5 col-span-12">
             <thead>
                 <tr class="font-normal text-left text-white bg-gray-600 border-gray-600 sticky top-0">
                     <th class="p-2 px-2 w-2/12">所属拠点</th>
@@ -76,5 +76,11 @@
                 </form>
             </tbody>
         </table>
+        @if($users)
+            <!-- ページネーション -->
+            <div class="col-span-12 my-5">
+                {{ $users->appends(request()->input())->links() }}
+            </div>
+        @endif
     </div>
 </x-app-layout>
