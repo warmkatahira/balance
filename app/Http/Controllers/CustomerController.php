@@ -67,8 +67,11 @@ class CustomerController extends Controller
         session(['customer_id' => $request->customer_id]);
         // 荷主の情報を取得
         $customer = Customer::where('customer_id', $request->customer_id)->first();
+        // 拠点情報を取得
+        $bases = Base::all();
         return view('customer.base_info_index')->with([
             'customer' => $customer,
+            'bases' => $bases,
         ]);
     }
 
@@ -76,6 +79,7 @@ class CustomerController extends Controller
     {
         // 基本情報を更新
         Customer::where('customer_id', session('customer_id'))->update([
+            'control_base_id' => $request->base_id,
             'customer_name' => $request->customer_name,
             'monthly_storage_fee' => $request->monthly_storage_fee,
             'monthly_storage_expenses' => $request->monthly_storage_expenses,
@@ -143,29 +147,6 @@ class CustomerController extends Controller
             }
         }
         return back();
-
-        /* // 現在の日時を取得
-        $nowDate = new Carbon('now');
-        // customer_idを指定してレコードを削除
-        CargoHandlingCustomer::where('customer_id', session('customer_id'))->delete();
-        if ($request->has('cargo_handling_unit_price')) {
-            foreach($request->cargo_handling_unit_price as $key => $value) {
-                // スプリットしてcargo_handling_idを取得
-                $split_key = explode('-', $key); 
-                $param = [
-                    'customer_id' => session('customer_id'),
-                    'cargo_handling_id' => $split_key[0],
-                    'cargo_handling_unit_price' => $request->cargo_handling_unit_price[$key],
-                    'balance_register_default_disp' => isset($request->balance_register_default_disp[$key]) ? 1 : 0,
-                    'cargo_handling_note' => $request->cargo_handling_note[$key],
-                    'created_at' => $nowDate,
-                    'updated_at' => $nowDate,
-                ];
-                // レコード追加
-                CargoHandlingCustomer::insert($param);
-            }
-        }
-        return back(); */
     }
 
     public function shipping_method_setting_index(Request $request)

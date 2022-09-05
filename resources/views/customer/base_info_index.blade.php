@@ -20,9 +20,13 @@
         <div class="py-5 mx-5 grid grid-cols-12">
             <div class="col-span-6">
                 <div class="col-span-12 grid grid-cols-12">
-                    <p class="col-span-3 font-bold">拠点</p>
-                    <p class="col-span-9">{{ $customer->base->base_name }}</p>
-                    <p class="col-span-3 font-bold mt-4">荷主名</p>
+                    <p class="col-span-3 mt-2 font-bold">拠点</p>
+                    <select id="base_id" name="base_id" class="col-span-3 text-sm">
+                        @foreach($bases as $base)
+                            <option value="{{ $base->base_id }}" {{ $customer->control_base_id == $base->base_id ? 'selected' : '' }}>{{ $base->base_name }}</option>
+                        @endforeach
+                    </select>
+                    <p class="col-start-1 col-span-3 font-bold mt-4">荷主名</p>
                     <input type="text" id="customer_name" name="customer_name" class="col-span-5 text-sm mt-2" value="{{ $customer->customer_name }}" autocomplete="off">
                     <p class="col-start-1 col-span-3 font-bold mt-4">月間保管売上</p>
                     <input type="tel" id="monthly_storage_fee" name="monthly_storage_fee" class="col-span-2 text-sm text-right mt-2" value="{{ $customer->monthly_storage_fee }}" autocomplete="off"><span class="mt-5 ml-1">円</span>

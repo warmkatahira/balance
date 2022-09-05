@@ -32,6 +32,11 @@
                                 @csrf
                                 <input type="submit" class="bg-orange-400 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold cursor-pointer" value="ログアウト">
                             </form>
+                        @else
+                            <form method="POST" action="{{ route('logout') }}" class="inline-block ml-5">
+                                @csrf
+                                <button type="submit" class="border-2 p-4 border-orange-500 rounded-lg font-semibold bg-orange-100">{{ '【アカウント承認処理中】'.Auth::user()->name }}</button>
+                            </form>
                         @endif
                     @else
                         <a href="{{ route('login') }}" class="bg-orange-400 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold">ログイン</a>
