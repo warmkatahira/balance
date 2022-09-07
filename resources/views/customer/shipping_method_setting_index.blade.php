@@ -37,8 +37,8 @@
                             <tr id="tr_{{ $shipping_method->shipping_method_id }}">
                                 <td class="p-1 px-2 border">{{ $shipping_method->shipping_company }}</td>
                                 <td class="p-1 px-2 border">{{ $shipping_method->shipping_method }}</td>
-                                <td class="p-1 px-2 border text-right"><input type="tel" name="fare_unit_price[{{ $shipping_method->shipping_method_id }}]" class="text-sm text-right w-3/4 bg-gray-100 fare_unit_price" value="{{ $shipping_method->pivot->fare_unit_price }}"></td>
-                                <td class="p-1 px-2 border text-right"><input type="tel" name="fare_expense[{{ $shipping_method->shipping_method_id }}]" class="text-sm text-right w-3/4 bg-gray-100 fare_expense" value="{{ $shipping_method->pivot->fare_expense }}"></td>
+                                <td class="p-1 px-2 border text-right"><input type="tel" name="fare_unit_price[{{ $shipping_method->shipping_method_id }}]" class="text-sm text-right w-3/4 bg-gray-100 fare_unit_price" value="{{ $shipping_method->pivot->fare_unit_price }}"><span class="mt-5 ml-1">円</span></td>
+                                <td class="p-1 px-2 border text-right"><input type="tel" name="fare_expense[{{ $shipping_method->shipping_method_id }}]" class="text-sm text-right w-3/4 bg-gray-100 fare_expense" value="{{ $shipping_method->pivot->fare_expense }}"><span class="mt-5 ml-1">円</span></td>
                                 <td class="p-1 px-2 border text-center">
                                     @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 11 && Auth::user()->base_id == $customer->control_base_id)
                                         <button type="button" id="{{ $shipping_method->shipping_method_id }}" class="shipping_method_setting_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button>

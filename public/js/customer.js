@@ -11177,26 +11177,34 @@ $("[id=shipping_method_register]").on("click", function () {
     shipping_method_td.classList.add('p-1', 'px-2', 'border'); // 運賃単価のtdタグを作成
 
     var fare_unit_price_td = document.createElement('td');
-    fare_unit_price_td.classList.add('p-1', 'px-2', 'border'); // 運賃単価のinputタグを作成
+    fare_unit_price_td.classList.add('p-1', 'px-2', 'border', 'text-right'); // 運賃単価のinputタグを作成
 
     var fare_unit_price_input = document.createElement('input');
     fare_unit_price_input.type = 'tel';
     fare_unit_price_input.name = 'fare_unit_price[' + shipping_method_select.value + ']';
     fare_unit_price_input.classList.add('text-sm', 'text-right', 'w-3/4', 'bg-gray-100', 'fare_unit_price');
-    fare_unit_price_input.value = fare_unit_price.value; // 運賃単価のtdタグにinputタグを追加
+    fare_unit_price_input.value = fare_unit_price.value; // spanタグを作成
 
-    fare_unit_price_td.append(fare_unit_price_input); // 経費単価のtdタグを作成
+    var fare_unit_price_span = document.createElement('span');
+    fare_unit_price_span.classList.add('mt-5', 'ml-1');
+    fare_unit_price_span.innerHTML = '円'; // 運賃単価のtdタグにinputタグを追加
+
+    fare_unit_price_td.append(fare_unit_price_input, fare_unit_price_span); // 経費単価のtdタグを作成
 
     var fare_expense_td = document.createElement('td');
-    fare_expense_td.classList.add('p-1', 'px-2', 'border'); // 経費単価のinputタグを作成
+    fare_expense_td.classList.add('p-1', 'px-2', 'border', 'text-right'); // 経費単価のinputタグを作成
 
     var fare_expense_input = document.createElement('input');
     fare_expense_input.type = 'tel';
     fare_expense_input.name = 'fare_expense[' + shipping_method_select.value + ']';
     fare_expense_input.classList.add('text-sm', 'text-right', 'w-3/4', 'bg-gray-100', 'fare_expense');
-    fare_expense_input.value = fare_expense.value; // 経費単価のtdタグにinputタグを追加
+    fare_expense_input.value = fare_expense.value; // spanタグを作成
 
-    fare_expense_td.append(fare_expense_input); // 削除のtdタグを作成
+    var fare_expense_span = document.createElement('span');
+    fare_expense_span.classList.add('mt-5', 'ml-1');
+    fare_expense_span.innerHTML = '円'; // 経費単価のtdタグにinputタグを追加
+
+    fare_expense_td.append(fare_expense_input, fare_expense_span); // 削除のtdタグを作成
 
     var shipping_method_delete_btn_td = document.createElement('td');
     shipping_method_delete_btn_td.classList.add('p-1', 'px-2', 'border', 'text-center'); // 削除のbuttonタグを作成
