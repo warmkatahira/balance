@@ -96,7 +96,7 @@
                 <p class="col-span-4 text-xl mb-5 font-bold">経費<i class="las la-caret-right"></i>人件費関連</p>
                 <div id="total_fare_expenses_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     @foreach($labor_costs as $labor_cost)
-                        <input name="labor_cost_name[]" class="text-sm col-span-2 font-bold py-3 bg-transparent" value="{{ $labor_cost->labor_cost_name }}" readonly>
+                        <input name="labor_cost_name[]" class="text-sm col-span-2 font-bold py-3 bg-transparent" value="{{ $labor_cost->labor_cost_name }}" readonly tabIndex = "-1">
                         <input type="tel" id="{{ $labor_cost->labor_cost_name }}_working_time" class="col-span-1 text-right text-sm h-4/5 py-3 labor_costs_update working_time int_validation" name="working_time[]" autocomplete="off" placeholder="時間">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">時間</p>
                         <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>

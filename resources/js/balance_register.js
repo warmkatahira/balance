@@ -85,6 +85,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price,
     shipping_method_name.value = select_shipping_method;
     shipping_method_name.readOnly = 'true';
     shipping_method_name.name = 'shipping_method_name_' + add_category + '[]';
+    shipping_method_name.tabIndex = "-1";
 
     // 配送方法備考を表示する要素を作成
     const shipping_method_note = document.createElement('input');
@@ -92,6 +93,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price,
     shipping_method_note.value = select_shipping_method_note;
     shipping_method_note.readOnly = 'true';
     shipping_method_note.name = 'shipping_method_note_' + add_category + '[]';
+    shipping_method_note.tabIndex = "-1";
 
     // 個口数を入力する要素を作成
     const box_quantity = document.createElement('input');
@@ -147,6 +149,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price,
     delete_btn.id = select_shipping_method + '-' + select_shipping_method_note + '-' + select_price + '_fare_' + add_category + '_delete_btn';
     delete_btn.innerHTML = '<i class="las la-trash la-lg"></i>';
     delete_btn.classList.add('col-span-1', 'bg-red-600', 'text-white', 'hover:bg-gray-400', 'delete_shipping_method_' + add_category, 'h-4/5');
+    delete_btn.tabIndex = "-1";
     if (add_category == 'expenses') {
         delete_btn.classList.add('hidden');
     }
@@ -378,6 +381,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     cargo_handling_name.value = cargo_handling_name_value;
     cargo_handling_name.readOnly = 'true';
     cargo_handling_name.name = 'cargo_handling_name[]';
+    cargo_handling_name.tabIndex = "-1";
     
     // 作業数を入力する要素を作成
     const operation_quantity = document.createElement('input');
@@ -433,6 +437,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     delete_btn.id = add_id + '-' + cargo_handling_unit_price_value + '-' + cargo_handling_note_value + '_delete_btn';
     delete_btn.innerHTML = '<i class="las la-trash la-lg"></i>';
     delete_btn.classList.add('col-span-1', 'bg-red-600', 'text-white', 'hover:bg-gray-400', 'delete_cargo_handling', 'h-4/5');
+    delete_btn.tabIndex = "-1";
     
     // 円を表示する要素を複製する
     const clone_cargo_handling_unit_price_text = cargo_handling_unit_price_text.cloneNode(true);
@@ -443,6 +448,7 @@ function cargo_handling_add(add_id, cargo_handling_name_value, cargo_handling_un
     cargo_handling_note.value = cargo_handling_note_value;
     cargo_handling_note.readOnly = 'true';
     cargo_handling_note.name = 'cargo_handling_note[]';
+    cargo_handling_note.tabIndex = "-1";
 
     // 追加する要素を纏めるdivタグを作成
     const target_div = document.createElement('div');
@@ -612,6 +618,7 @@ $("[id=other_expenses_add]").on("click",function(){
         other_expenses_name.value = select_value;
         other_expenses_name.readOnly = 'true';
         other_expenses_name.name = 'other_expenses_name[]';
+        other_expenses_name.tabIndex = "-1";
         
         // 経費備考を入力する要素を作成
         const other_expenses_note = document.createElement('input');
@@ -713,6 +720,7 @@ function add_other_sales(select_id, select_value, monthly_sales_detail_value, ot
         other_sales_name.value = select_value;
         other_sales_name.readOnly = 'true';
         other_sales_name.name = 'other_sales_name[]';
+        other_sales_name.tabIndex = "-1";
 
         // 売上備考を入力する要素を作成
         const other_sales_note = document.createElement('input');

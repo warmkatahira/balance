@@ -31,8 +31,8 @@
                 @foreach($balance_fares as $balance_fare)
                     @if($balance_fare->fare_balance_category == 'sales')
                         <div id="{{ $balance_fare->shipping_method_name.'_fare_'.$balance_fare->fare_balance_category.'_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 shipping_method_div">
-                            <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="{{ 'shipping_method_name_'.$balance_fare->fare_balance_category.'[]' }}" value="{{ $balance_fare->shipping_method_name }}" readonly>
-                            <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="shipping_method_note_sales[]" value="{{ $balance_fare->shipping_method_note }}" readonly>
+                            <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="{{ 'shipping_method_name_'.$balance_fare->fare_balance_category.'[]' }}" value="{{ $balance_fare->shipping_method_name }}" readonly tabIndex = "-1">
+                            <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="shipping_method_note_sales[]" value="{{ $balance_fare->shipping_method_note }}" readonly tabIndex = "-1">
                             <input type="tel" id="{{ $balance_fare->shipping_method_name.'_box_quantity_'.$balance_fare->fare_balance_category }}" name="{{ 'box_quantity_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-1 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category.'_update' }} {{ 'box_quantity_'.$balance_fare->fare_balance_category }}" placeholder="個口" autocomplete="off" value="{{ $balance_fare->box_quantity }}">
                             <p class="text-sm col-span-1 text-left pt-5 ml-2">個口</p>
                             <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
@@ -41,7 +41,7 @@
                             <p class="text-base col-span-1 py-3"><i class="las la-equals"></i></p>
                             <input type="tel" id="{{ $balance_fare->shipping_method_name.'_fare_amount_'.$balance_fare->fare_balance_category }}" name="{{ 'fare_amount_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-2 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category }}" placeholder="金額" autocomplete="off" value="{{ $balance_fare->fare_amount }}">
                             <p class="text-sm col-span-1 text-left pt-5 ml-2">円</p>
-                            <button type="button" id="{{ $balance_fare->shipping_method_name.'_fare_'.$balance_fare->fare_balance_category.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 {{ 'delete_shipping_method_'.$balance_fare->fare_balance_category }} h-4/5"><i class="las la-trash la-lg"></i></button>
+                            <button type="button" id="{{ $balance_fare->shipping_method_name.'_fare_'.$balance_fare->fare_balance_category.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 {{ 'delete_shipping_method_'.$balance_fare->fare_balance_category }} h-4/5" tabIndex = "-1"><i class="las la-trash la-lg"></i></button>
                         </div>
                     @endif
                 @endforeach
@@ -65,8 +65,8 @@
                 <button type="button" id="cargo_handling_add" class="col-start-12 col-span-1 bg-black text-white hover:bg-gray-400 text-sm h-4/5">追加</button>
                 @foreach($balance_cargo_handlings as $balance_cargo_handling)
                     <div id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_cargo_handling_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 cargo_handling_div">
-                        <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="cargo_handling_name[]" value="{{ $balance_cargo_handling->cargo_handling_name }}" readonly>
-                        <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="cargo_handling_note[]" value="{{ $balance_cargo_handling->cargo_handling_note }}" readonly>
+                        <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="cargo_handling_name[]" value="{{ $balance_cargo_handling->cargo_handling_name }}" readonly tabIndex = "-1">
+                        <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="cargo_handling_note[]" value="{{ $balance_cargo_handling->cargo_handling_note }}" readonly tabIndex = "-1">
                         <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_operation_quantity' }}" name="operation_quantity[]" class="text-sm col-span-1 text-right cargo_handling_amount_update h-4/5 operation_quantity" placeholder="作業数" autocomplete="off" value="{{ $balance_cargo_handling->operation_quantity }}">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">作業</p>
                         <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
@@ -75,7 +75,7 @@
                         <p class="text-base col-span-1 py-3"><i class="las la-equals"></i></p>
                         <input type="tel" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_cargo_handling_amount' }}" name="cargo_handling_amount[]" class="text-sm col-span-2 text-right h-4/5 cargo_handling_amount" placeholder="金額" autocomplete="off" value="{{ $balance_cargo_handling->cargo_handling_amount }}">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">円</p>
-                        <button type="button" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 delete_cargo_handling h-4/5"><i class="las la-trash la-lg"></i></button>
+                        <button type="button" id="{{ $balance_cargo_handling->cargo_handling_name.'-'.$balance_cargo_handling->cargo_handling_unit_price.'-'.$balance_cargo_handling->cargo_handling_note.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 delete_cargo_handling h-4/5" tabIndex = "-1"><i class="las la-trash la-lg"></i></button>
                     </div>
                 @endforeach
                 <div id="total_cargo_handling_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
@@ -112,8 +112,8 @@
                 <button type="button" id="other_sales_add" class="col-start-12 col-span-1 bg-black text-white hover:bg-gray-400 text-sm h-4/5">追加</button>
                 @foreach($balance_other_sales as $balance_other_sale)
                     <div id="{{ $balance_other_sale->other_sales_name.'_other_sales_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2">
-                        <input name="other_sales_name[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_name }}" readonly>
-                        <input name="other_sales_note[]" class="text-sm col-start-4 col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_note }}" readonly>
+                        <input name="other_sales_name[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_name }}" readonly tabIndex = "-1">
+                        <input name="other_sales_note[]" class="text-sm col-start-4 col-span-2 py-3 bg-transparent" value="{{ $balance_other_sale->other_sales_note }}" readonly tabIndex = "-1">
                         <input type="tel" id="{{ $balance_other_sale->other_sales_name.'_other_sales_amount' }}" name="other_sales_amount[]" class="text-sm col-span-2 col-start-9 text-right other_sales_amount_update h-4/5 other_sales_amount" value="{{ $balance_other_sale->other_sales_amount }}" placeholder="金額" autocomplete="off">
                         <p class="text-sm col-span-1 col-start-11 text-left pt-5 ml-2">円</p>
                         <button type="button" id="{{ $balance_other_sale->other_sales_name.'_other_sales_delete_btn' }}" class="col-span-1 col-start-12 bg-red-600 text-white hover:bg-gray-400 delete_other_sales h-4/5"><i class="las la-trash la-lg"></i></button>
@@ -130,8 +130,8 @@
                 @foreach($balance_fares as $balance_fare)
                     @if($balance_fare->fare_balance_category == 'expenses')
                         <div id="{{ $balance_fare->shipping_method_name.'_fare_'.$balance_fare->fare_balance_category.'_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 shipping_method_div">
-                            <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="{{ 'shipping_method_name_'.$balance_fare->fare_balance_category.'[]' }}" value="{{ $balance_fare->shipping_method_name }}" readonly>
-                            <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="shipping_method_note_expenses[]" value="{{ $balance_fare->shipping_method_note }}" readonly>
+                            <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="{{ 'shipping_method_name_'.$balance_fare->fare_balance_category.'[]' }}" value="{{ $balance_fare->shipping_method_name }}" readonly tabIndex = "-1">
+                            <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="shipping_method_note_expenses[]" value="{{ $balance_fare->shipping_method_note }}" readonly tabIndex = "-1">
                             <input type="tel" id="{{ $balance_fare->shipping_method_name.'_box_quantity_'.$balance_fare->fare_balance_category }}" name="{{ 'box_quantity_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-1 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category.'_update' }} {{ 'box_quantity_'.$balance_fare->fare_balance_category }}" placeholder="個口" autocomplete="off" value="{{ $balance_fare->box_quantity }}">
                             <p class="text-sm col-span-1 text-left pt-5 ml-2">個口</p>
                             <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
@@ -156,7 +156,7 @@
                 <p class="col-span-4 text-xl mb-5 font-bold">経費<i class="las la-caret-right"></i>人件費関連</p>
                 <div id="total_fare_expenses_div" class="col-span-12 grid grid-cols-12 border-b-2 border-black mt-8">
                     @foreach($balance_labor_costs as $balance_labor_cost)
-                        <input name="labor_cost_name[]" class="text-sm col-span-2 font-bold py-3 bg-transparent" value="{{ $balance_labor_cost->labor_cost_name }}" readonly>
+                        <input name="labor_cost_name[]" class="text-sm col-span-2 font-bold py-3 bg-transparent" value="{{ $balance_labor_cost->labor_cost_name }}" readonly tabIndex = "-1">
                         <input type="tel" id="{{ $balance_labor_cost->labor_cost_name }}_working_time" class="col-span-1 text-right text-sm h-4/5 py-3 labor_costs_update working_time int_validation" name="working_time[]" autocomplete="off" placeholder="時間" value="{{ $balance_labor_cost->working_time }}">
                         <p class="text-sm col-span-1 text-left pt-5 ml-2">時間</p>
                         <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
@@ -201,8 +201,8 @@
                 <button type="button" id="other_expenses_add" class="col-start-12 col-span-1 bg-black text-white hover:bg-gray-400 text-sm h-4/5">追加</button>
                 @foreach($balance_other_expenses as $balance_other_expense)
                     <div id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2">
-                        <input name="other_expenses_name[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_name }}" readonly>
-                        <input name="other_expenses_note[]" class="text-sm  col-start-4 col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_note }}" readonly>
+                        <input name="other_expenses_name[]" class="font-bold text-sm col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_name }}" readonly tabIndex = "-1">
+                        <input name="other_expenses_note[]" class="text-sm  col-start-4 col-span-2 py-3 bg-transparent" value="{{ $balance_other_expense->other_expenses_note }}" readonly tabIndex = "-1">
                         <input type="tel" id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_amount' }}" name="other_expenses_amount[]" class="text-sm col-span-2 col-start-9 text-right other_expenses_amount_update h-4/5 other_expenses_amount" value="{{ $balance_other_expense->other_expenses_amount }}" placeholder="金額" autocomplete="off">
                         <p class="text-sm col-span-1 col-start-11 text-left pt-5 ml-2">円</p>
                         <button type="button" id="{{ $balance_other_expense->other_expenses_name.'_other_expenses_delete_btn' }}" class="col-span-1 col-start-12 bg-red-600 text-white hover:bg-gray-400 delete_other_expenses h-4/5"><i class="las la-trash la-lg"></i></button>
