@@ -35,6 +35,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/contact.js', 'public/js')
     .css('resources/css/question.css', 'public/css')
     .js('resources/js/question.js', 'public/js')
+    .js('resources/js/message.js', 'public/js')
     .autoload({
         jquery: ['$', 'window.jQuery']
     })

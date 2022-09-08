@@ -63,6 +63,11 @@
                             <li>
                                 <a href="{{ route('contact.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">問い合わせ</a>
                             </li>
+                            @if(Auth::user()->role_id == 1)
+                                <li>
+                                    <a href="{{ route('message.index') }}" class="block w-32 bg-orange-300 hover:bg-gray-400 py-2 hover:text-white text-xs">メッセージ</a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 </ul>

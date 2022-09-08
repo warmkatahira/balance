@@ -1,14 +1,4 @@
-// 人件費設定登録モーダルを開く
-$("[id=labor_cost_setting_register_modal_open]").on("click",function(){
-    const modal = document.getElementById('labor_cost_setting_register_modal');
-    modal.classList.remove('hidden');
-});
-
-// 人件費設定登録モーダルを閉じる
-$("[class^=labor_cost_setting_register_modal_close]").on("click",function(){
-    const modal = document.getElementById('labor_cost_setting_register_modal');
-    modal.classList.add('hidden');
-});
+var change_flg = false;         // フォームの変更を判定する変数
 
 // 保存ボタンが押下されたら
 $("[id=labor_cost_setting_save]").on("click",function(){
@@ -25,10 +15,27 @@ $("[id=labor_cost_setting_save]").on("click",function(){
         const result = window.confirm('設定を保存しますか？');
         // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
         if(result == true) {
+            // ここでfalseに戻しておかないとダイアログが表示されてしまう
+            change_flg = false;
             labor_cost_setting_form.submit();
         }
     } catch (e) {
         alert(e.message);
         return false;
     }
+});
+
+// ページ遷移時に確認ダイアログの設定
+window.addEventListener('beforeunload', function(e) {
+    // 変更があったらダイアログを表示
+    if( change_flg === true ) {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+
+// フォーム内の要素に変更があると発火
+$("input").change(function(){
+    // change_flgをtrueに変更
+    change_flg = true;
 });

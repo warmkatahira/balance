@@ -10923,49 +10923,106 @@ return jQuery;
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-/*!********************************************!*\
-  !*** ./resources/js/labor_cost_setting.js ***!
-  \********************************************/
+/*!*********************************!*\
+  !*** ./resources/js/message.js ***!
+  \*********************************/
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-var change_flg = false; // フォームの変更を判定する変数
-// 保存ボタンが押下されたら
+var modal = document.getElementById('message_templete_register_modal');
+var templete_select = document.getElementById('templete');
+var title = document.getElementById('title');
+var content = document.getElementById('content'); // テンプレート登録モーダルを開く
 
-$("[id=labor_cost_setting_save]").on("click", function () {
-  var labor_cost_setting_form = document.getElementById('labor_cost_setting_form');
+$("[id=message_templete_register_modal_open]").on("click", function () {
+  modal.classList.remove('hidden');
+}); // テンプレート登録モーダルを閉じる
+
+$("[class^=message_templete_register_modal_close]").on("click", function () {
+  modal.classList.add('hidden');
+}); // テンプレート登録ボタンが押下されたら
+
+$("[id=message_templete_register]").on("click", function () {
+  var register_name = document.getElementById('register_name');
+  var register_content = document.getElementById('register_content');
+  var message_templete_register_form = document.getElementById('message_templete_register_form');
 
   try {
-    // 荷役単価を取得して、正常な値であるかチェック
-    var hourly_wages = document.querySelectorAll('.hourly_wage');
-    hourly_wages.forEach(function (hourly_wage) {
-      // 時給が正しいかチェック
-      if (!hourly_wage.value || isNaN(hourly_wage.value)) {
-        throw new Error('時給が正しくありません。');
-      }
-    });
-    var result = window.confirm('設定を保存しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+    // 件名が入力されているか
+    if (register_name.value == 0) {
+      throw new Error('テンプレート名を入力して下さい。');
+    } // 文字数チェック
+
+
+    if (register_content.value.length > 500) {
+      throw new Error('メッセージ内容の文字数がオーバーしています。');
+    }
+
+    var result = window.confirm('テンプレート登録を行いますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
 
     if (result == true) {
-      // ここでfalseに戻しておかないとダイアログが表示されてしまう
-      change_flg = false;
-      labor_cost_setting_form.submit();
+      message_templete_register_form.submit();
+    } else {
+      return false;
     }
   } catch (e) {
     alert(e.message);
-    return false;
   }
-}); // ページ遷移時に確認ダイアログの設定
+}); // テンプレート選択が変更されたら
 
-window.addEventListener('beforeunload', function (e) {
-  // 変更があったらダイアログを表示
-  if (change_flg === true) {
-    e.preventDefault();
-    e.returnValue = '';
+$("[id=templete]").on("change", function () {
+  // テンプレートIDを取得
+  var templete_id = templete_select.value; // idが0以外で処理を実行
+
+  if (templete_id != 0) {
+    // 環境でパスを可変させる
+    if (false) { var ajax_url; }
+
+    if (true) {
+      var ajax_url = '/balance/message_templete_get_ajax/' + templete_id;
+    }
+
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: ajax_url,
+      type: 'GET',
+      dataType: 'json',
+      success: function success(data) {
+        // テンプレートの内容を反映
+        title.value = data['message_templete']['templete_title'];
+        content.value = data['message_templete']['templete_content'];
+      },
+      error: function error() {
+        alert('失敗');
+      }
+    });
   }
-}); // フォーム内の要素に変更があると発火
+}); // 送信ボタンが押下されたら
 
-$("input").change(function () {
-  // change_flgをtrueに変更
-  change_flg = true;
+$("[id=message_confirm]").on("click", function () {
+  var message_form = document.getElementById('message_form');
+
+  try {
+    // 件名が入力されているか
+    if (title.value == '') {
+      throw new Error('件名を入力して下さい。');
+    } // メッセージ内容が入力されているか
+
+
+    if (content.value == '') {
+      throw new Error('メッセージ内容を入力して下さい。');
+    }
+
+    var result = window.confirm('メッセージを送信しますか？'); // 「はい」が押下されたらsubmit、「いいえ」が押下されたら処理キャンセル
+
+    if (result == true) {
+      message_form.submit();
+    } else {
+      return false;
+    }
+  } catch (e) {
+    alert(e.message);
+  }
 });
 })();
 

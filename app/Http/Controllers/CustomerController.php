@@ -155,35 +155,58 @@ class CustomerController extends Controller
         session(['customer_id' => $request->customer_id]);
         $customer = Customer::where('customer_id', $request->customer_id)->first();
         $shipping_methods = ShippingMethod::all();
+        $shipping_method_settings = CustomerShippingMethod::where('customer_id', $request->customer_id)
+                                    ->orderBy('shipping_method_id', 'asc')
+                                    ->get();
         return view('customer.shipping_method_setting_index')->with([
             'customer' => $customer,
             'shipping_methods' => $shipping_methods,
+            'shipping_method_settings' => $shipping_method_settings,
         ]);
     }
 
     public function shipping_method_setting_update(Request $request)
     {
-        // 保存する配送方法設定を格納する配列をセット
-        $param = [];
-        // 保存する配送方法設定が無い場合
+
+        // 現在の日時を取得
+        $nowDate = new Carbon('now');
+        // パラメータがない=全ての設定を削除
         if (!$request->has('fare_unit_price')) {
-            // customer_idを指定してレコードを削除
             CustomerShippingMethod::where('customer_id', session('customer_id'))->delete();
-            return back();
         }
-        // 保存する配送方法設定を配列に格納（荷役設定の分だけループ）
-        // 運賃単価
-        foreach($request->fare_unit_price as $key => $value) {
-            $param = $param + array($key => ['fare_unit_price' => $value]);
+        // パラメータがあれば更新処理を実施
+        if ($request->has('fare_unit_price')) {
+            foreach($request->fare_unit_price as $key => $value) {
+                // スプリットしてshipping_method_idを取得
+                $split_key = explode('-', $key); 
+                // 追加の場合は、設定を追加
+                if ($split_key[5] == 'add'){
+                    $param = [
+                        'customer_id' => session('customer_id'),
+                        'shipping_method_id' => $split_key[0],
+                        'fare_unit_price' => $request->fare_unit_price[$key],
+                        'fare_expense' => $request->fare_expense[$key],
+                        'shipping_method_note' => $request->shipping_method_note[$key],
+                        'created_at' => $nowDate,
+                        'updated_at' => $nowDate,
+                    ];
+                    // レコード追加
+                    CustomerShippingMethod::insert($param);
+                }
+                // 既存の設定は内容を更新
+                if ($split_key[5] == 'kizon'){
+                    $customer_shipping_method = CustomerShippingMethod::find($split_key[4]);
+                    $customer_shipping_method->fare_unit_price = $request->fare_unit_price[$key];
+                    $customer_shipping_method->fare_expense = $request->fare_expense[$key];
+                    $customer_shipping_method->shipping_method_note = $request->shipping_method_note[$key];
+                    $customer_shipping_method->save();
+                } 
+                // 設定を削除
+                if ($split_key[5] == 'del'){
+                    CustomerShippingMethod::where('customer_shipping_method_id', $split_key[4])->delete();
+                } 
+            }
         }
-        // 運賃経費
-        foreach($request->fare_expense as $key => $value) {
-            $param[$key] += array('fare_expense' => $value);
-        }
-        // 配送方法設定を保存する荷主を特定
-        $customer = Customer::find(session('customer_id'));
-        // 配送方法設定を保存
-        $customer->shipping_methods()->sync($param);
         return back();
     }
 }

@@ -21,27 +21,29 @@
     <form method="post" id="shipping_method_setting_form" action="{{ route('customer_shipping_method_setting.update') }}" class="m-0">
         @csrf
         <div class="py-5 mx-5 grid grid-cols-12">
-            <div class="col-span-5">
+            <div class="col-span-8">
                 <table class="col-span-12 text-sm mb-5">
                     <thead>
                         <tr class="font-normal text-left text-white bg-gray-600 border-gray-600 sticky top-0">
-                            <th class="p-2 px-2 w-3/12">運送会社</th>
-                            <th class="p-2 px-2 w-3/12">配送方法</th>
+                            <th class="p-2 px-2 w-2/12">運送会社</th>
+                            <th class="p-2 px-2 w-2/12">配送方法</th>
+                            <th class="p-2 px-2 w-3/12">配送方法備考</th>
                             <th class="p-2 px-2 w-2/12 text-right">運賃単価</th>
                             <th class="p-2 px-2 w-2/12 text-right">運賃経費</th>
-                            <th class="p-2 px-2 w-2/12 text-center">操作</th>
+                            <th class="p-2 px-2 w-1/12 text-center">操作</th>
                         </tr>
                     </thead>
                     <tbody id="shipping_method_setting_body" class="bg-white">
-                        @foreach($customer->shipping_methods as $shipping_method)
-                            <tr id="tr_{{ $shipping_method->shipping_method_id }}">
-                                <td class="p-1 px-2 border">{{ $shipping_method->shipping_company }}</td>
-                                <td class="p-1 px-2 border">{{ $shipping_method->shipping_method }}</td>
-                                <td class="p-1 px-2 border text-right"><input type="tel" name="fare_unit_price[{{ $shipping_method->shipping_method_id }}]" class="text-sm text-right w-3/4 bg-gray-100 fare_unit_price" value="{{ $shipping_method->pivot->fare_unit_price }}"><span class="mt-5 ml-1">円</span></td>
-                                <td class="p-1 px-2 border text-right"><input type="tel" name="fare_expense[{{ $shipping_method->shipping_method_id }}]" class="text-sm text-right w-3/4 bg-gray-100 fare_expense" value="{{ $shipping_method->pivot->fare_expense }}"><span class="mt-5 ml-1">円</span></td>
+                        @foreach($shipping_method_settings as $shipping_method_setting)
+                            <tr id="tr_{{ $shipping_method_setting->shipping_method_id.'-'.$shipping_method_setting->shipping_method_note.'-'.$shipping_method_setting->fare_unit_price.'-'.$shipping_method_setting->fare_expense.'-'.$shipping_method_setting->customer_shipping_method_id.'-kizon' }}">
+                                <td class="p-1 px-2 border">{{ $shipping_method_setting->shipping_method->shipping_company }}</td>
+                                <td class="p-1 px-2 border">{{ $shipping_method_setting->shipping_method->shipping_method }}</td>
+                                <td class="p-1 px-2 border text-center"><input type="text" name="shipping_method_note[{{ $shipping_method_setting->shipping_method_id.'-'.$shipping_method_setting->shipping_method_note.'-'.$shipping_method_setting->fare_unit_price.'-'.$shipping_method_setting->fare_expense.'-'.$shipping_method_setting->customer_shipping_method_id.'-kizon' }}]" class="text-sm bg-gray-100 w-full" value="{{ $shipping_method_setting->shipping_method_note }}" autocomplete="off"></td>
+                                <td class="p-1 px-2 border text-right"><input type="tel" name="fare_unit_price[{{ $shipping_method_setting->shipping_method_id.'-'.$shipping_method_setting->shipping_method_note.'-'.$shipping_method_setting->fare_unit_price.'-'.$shipping_method_setting->fare_expense.'-'.$shipping_method_setting->customer_shipping_method_id.'-kizon' }}]" class="text-sm text-right w-3/4 bg-gray-100 fare_unit_price" value="{{ $shipping_method_setting->fare_unit_price }}"><span class="mt-5 ml-1">円</span></td>
+                                <td class="p-1 px-2 border text-right"><input type="tel" name="fare_expense[{{ $shipping_method_setting->shipping_method_id.'-'.$shipping_method_setting->shipping_method_note.'-'.$shipping_method_setting->fare_unit_price.'-'.$shipping_method_setting->fare_expense.'-'.$shipping_method_setting->customer_shipping_method_id.'-kizon' }}]" class="text-sm text-right w-3/4 bg-gray-100 fare_expense" value="{{ $shipping_method_setting->fare_expense }}"><span class="mt-5 ml-1">円</span></td>
                                 <td class="p-1 px-2 border text-center">
                                     @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 11 && Auth::user()->base_id == $customer->control_base_id)
-                                        <button type="button" id="{{ $shipping_method->shipping_method_id }}" class="shipping_method_setting_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button>
+                                        <button type="button" id="{{ $shipping_method_setting->shipping_method_id.'-'.$shipping_method_setting->shipping_method_note.'-'.$shipping_method_setting->fare_unit_price.'-'.$shipping_method_setting->fare_expense.'-'.$shipping_method_setting->customer_shipping_method_id.'-kizon' }}" class="shipping_method_setting_delete bg-red-600 text-white hover:bg-gray-400 p-1 text-xs">削除</button>
                                     @endif
                                 </td>
                             </tr>
@@ -68,6 +70,8 @@
                         <option value="{{ $shipping_method->shipping_method_id }}">{{ $shipping_method->shipping_company .'【'. $shipping_method->shipping_method .'】' }}</option>
                     @endforeach
                 </select>
+                <label for="shipping_method_note" class="">配送方法備考</label><br>
+                <input type="tel" id="shipping_method_note" class="mb-5 text-sm w-full" placeholder="任意入力" autocomplete="off" required><br>
                 <label for="fare_unit_price" class="">運賃売上</label><br>
                 <input type="tel" id="fare_unit_price" class="w-1/4 mb-5 text-sm text-right" placeholder="単価" autocomplete="off" required><span class="ml-1">円</span><br>
                 <label for="fare_expense" class="">運賃経費</label><br>

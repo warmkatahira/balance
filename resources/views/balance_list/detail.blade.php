@@ -65,7 +65,7 @@
                 </div>
                 <div class="grid grid-cols-12 pt-2 bg-white">
                     @foreach($balance_fare_sales as $balance_fare)
-                        <p class="col-start-2 col-span-3">{{ $balance_fare->shipping_method_name }}</p>
+                        <p class="col-start-2 col-span-3">{{ $balance_fare->shipping_method_name.($balance_fare->shipping_method_note == null ? '' : '≪'.$balance_fare->shipping_method_note.'≫') }}</p>
                         <p class="col-span-2 text-right">{{ number_format($balance_fare->box_quantity) }}個口</p>
                         <p class="col-span-2 text-right">{{ number_format($balance_fare->fare_unit_price) }}円</p>
                         <p class="col-span-3 text-right">{{ number_format($balance_fare->fare_amount) }}円</p>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="grid grid-cols-12 pt-2 bg-white">
                     @foreach($balance_cargo_handlings as $balance_cargo_handling)
-                        <p class="col-start-2 col-span-3">{{ $balance_cargo_handling->cargo_handling_name.'【'.$balance_cargo_handling->cargo_handling_note.'】' }}</p>
+                        <p class="col-start-2 col-span-3">{{ $balance_cargo_handling->cargo_handling_name.($balance_cargo_handling->cargo_handling_note == null ? '' : '【'.$balance_cargo_handling->cargo_handling_note.'】') }}</p>
                         <p class="col-span-2 text-right">{{ number_format($balance_cargo_handling->operation_quantity) }}作業</p>
                         <p class="col-span-2 text-right">{{ number_format($balance_cargo_handling->cargo_handling_unit_price) }}円</p>
                         <p class="col-span-3 text-right">{{ number_format($balance_cargo_handling->cargo_handling_amount) }}円</p>

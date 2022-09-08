@@ -20,6 +20,7 @@ use App\Http\Controllers\SalesPlanController;
 use App\Http\Controllers\MonthlySalesSettingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,5 +139,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/question_register', [QuestionController::class, 'register'])->name('question.register');
         Route::get('/question_delete', [QuestionController::class, 'delete'])->name('question.delete');
 
+        // メッセージ
+        Route::get('/message', [MessageController::class, 'index'])->name('message.index');
+        Route::post('/message_templete_register', [MessageController::class, 'register'])->name('message_templete.register');
+        Route::get('/message_templete_get_ajax/{templete_id}', [MessageController::class, 'message_templete_get_ajax']);
+        Route::get('/message_send', [MessageController::class, 'send'])->name('message.send');
     });
 });

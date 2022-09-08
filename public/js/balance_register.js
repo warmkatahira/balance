@@ -36028,30 +36028,39 @@ $("[id=shipping_method_add]").on("click", function () {
 
     var select_value_split = shipping_method_select.options[select_index].innerHTML.split(':'); // スプリットした情報から配送方法と売上・経費の単価を抽出
 
-    var select_shipping_method = select_value_split[0].replace('（売上', '');
+    var temp1 = select_value_split[0].replace('（売上', '');
+    var temp2 = temp1.split('《');
+    var select_shipping_method = temp2[0];
+    var select_shipping_method_note = temp2[1].replace('》', '');
     var select_fare_unit_price = select_value_split[1].replace('円）（経費', '');
     var select_fare_expenses = select_value_split[2].replace('円）', ''); // 既に存在する配送方法ではないかチェック
 
-    if (document.getElementById(select_shipping_method + '_fare_sales_div') != null) {
+    if (document.getElementById(select_shipping_method + '-' + select_shipping_method_note + '-' + select_fare_unit_price + '_fare_sales_div') != null) {
       throw new Error('既に存在する配送方法です。');
     } // 売上の運賃情報を追加
 
 
-    fare_add('sales', select_shipping_method, select_shipping_method, select_fare_unit_price); // 経費の運賃情報を追加
+    fare_add('sales', select_shipping_method, select_shipping_method, select_fare_unit_price, select_shipping_method_note); // 経費の運賃情報を追加
 
-    fare_add('expenses', select_shipping_method, select_shipping_method, select_fare_expenses);
+    fare_add('expenses', select_shipping_method, select_shipping_method, select_fare_expenses, select_shipping_method_note);
   } catch (e) {
     alert(e.message);
   }
 }); // 配送方法の追加処理
 
-function fare_add(add_category, select_id, select_shipping_method, select_price) {
+function fare_add(add_category, select_id, select_shipping_method, select_price, select_shipping_method_note) {
   // 配送方法を表示する要素を作成
   var shipping_method_name = document.createElement('input');
   shipping_method_name.classList.add('font-bold', 'text-sm', 'col-span-2', 'py-3', 'bg-transparent');
   shipping_method_name.value = select_shipping_method;
   shipping_method_name.readOnly = 'true';
-  shipping_method_name.name = 'shipping_method_name_' + add_category + '[]'; // 個口数を入力する要素を作成
+  shipping_method_name.name = 'shipping_method_name_' + add_category + '[]'; // 配送方法備考を表示する要素を作成
+
+  var shipping_method_note = document.createElement('input');
+  shipping_method_note.classList.add('font-bold', 'text-sm', 'col-start-1', 'col-span-2', 'py-3', 'bg-transparent');
+  shipping_method_note.value = select_shipping_method_note;
+  shipping_method_note.readOnly = 'true';
+  shipping_method_note.name = 'shipping_method_note_' + add_category + '[]'; // 個口数を入力する要素を作成
 
   var box_quantity = document.createElement('input');
   box_quantity.type = 'tel';
@@ -36096,7 +36105,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price)
 
   var delete_btn = document.createElement('button');
   delete_btn.type = 'button';
-  delete_btn.id = select_id + '_fare_' + add_category + '_delete_btn';
+  delete_btn.id = select_shipping_method + '-' + select_shipping_method_note + '-' + select_price + '_fare_' + add_category + '_delete_btn';
   delete_btn.innerHTML = '<i class="las la-trash la-lg"></i>';
   delete_btn.classList.add('col-span-1', 'bg-red-600', 'text-white', 'hover:bg-gray-400', 'delete_shipping_method_' + add_category, 'h-4/5');
 
@@ -36108,10 +36117,10 @@ function fare_add(add_category, select_id, select_shipping_method, select_price)
   var clone_fare_unit_price_text = fare_unit_price_text.cloneNode(true); // 追加する要素を纏めるdivタグを作成
 
   var target_div = document.createElement('div');
-  target_div.id = select_id + '_fare_' + add_category + '_div';
+  target_div.id = select_shipping_method + '-' + select_shipping_method_note + '-' + select_price + '_fare_' + add_category + '_div';
   target_div.classList.add('grid', 'grid-cols-12', 'col-span-12', 'border-b-2', 'border-black', 'pt-2', 'shipping_method_div'); // divタグに作成した要素を追加
 
-  target_div.append(shipping_method_name, box_quantity, box_quantity_text, symbol_kakeru, fare_unit_price, fare_unit_price_text, symbol_equal, fare_amount, clone_fare_unit_price_text, delete_btn); // 纏めたdivタグを追加
+  target_div.append(shipping_method_name, shipping_method_note, box_quantity, box_quantity_text, symbol_kakeru, fare_unit_price, fare_unit_price_text, symbol_equal, fare_amount, clone_fare_unit_price_text, delete_btn); // 纏めたdivタグを追加
 
   if (add_category == 'sales') {
     fare_list_sales.insertBefore(target_div, total_fare_sales_div);
@@ -36258,7 +36267,7 @@ $("[id=customer_select]").on("change", function () {
       data['shipping_methods'].forEach(function (element) {
         var shipping_method_op = document.createElement('option');
         shipping_method_op.value = element['shipping_method_id'];
-        shipping_method_op.innerHTML = element['shipping_company'] + '【' + element['shipping_method'] + '】（売上:' + element['fare_unit_price'] + '円）（経費:' + element['fare_expense'] + '円）';
+        shipping_method_op.innerHTML = element['shipping_company'] + '【' + element['shipping_method'] + '】《' + (element['shipping_method_note'] == null ? '' : element['shipping_method_note']) + '》（売上:' + element['fare_unit_price'] + '円）（経費:' + element['fare_expense'] + '円）';
         shipping_method_select.append(shipping_method_op);
       }); // 保管売上の算出詳細を出力
 

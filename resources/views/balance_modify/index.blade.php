@@ -6,9 +6,6 @@
             <div class="inline-block col-span-2 font-semibold text-xl text-gray-800 p-2">
                 収支修正
             </div>
-            <div class="col-start-12 col-span-1">
-                <button id="modify_enter" class="w-full text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100 px-3 py-2">修正</button>
-            </div>
         </div>
     </x-slot>
     <form method="post" id="balance_register_form" action="{{ route('balance_modify.modify') }}" class="m-0">
@@ -35,6 +32,7 @@
                     @if($balance_fare->fare_balance_category == 'sales')
                         <div id="{{ $balance_fare->shipping_method_name.'_fare_'.$balance_fare->fare_balance_category.'_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 shipping_method_div">
                             <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="{{ 'shipping_method_name_'.$balance_fare->fare_balance_category.'[]' }}" value="{{ $balance_fare->shipping_method_name }}" readonly>
+                            <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="shipping_method_note_sales[]" value="{{ $balance_fare->shipping_method_note }}" readonly>
                             <input type="tel" id="{{ $balance_fare->shipping_method_name.'_box_quantity_'.$balance_fare->fare_balance_category }}" name="{{ 'box_quantity_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-1 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category.'_update' }} {{ 'box_quantity_'.$balance_fare->fare_balance_category }}" placeholder="個口" autocomplete="off" value="{{ $balance_fare->box_quantity }}">
                             <p class="text-sm col-span-1 text-left pt-5 ml-2">個口</p>
                             <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
@@ -133,6 +131,7 @@
                     @if($balance_fare->fare_balance_category == 'expenses')
                         <div id="{{ $balance_fare->shipping_method_name.'_fare_'.$balance_fare->fare_balance_category.'_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 shipping_method_div">
                             <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="{{ 'shipping_method_name_'.$balance_fare->fare_balance_category.'[]' }}" value="{{ $balance_fare->shipping_method_name }}" readonly>
+                            <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="shipping_method_note_expenses[]" value="{{ $balance_fare->shipping_method_note }}" readonly>
                             <input type="tel" id="{{ $balance_fare->shipping_method_name.'_box_quantity_'.$balance_fare->fare_balance_category }}" name="{{ 'box_quantity_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-1 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category.'_update' }} {{ 'box_quantity_'.$balance_fare->fare_balance_category }}" placeholder="個口" autocomplete="off" value="{{ $balance_fare->box_quantity }}">
                             <p class="text-sm col-span-1 text-left pt-5 ml-2">個口</p>
                             <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
@@ -222,4 +221,8 @@
             </div>
         </div>
     </form>
+    <!-- 修正ボタンをフッター固定 -->
+    <div class="col-start-12 col-span-1 sticky bottom-0 px-5 mb-5">
+        <button id="modify_enter" class="w-full text-white bg-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100 hover:text-black px-3 py-2">修正</button>
+    </div>
 </x-app-layout>

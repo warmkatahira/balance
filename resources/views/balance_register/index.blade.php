@@ -5,9 +5,6 @@
             <div class="inline-block col-span-2 font-semibold text-xl text-gray-800 p-2">
                 収支登録
             </div>
-            <div class="col-start-12 col-span-1">
-                <button id="register_enter" class="w-full text-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100 px-3 py-2">登録</button>
-            </div>
         </div>
     </x-slot>
     <form method="post" id="balance_register_form" action="{{ route('balance_register.register') }}" class="m-0">
@@ -155,4 +152,8 @@
             </div>
         </div>
     </form>
+    <!-- 登録ボタンをフッター固定 -->
+    <div class="col-start-12 col-span-1 sticky bottom-0 px-5 mb-5">
+        <button id="register_enter" class="w-full text-white bg-indigo-500 border border-indigo-500 font-semibold rounded hover:bg-indigo-100 hover:text-black px-3 py-2">登録</button>
+    </div>
 </x-app-layout>

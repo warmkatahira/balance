@@ -29,7 +29,7 @@
                 @foreach($monthly_sales_settings as $monthly_sales_setting)
                     <tr id="tr_{{ $monthly_sales_setting->sales_item_id }}">
                         <td class="p-1 px-2 border">{{ $monthly_sales_setting->sales_item->sales_item_name }}</td>
-                        <td class="p-1 px-2 border text-right"><input type="tel" name="sales_amount[]" class="text-sm text-right rounded-lg w-3/4" value="{{ $monthly_sales_setting->sales_amount }}"><span>円</span></td>
+                        <td class="p-1 px-2 border text-right"><input type="tel" name="sales_amount[]" class="text-sm text-right w-3/4 bg-gray-100" value="{{ $monthly_sales_setting->sales_amount }}"><span>円</span></td>
                         <td class="p-1 px-2 border text-center">
                             @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 11 && Auth::user()->base_id == session('base_id'))
                                 <a href="{{ route('monthly_sales_setting.delete', ['monthly_sales_setting_id' => $monthly_sales_setting->monthly_sales_setting_id]) }}" class="monthly_sales_setting_delete bg-red-400 text-white text-xs p-1 hover:bg-gray-400">削除</a>

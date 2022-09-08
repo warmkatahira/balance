@@ -28,7 +28,7 @@ class Customer extends Model
     public function shipping_methods(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\ShippingMethod', 'customer_shipping_method', 'customer_id', 'shipping_method_id')
-                    ->withPivot('fare_unit_price', 'fare_expense')
+                    ->withPivot('fare_unit_price', 'fare_expense', 'shipping_method_note')
                     ->withTimestamps();
     }
 }

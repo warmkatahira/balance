@@ -10935,7 +10935,7 @@ $("[id=contact_confirm]").on("click", function () {
 
   try {
     // 件名が入力されているか
-    if (title.value == 0) {
+    if (title.value == '') {
       throw new Error('件名を入力して下さい。');
     } // 問い合わせ内容が入力されているか
 
