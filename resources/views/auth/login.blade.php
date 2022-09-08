@@ -37,15 +37,14 @@
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div> --}}
-
-            <div class="flex items-center justify-end mt-4">
+            <div class="grid grid-cols-12 mt-4">
                 {{-- @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif --}}
-
-                <button class="bg-amber-500 text-white rounded-lg text-sm hover:bg-gray-400 py-2 px-5 font-semibold">ログイン</button>
+                <a href="{{ route('password.request') }}" class="col-span-12 text-center bg-pink-200 text-black rounded-lg text-sm hover:bg-gray-400 hover:text-white py-2 px-5 font-semibold">パスワードを忘れた方はこちら</a>
+                <button class="col-span-12 bg-amber-500 text-white rounded-lg text-sm hover:bg-gray-400 py-8 px-5 mt-10 font-semibold">ログイン</button>
             </div>
         </form>
     </x-auth-card>
