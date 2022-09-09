@@ -372,6 +372,12 @@ $("[id=shipping_method_setting_save]").on("click",function(){
     }
 });
 
+// 検索ボタンが押下されたら
+$("[id=balance_list_search]").on("click",function(){
+    // ここでfalseに戻しておかないとダイアログが表示されてしまう
+    change_flg = false;
+});
+
 // ページ遷移時に確認ダイアログの設定
 window.addEventListener('beforeunload', function(e) {
     // 変更があったらダイアログを表示
