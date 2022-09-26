@@ -24,24 +24,24 @@
                 <select id="shipping_method_select" class="text-xs h-4/5 col-start-9 col-span-3">
                     <option value="0">配送方法を選択</option>
                     @foreach($shipping_methods as $shipping_method)
-                        <option value="{{ $shipping_method->shipping_method_id }}">{{ $shipping_method->shipping_company.'【'.$shipping_method->shipping_method.'】（売上:'.$shipping_method->fare_unit_price.'円）（経費:'.$shipping_method->fare_expense.'円）' }}</option>
+                        <option value="{{ $shipping_method->shipping_method_id }}">{{ $shipping_method->shipping_company.'【'.$shipping_method->shipping_method.'】《'.$shipping_method->shipping_method_note.'》（売上:'.$shipping_method->fare_unit_price.'円）（経費:'.$shipping_method->fare_expense.'円）' }}</option>
                     @endforeach
                 </select>
                 <button type="button" id="shipping_method_add" class="col-start-12 col-span-1 bg-black text-white hover:bg-gray-400 text-sm h-4/5">追加</button>
                 @foreach($balance_fares as $balance_fare)
                     @if($balance_fare->fare_balance_category == 'sales')
-                        <div id="{{ $balance_fare->shipping_method_name.'_fare_'.$balance_fare->fare_balance_category.'_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 shipping_method_div">
+                        <div id="{{ $balance_fare->shipping_method_name.$balance_fare->shipping_method_note.'_fare_'.$balance_fare->fare_balance_category.'_div' }}" class="grid grid-cols-12 col-span-12 border-b-2 border-black pt-2 shipping_method_div">
                             <input class="font-bold text-sm col-span-2 py-3 bg-transparent" name="{{ 'shipping_method_name_'.$balance_fare->fare_balance_category.'[]' }}" value="{{ $balance_fare->shipping_method_name }}" readonly tabIndex = "-1">
                             <input class="font-bold text-sm col-start-1 col-span-2 py-3 bg-transparent" name="shipping_method_note_sales[]" value="{{ $balance_fare->shipping_method_note }}" readonly tabIndex = "-1">
-                            <input type="tel" id="{{ $balance_fare->shipping_method_name.'_box_quantity_'.$balance_fare->fare_balance_category }}" name="{{ 'box_quantity_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-1 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category.'_update' }} {{ 'box_quantity_'.$balance_fare->fare_balance_category }}" placeholder="個口" autocomplete="off" value="{{ $balance_fare->box_quantity }}">
+                            <input type="tel" id="{{ $balance_fare->shipping_method_name.$balance_fare->shipping_method_note.'_box_quantity_'.$balance_fare->fare_balance_category }}" name="{{ 'box_quantity_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-1 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category.'_update' }} {{ 'box_quantity_'.$balance_fare->fare_balance_category }}" placeholder="個口" autocomplete="off" value="{{ $balance_fare->box_quantity }}">
                             <p class="text-sm col-span-1 text-left pt-5 ml-2">個口</p>
                             <p class="text-base col-span-1 py-3"><i class="las la-times"></i></p>
-                            <input type="tel" id="{{ $balance_fare->shipping_method_name.'_fare_unit_price_'.$balance_fare->fare_balance_category }}" name="{{ 'fare_unit_price_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-1 text-right {{ 'fare_amount_'.$balance_fare->fare_balance_category.'_update' }} h-4/5" placeholder="単価" autocomplete="off" value="{{ $balance_fare->fare_unit_price }}">
+                            <input type="tel" id="{{ $balance_fare->shipping_method_name.$balance_fare->shipping_method_note.'_fare_unit_price_'.$balance_fare->fare_balance_category }}" name="{{ 'fare_unit_price_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-1 text-right {{ 'fare_amount_'.$balance_fare->fare_balance_category.'_update' }} h-4/5" placeholder="単価" autocomplete="off" value="{{ $balance_fare->fare_unit_price }}">
                             <p class="text-sm col-span-1 text-left pt-5 ml-2">円</p>
                             <p class="text-base col-span-1 py-3"><i class="las la-equals"></i></p>
-                            <input type="tel" id="{{ $balance_fare->shipping_method_name.'_fare_amount_'.$balance_fare->fare_balance_category }}" name="{{ 'fare_amount_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-2 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category }}" placeholder="金額" autocomplete="off" value="{{ $balance_fare->fare_amount }}">
+                            <input type="tel" id="{{ $balance_fare->shipping_method_name.$balance_fare->shipping_method_note.'_fare_amount_'.$balance_fare->fare_balance_category }}" name="{{ 'fare_amount_'.$balance_fare->fare_balance_category.'[]' }}" class="text-sm col-span-2 text-right h-4/5 {{ 'fare_amount_'.$balance_fare->fare_balance_category }}" placeholder="金額" autocomplete="off" value="{{ $balance_fare->fare_amount }}">
                             <p class="text-sm col-span-1 text-left pt-5 ml-2">円</p>
-                            <button type="button" id="{{ $balance_fare->shipping_method_name.'_fare_'.$balance_fare->fare_balance_category.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 {{ 'delete_shipping_method_'.$balance_fare->fare_balance_category }} h-4/5" tabIndex = "-1"><i class="las la-trash la-lg"></i></button>
+                            <button type="button" id="{{ $balance_fare->shipping_method_name.$balance_fare->shipping_method_note.'_fare_'.$balance_fare->fare_balance_category.'_delete_btn' }}" class="col-span-1 bg-red-600 text-white hover:bg-gray-400 {{ 'delete_shipping_method_'.$balance_fare->fare_balance_category }} h-4/5" tabIndex = "-1"><i class="las la-trash la-lg"></i></button>
                         </div>
                     @endif
                 @endforeach

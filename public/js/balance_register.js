@@ -36066,7 +36066,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price,
 
   var box_quantity = document.createElement('input');
   box_quantity.type = 'tel';
-  box_quantity.id = select_id + '_box_quantity_' + add_category;
+  box_quantity.id = select_id + select_shipping_method_note + '_box_quantity_' + add_category;
   box_quantity.name = 'box_quantity_' + add_category + '[]';
   box_quantity.placeholder = '個口';
   box_quantity.autocomplete = 'off';
@@ -36082,7 +36082,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price,
 
   var fare_unit_price = document.createElement('input');
   fare_unit_price.type = 'tel';
-  fare_unit_price.id = select_id + '_fare_unit_price_' + add_category;
+  fare_unit_price.id = select_id + select_shipping_method_note + '_fare_unit_price_' + add_category;
   fare_unit_price.name = 'fare_unit_price_' + add_category + '[]';
   fare_unit_price.placeholder = '単価';
   fare_unit_price.autocomplete = 'off';
@@ -36099,7 +36099,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price,
 
   var fare_amount = document.createElement('input');
   fare_amount.type = 'tel';
-  fare_amount.id = select_id + '_fare_amount_' + add_category;
+  fare_amount.id = select_id + select_shipping_method_note + '_fare_amount_' + add_category;
   fare_amount.name = 'fare_amount_' + add_category + '[]';
   fare_amount.placeholder = '金額';
   fare_amount.autocomplete = 'off';
@@ -36107,7 +36107,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price,
 
   var delete_btn = document.createElement('button');
   delete_btn.type = 'button';
-  delete_btn.id = select_shipping_method + '-' + select_shipping_method_note + '-' + select_price + '_fare_' + add_category + '_delete_btn';
+  delete_btn.id = select_id + select_shipping_method_note + '_fare_' + add_category + '_delete_btn';
   delete_btn.innerHTML = '<i class="las la-trash la-lg"></i>';
   delete_btn.classList.add('col-span-1', 'bg-red-600', 'text-white', 'hover:bg-gray-400', 'delete_shipping_method_' + add_category, 'h-4/5');
   delete_btn.tabIndex = "-1";
@@ -36120,7 +36120,7 @@ function fare_add(add_category, select_id, select_shipping_method, select_price,
   var clone_fare_unit_price_text = fare_unit_price_text.cloneNode(true); // 追加する要素を纏めるdivタグを作成
 
   var target_div = document.createElement('div');
-  target_div.id = select_shipping_method + '-' + select_shipping_method_note + '-' + select_price + '_fare_' + add_category + '_div';
+  target_div.id = select_id + select_shipping_method_note + '_fare_' + add_category + '_div';
   target_div.classList.add('grid', 'grid-cols-12', 'col-span-12', 'border-b-2', 'border-black', 'pt-2', 'shipping_method_div'); // divタグに作成した要素を追加
 
   target_div.append(shipping_method_name, shipping_method_note, box_quantity, box_quantity_text, symbol_kakeru, fare_unit_price, fare_unit_price_text, symbol_equal, fare_amount, clone_fare_unit_price_text, delete_btn); // 纏めたdivタグを追加
@@ -36153,6 +36153,7 @@ $(document).on("change", ".fare_amount_sales_update", function () {
   target_fare_amount_sales.value = target_box_quantity_sales.value * target_fare_unit_price_sales.value;
   total_fare_sales_update();
   var target_box_quantity_expenses = document.getElementById(target_id + '_box_quantity_expenses');
+  console.log(target_box_quantity_sales, target_box_quantity_sales.value);
   target_box_quantity_expenses.value = target_box_quantity_sales.value;
   fare_amount_expenses_update(target_id);
   total_fare_expenses_update();
