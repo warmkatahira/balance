@@ -194,7 +194,6 @@ $(document).on("change", ".fare_amount_sales_update", function () {
     target_fare_amount_sales.value = target_box_quantity_sales.value * target_fare_unit_price_sales.value;
     total_fare_sales_update();
     const target_box_quantity_expenses = document.getElementById(target_id + '_box_quantity_expenses');
-    console.log(target_box_quantity_sales, target_box_quantity_sales.value);
     target_box_quantity_expenses.value = target_box_quantity_sales.value;
     fare_amount_expenses_update(target_id);
     total_fare_expenses_update();
