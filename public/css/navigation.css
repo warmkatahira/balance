@@ -1,0 +1,17 @@
+.menu > li.menu__single {
+    position: relative;
+}
+
+li.menu__single ul.menu__second-level {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    background: #072A24;
+    transition: all .2s ease;
+}
+
+li.menu__single:hover ul.menu__second-level {
+    top: 50px;
+    visibility: visible;
+    opacity: 1;
+}

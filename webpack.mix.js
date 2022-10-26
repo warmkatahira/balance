@@ -36,6 +36,7 @@ mix.js('resources/js/app.js', 'public/js')
     .css('resources/css/question.css', 'public/css')
     .js('resources/js/question.js', 'public/js')
     .js('resources/js/message.js', 'public/js')
+    .css('resources/css/navigation.css', 'public/css')
     .autoload({
         jquery: ['$', 'window.jQuery']
     })

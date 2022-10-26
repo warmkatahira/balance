@@ -25,6 +25,9 @@
         <!-- Scripts -->
         <script src="{{ asset('js/navigation.js') }}" defer></script>
 
+        <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('css/navigation.css') }}">
+
         <!-- LINE AWESOME -->
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     

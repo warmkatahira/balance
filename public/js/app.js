@@ -22375,6 +22375,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/css/navigation.css":
+/*!**************************************!*\
+  !*** ./resources/css/navigation.css ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/css/app.css":
 /*!*******************************!*\
   !*** ./resources/css/app.css ***!
@@ -22718,6 +22731,7 @@ process.umask = function() { return 0; };
 /******/ 		var installedChunks = {
 /******/ 			"/js/app": 0,
 /******/ 			"css/app": 0,
+/******/ 			"css/navigation": 0,
 /******/ 			"css/question": 0,
 /******/ 			"css/home": 0,
 /******/ 			"css/ticker": 0
@@ -22770,11 +22784,12 @@ process.umask = function() { return 0; };
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/ticker.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/home.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/question.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/navigation","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/navigation","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/ticker.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/navigation","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/home.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/navigation","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/question.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/navigation","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/navigation.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/navigation","css/question","css/home","css/ticker"], () => (__webpack_require__("./resources/css/app.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
