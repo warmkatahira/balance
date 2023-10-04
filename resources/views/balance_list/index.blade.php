@@ -90,7 +90,7 @@
                             <td class="p-1 px-2 border text-right">{{ number_format($balance->total_sales) }}円</td>
                             <td class="p-1 px-2 border text-right">{{ number_format($balance->total_expenses) }}円</td>
                             <td class="p-1 px-2 border text-right {{ $balance->total_profit < 0 ? 'text-red-400 font-bold bg-rose-100' : '' }}">{{ number_format($balance->total_profit) }}円</td>
-                            <td class="p-1 px-2 border text-right">{{ number_format(($balance->total_profit / $balance->total_sales) * 100) }}%</td>
+                            <td class="p-1 px-2 border text-right">{{ number_format(($balance->total_profit / $balance->total_sales) * 100, 2) }}%</td>
                             <td class="p-1 px-2 border text-center"><a href="{{ route('balance_list_zensha.index', ['date' => $balance->date]) }}" class="bg-sky-400 text-white text-xs p-1 hover:bg-gray-400">詳細</a></td>
                         </tr>
                     @endforeach
