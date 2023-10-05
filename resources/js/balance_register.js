@@ -271,7 +271,7 @@ $("[id=customer_select]").on("change",function(){
         var ajax_url = '/balance/balance_register_customer_data_get_ajax/' + customer_id;
     }
     console.log(ajax_url);
-    /* $.ajax({
+    $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -280,7 +280,7 @@ $("[id=customer_select]").on("change",function(){
         dataType: 'json',
         success: function(data){
             console.log(data);
-            // 荷役の要素を全て削除
+            /* // 荷役の要素を全て削除
             $('.cargo_handling_div').remove();
             // 荷役選択のセレクトボックスをクリア
             for (let i = cargo_handling_select.childElementCount; i > 0; i--) {
@@ -336,12 +336,12 @@ $("[id=customer_select]").on("change",function(){
                 monthly_sales_detail = element['sales_amount'].toLocaleString() + '円 / ' + data['customer']['working_days'] + '日 = ' + other_sales_amount.toLocaleString() + '円';
                 add_other_sales(element['sales_item_id'], element['sales_item_name'], monthly_sales_detail, other_sales_amount);
             });
-            total_other_sales_update();
+            total_other_sales_update(); */
         },
         error: function(){
             alert('失敗');
         }
-    }); */
+    });
 });
 
 // 荷役の追加ボタンが押下されたら
