@@ -271,7 +271,7 @@ $("[id=customer_select]").on("change",function(){
         var ajax_url = '/balance/balance_register_customer_data_get_ajax/' + customer_id;
     }
     console.log(ajax_url);
-    $.ajax({
+    /* $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -341,7 +341,7 @@ $("[id=customer_select]").on("change",function(){
         error: function(){
             alert('失敗');
         }
-    });
+    }); */
 });
 
 // 荷役の追加ボタンが押下されたら

@@ -36235,78 +36235,76 @@ $("[id=customer_select]").on("change", function () {
   }
 
   console.log(ajax_url);
-  $.ajax({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    url: ajax_url,
-    type: 'GET',
-    dataType: 'json',
-    success: function success(data) {
-      console.log(data); // 荷役の要素を全て削除
-
-      $('.cargo_handling_div').remove(); // 荷役選択のセレクトボックスをクリア
-
-      for (var i = cargo_handling_select.childElementCount; i > 0; i--) {
-        cargo_handling_select.remove(i);
+  /* $.ajax({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: ajax_url,
+      type: 'GET',
+      dataType: 'json',
+      success: function(data){
+          console.log(data);
+          // 荷役の要素を全て削除
+          $('.cargo_handling_div').remove();
+          // 荷役選択のセレクトボックスをクリア
+          for (let i = cargo_handling_select.childElementCount; i > 0; i--) {
+              cargo_handling_select.remove(i);
+          }
+          data['cargo_handling_settings'].forEach(function(element){
+              // 収支登録初期表示がONの荷役を表示させる
+              if (element['balance_register_default_disp'] == 1) {
+                  cargo_handling_add(element['cargo_handling_name'], element['cargo_handling_name'], element['cargo_handling_unit_price'], (element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']));
+              }
+          });
+          // 荷役のプルダウンを更新
+          cargo_handling_option_update();
+          // 荷役合計を更新
+          total_cargo_handling_update();
+          // 配送方法の要素を全て削除
+          $('.shipping_method_div').remove();
+          // 配送方法選択のセレクトボックスをクリア
+          for (let i = shipping_method_select.childElementCount; i > 0; i--) {
+              shipping_method_select.remove(i);
+          }
+          // 選択した荷主に登録してある配送方法をオプションに追加
+          data['shipping_methods'].forEach(function(element){
+              const shipping_method_op = document.createElement('option');
+              shipping_method_op.value = element['shipping_method_id'];
+              shipping_method_op.innerHTML = element['shipping_company'] + '【' + element['shipping_method'] + '】《' + (element['shipping_method_note'] == null ? '' : element['shipping_method_note']) + '》（売上:' + element['fare_unit_price'] + '円）（経費:' + element['fare_expense'] + '円）';
+              shipping_method_select.append(shipping_method_op);
+          });
+          // 保管売上の算出詳細を出力
+          storage_fee_detail.innerHTML = '';
+          if(data['storage_fee'] != 0){
+              storage_fee_detail.innerHTML = (data['customer']['monthly_storage_fee'] !== null ? data['customer']['monthly_storage_fee'].toLocaleString() + '円 / ' : '設定なし / ')
+                                              + (data['customer']['working_days'] !== null ? data['customer']['working_days'] + '日 = ' : '設定なし = ')
+                                              + data['storage_fee'].toLocaleString() + '円';
+          }
+          // 保管売上を出力
+          storage_fee.value = data['storage_fee'];
+          total_storage_fee.innerHTML = Number(storage_fee.value).toLocaleString();
+          // 保管経費の算出詳細を出力
+          storage_expenses_detail.innerHTML = '';
+          if(data['storage_expenses'] != 0){
+              storage_expenses_detail.innerHTML = (data['customer']['monthly_storage_expenses'] !== null ? data['customer']['monthly_storage_expenses'].toLocaleString() + '円 / ' : '設定なし / ')
+                                              + (data['customer']['working_days'] !== null ? data['customer']['working_days'] + '日 = ' : '設定なし = ')
+                                              + data['storage_expenses'].toLocaleString() + '円';
+          }
+          // 保管経費を出力
+          storage_expenses.value = data['storage_expenses'];
+          total_storage_expenses.innerHTML = Number(storage_expenses.value).toLocaleString();
+           // 月額設定されている売上を稼働日数で割る
+          data['monthly_sales_settings'].forEach(function(element){
+              other_sales_amount = Math.floor(element['sales_amount'] / data['customer']['working_days']);
+              monthly_sales_detail = element['sales_amount'].toLocaleString() + '円 / ' + data['customer']['working_days'] + '日 = ' + other_sales_amount.toLocaleString() + '円';
+              add_other_sales(element['sales_item_id'], element['sales_item_name'], monthly_sales_detail, other_sales_amount);
+          });
+          total_other_sales_update();
+      },
+      error: function(){
+          alert('失敗');
       }
-
-      data['cargo_handling_settings'].forEach(function (element) {
-        // 収支登録初期表示がONの荷役を表示させる
-        if (element['balance_register_default_disp'] == 1) {
-          cargo_handling_add(element['cargo_handling_name'], element['cargo_handling_name'], element['cargo_handling_unit_price'], element['cargo_handling_note'] == null ? '' : element['cargo_handling_note']);
-        }
-      }); // 荷役のプルダウンを更新
-
-      cargo_handling_option_update(); // 荷役合計を更新
-
-      total_cargo_handling_update(); // 配送方法の要素を全て削除
-
-      $('.shipping_method_div').remove(); // 配送方法選択のセレクトボックスをクリア
-
-      for (var _i3 = shipping_method_select.childElementCount; _i3 > 0; _i3--) {
-        shipping_method_select.remove(_i3);
-      } // 選択した荷主に登録してある配送方法をオプションに追加
-
-
-      data['shipping_methods'].forEach(function (element) {
-        var shipping_method_op = document.createElement('option');
-        shipping_method_op.value = element['shipping_method_id'];
-        shipping_method_op.innerHTML = element['shipping_company'] + '【' + element['shipping_method'] + '】《' + (element['shipping_method_note'] == null ? '' : element['shipping_method_note']) + '》（売上:' + element['fare_unit_price'] + '円）（経費:' + element['fare_expense'] + '円）';
-        shipping_method_select.append(shipping_method_op);
-      }); // 保管売上の算出詳細を出力
-
-      storage_fee_detail.innerHTML = '';
-
-      if (data['storage_fee'] != 0) {
-        storage_fee_detail.innerHTML = (data['customer']['monthly_storage_fee'] !== null ? data['customer']['monthly_storage_fee'].toLocaleString() + '円 / ' : '設定なし / ') + (data['customer']['working_days'] !== null ? data['customer']['working_days'] + '日 = ' : '設定なし = ') + data['storage_fee'].toLocaleString() + '円';
-      } // 保管売上を出力
-
-
-      storage_fee.value = data['storage_fee'];
-      total_storage_fee.innerHTML = Number(storage_fee.value).toLocaleString(); // 保管経費の算出詳細を出力
-
-      storage_expenses_detail.innerHTML = '';
-
-      if (data['storage_expenses'] != 0) {
-        storage_expenses_detail.innerHTML = (data['customer']['monthly_storage_expenses'] !== null ? data['customer']['monthly_storage_expenses'].toLocaleString() + '円 / ' : '設定なし / ') + (data['customer']['working_days'] !== null ? data['customer']['working_days'] + '日 = ' : '設定なし = ') + data['storage_expenses'].toLocaleString() + '円';
-      } // 保管経費を出力
-
-
-      storage_expenses.value = data['storage_expenses'];
-      total_storage_expenses.innerHTML = Number(storage_expenses.value).toLocaleString(); // 月額設定されている売上を稼働日数で割る
-
-      data['monthly_sales_settings'].forEach(function (element) {
-        other_sales_amount = Math.floor(element['sales_amount'] / data['customer']['working_days']);
-        monthly_sales_detail = element['sales_amount'].toLocaleString() + '円 / ' + data['customer']['working_days'] + '日 = ' + other_sales_amount.toLocaleString() + '円';
-        add_other_sales(element['sales_item_id'], element['sales_item_name'], monthly_sales_detail, other_sales_amount);
-      });
-      total_other_sales_update();
-    },
-    error: function error() {
-      alert('失敗');
-    }
-  });
+  }); */
 }); // 荷役の追加ボタンが押下されたら
 
 $("[id=cargo_handling_add]").on("click", function () {
@@ -36495,8 +36493,8 @@ function total_cargo_handling_update() {
   var cargo_handling_amount_sum = 0;
   var cargo_handling_amount_element = document.getElementsByClassName('cargo_handling_amount');
 
-  for (var _i4 = 0; _i4 < cargo_handling_amount_element.length; _i4++) {
-    cargo_handling_amount_sum += isNaN(cargo_handling_amount_element[_i4].value) ? 0 : Number(cargo_handling_amount_element[_i4].value);
+  for (var _i3 = 0; _i3 < cargo_handling_amount_element.length; _i3++) {
+    cargo_handling_amount_sum += isNaN(cargo_handling_amount_element[_i3].value) ? 0 : Number(cargo_handling_amount_element[_i3].value);
   }
 
   total_cargo_handling.innerHTML = cargo_handling_amount_sum.toLocaleString();
@@ -36534,8 +36532,8 @@ function total_labor_costs_update() {
   var labor_costs_sum = 0;
   var labor_costs_element = document.getElementsByClassName('labor_costs');
 
-  for (var _i5 = 0; _i5 < labor_costs_element.length; _i5++) {
-    labor_costs_sum += isNaN(labor_costs_element[_i5].value) ? 0 : Number(labor_costs_element[_i5].value);
+  for (var _i4 = 0; _i4 < labor_costs_element.length; _i4++) {
+    labor_costs_sum += isNaN(labor_costs_element[_i4].value) ? 0 : Number(labor_costs_element[_i4].value);
   }
 
   total_labor_costs.innerHTML = labor_costs_sum.toLocaleString();
@@ -36679,24 +36677,20 @@ function add_other_sales(select_id, select_value, monthly_sales_detail_value, ot
     other_sales_note.autocomplete = 'off';
     other_sales_note.classList.add('text-sm', 'col-span-2', 'col-start-4', 'h-4/5'); // （月額売上用）算出式を表示する要素を作成
 
-    var _monthly_sales_detail = document.createElement('p');
+    var monthly_sales_detail = document.createElement('p');
+    monthly_sales_detail.classList.add('font-bold', 'text-sm', 'col-start-7', 'col-span-2', 'py-3');
+    monthly_sales_detail.innerHTML = monthly_sales_detail_value; // 売上金額を入力する要素を作成
 
-    _monthly_sales_detail.classList.add('font-bold', 'text-sm', 'col-start-7', 'col-span-2', 'py-3');
-
-    _monthly_sales_detail.innerHTML = monthly_sales_detail_value; // 売上金額を入力する要素を作成
-
-    var _other_sales_amount = document.createElement('input');
-
-    _other_sales_amount.type = 'tel';
-    _other_sales_amount.id = select_value + '_other_sales_amount';
-    _other_sales_amount.name = 'other_sales_amount[]';
-    _other_sales_amount.placeholder = '金額';
-    _other_sales_amount.autocomplete = 'off';
-
-    _other_sales_amount.classList.add('text-sm', 'col-span-2', 'col-start-9', 'text-right', 'other_sales_amount_update', 'h-4/5', 'other_sales_amount', 'int_validation');
+    var other_sales_amount = document.createElement('input');
+    other_sales_amount.type = 'tel';
+    other_sales_amount.id = select_value + '_other_sales_amount';
+    other_sales_amount.name = 'other_sales_amount[]';
+    other_sales_amount.placeholder = '金額';
+    other_sales_amount.autocomplete = 'off';
+    other_sales_amount.classList.add('text-sm', 'col-span-2', 'col-start-9', 'text-right', 'other_sales_amount_update', 'h-4/5', 'other_sales_amount', 'int_validation');
 
     if (monthly_sales_detail_value != '') {
-      _other_sales_amount.value = other_sales_amount_value;
+      other_sales_amount.value = other_sales_amount_value;
     } // 円という文字を表示する要素を作成
 
 
@@ -36714,7 +36708,7 @@ function add_other_sales(select_id, select_value, monthly_sales_detail_value, ot
     target_div.id = select_value + '_other_sales_div';
     target_div.classList.add('grid', 'grid-cols-12', 'col-span-12', 'border-b-2', 'border-black', 'pt-2'); // divタグに作成した要素を追加
 
-    target_div.append(other_sales_name, other_sales_note, _monthly_sales_detail, _other_sales_amount, other_sales_amount_text, delete_btn); // 纏めたdivタグを追加
+    target_div.append(other_sales_name, other_sales_note, monthly_sales_detail, other_sales_amount, other_sales_amount_text, delete_btn); // 纏めたdivタグを追加
 
     other_sales_list.insertBefore(target_div, total_other_sales_div);
   } catch (e) {
