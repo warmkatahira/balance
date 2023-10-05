@@ -36234,6 +36234,7 @@ $("[id=customer_select]").on("change", function () {
     var ajax_url = '/balance/balance_register_customer_data_get_ajax/' + customer_id;
   }
 
+  console.log(ajax_url);
   $.ajax({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -36242,7 +36243,8 @@ $("[id=customer_select]").on("change", function () {
     type: 'GET',
     dataType: 'json',
     success: function success(data) {
-      // 荷役の要素を全て削除
+      console.log(data); // 荷役の要素を全て削除
+
       $('.cargo_handling_div').remove(); // 荷役選択のセレクトボックスをクリア
 
       for (var i = cargo_handling_select.childElementCount; i > 0; i--) {
