@@ -10955,11 +10955,11 @@ $("[id=sales_plan_register_enter]").on("click", function () {
     } // 環境でパスを可変させる
 
 
-    if (true) {
-      var ajax_url = '/sales_plan_register_validation_ajax/' + plan_date.value;
-    }
-
     if (false) { var ajax_url; }
+
+    if (true) {
+      var ajax_url = '/balance/sales_plan_register_validation_ajax/' + plan_date.value;
+    }
 
     $.ajax({
       headers: {
