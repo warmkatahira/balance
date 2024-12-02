@@ -10992,11 +10992,11 @@ $("[id=date_category_select]").on("change", function () {
 
 $("[id=base_select]").on("change", function () {
   // 環境でパスを可変させる
-  if (false) { var ajax_url; }
-
   if (true) {
-    var ajax_url = '/balance/get_customer_ajax/' + base_select.value;
+    var ajax_url = '/get_customer_ajax/' + base_select.value;
   }
+
+  if (false) { var ajax_url; }
 
   $.ajax({
     headers: {

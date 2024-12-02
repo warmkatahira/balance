@@ -10,4 +10,4 @@
 <br>
 -----------------------------------------------------------------------<br>
 日次収支システム<br>
-https://warm-cloud.sakura.ne.jp/balance/
+https://dbs.warm-sys.com/home
