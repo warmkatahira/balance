@@ -25,7 +25,7 @@
         <div class="min-h-screen">
             @if (Route::has('login'))
                 <div class="fixed top-0 right-0 px-6 py-4 sm:block">
-                    {{-- @auth
+                    @auth
                         @if(Auth::user()->status === 1)
                             <a href="{{ route('home.index') }}" class="bg-orange-400 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold">ホーム</a>
                             <form method="POST" action="{{ route('logout') }}" class="inline-block ml-5">
@@ -43,7 +43,7 @@
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 bg-orange-400 text-white py-2 px-5 rounded-full hover:bg-gray-400 font-semibold">ユーザー登録</a>
                         @endif
-                    @endauth --}}
+                    @endauth
                 </div>
             @endif
             <div class="grid grid-cols-12">
@@ -57,7 +57,6 @@
                     </div>
                 </div>
             </div>
-            <p class="text-4xl text-center mt-10 text-red-500">こちらのシステムは、2024/12/5の13:00より使用できます。</p>
         </div>
     </body>
 </html>
