@@ -21,7 +21,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500&family=Kdam+Thmor+Pro&family=Noto+Sans+JP&family=Vollkorn:ital,wght@1,600&family=Zen+Antique&display=swap" rel="stylesheet">
     
     </head>
-    <body style="font-family:Zen Maru Gothic" class="bg-slate-100">
-        <p>aaaaaaaaaaa</p>
+    <body style="font-family:Zen Maru Gothic" class="bg-slate-100 h-screen flex items-center justify-center min-h-screen">
+        <div class="text-4xl text-center">
+            このURLは2024年12月5日の12:00より使用できなくなりました。<br><br>
+            新しいURLは営業所内で確認してください。
+        </div>
     </body>
 </html>
