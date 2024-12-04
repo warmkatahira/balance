@@ -10943,11 +10943,11 @@ window.onload = function () {
 function balance_progress_chart() {
   balance_progressChart = null; // 環境でパスを可変させる
 
-  if (true) {
-    var ajax_url = '/balance_progress_get_ajax';
-  }
-
   if (false) { var ajax_url; }
+
+  if (true) {
+    var ajax_url = '/balance/balance_progress_get_ajax';
+  }
 
   $.ajax({
     headers: {
@@ -10998,11 +10998,11 @@ function balance_progress_chart() {
 function sales_plan_progress_chart() {
   sales_plan_progressChart = null; // 環境でパスを可変させる
 
-  if (true) {
-    var ajax_url = '/sales_plan_progress_get_ajax';
-  }
-
   if (false) { var ajax_url; }
+
+  if (true) {
+    var ajax_url = '/balance/sales_plan_progress_get_ajax';
+  }
 
   $.ajax({
     headers: {

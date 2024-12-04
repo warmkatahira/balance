@@ -10974,11 +10974,11 @@ $("[id=templete]").on("change", function () {
 
   if (templete_id != 0) {
     // 環境でパスを可変させる
-    if (true) {
-      var ajax_url = '/message_templete_get_ajax/' + templete_id;
-    }
-
     if (false) { var ajax_url; }
+
+    if (true) {
+      var ajax_url = '/balance/message_templete_get_ajax/' + templete_id;
+    }
 
     $.ajax({
       headers: {
